@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BoutiqueBDDLibrary
 {
+    #region IdTrouve
     /// <summary>
     /// Le resultat d'une recherche d'id.
     /// <see cref="Trouve"/> est true si un id a été trouvé.
@@ -39,4 +38,5 @@ namespace BoutiqueBDDLibrary
             this.id = id;
         }
     }
+    #endregion
 }

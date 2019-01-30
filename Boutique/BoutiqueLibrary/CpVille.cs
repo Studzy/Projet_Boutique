@@ -1,5 +1,4 @@
-﻿using BoutiqueBDDLibrary;
-
+﻿
 namespace BoutiqueBDDLibrary
 {
     public class CpVille

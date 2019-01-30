@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using BoutiqueBDDLibrary;
 
 namespace BoutiqueBDDLibrary
 {
@@ -189,6 +188,9 @@ namespace BoutiqueBDDLibrary
         #endregion
 
         #region Supprimer un client
+        /// <summary>
+        /// Supprime un client, si IDMultiple est "0" alors on Supprime directement le client sinon on va chercher les ID facture et commande pour les supprimer avant de supprimer le client afin de supprimer les liens.
+        /// </summary>
         public static void SupprimeClient(string valeur)
         {
             List<int> IDMultiple = new List<int>();

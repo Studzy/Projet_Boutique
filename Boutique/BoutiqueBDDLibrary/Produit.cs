@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using BoutiqueBDDLibrary;
 using MySql.Data.MySqlClient;
-using BoutiqueBDDLibrary;
 
 namespace BoutiqueBDDLibrary
 {
     public class Produit
     {
+        //Déclaration des variables
         private int id_Produit;
         private string Nom_produit;
         private decimal tva;
@@ -23,58 +21,16 @@ namespace BoutiqueBDDLibrary
         private string nom_origine;
         private string libelle_unite;
         
-
+        //Constructeur
         public Produit()
         {
         }
 
-        public Produit(string nom_Produit, decimal tVA, decimal prix_Produit, int val_Nutrition_Produit, int fK_Id_Categorie, int fK_Id_Origine, int fK_Id_Unite, int id_Produit)
-        {
-            Nom_Produit = nom_Produit;
-            TVA = tVA;
-            Prix_Produit = prix_Produit;
-            Val_Nutrition_Produit = val_Nutrition_Produit;
-            FK_Id_Categorie = fK_Id_Categorie;
-            FK_Id_Origine = fK_Id_Origine;
-            FK_Id_Unite = fK_Id_Unite;
-            Id_Produit = id_Produit;
-        }
-
-        public Produit(string nom_Produit, decimal tVA, decimal prix_Produit, decimal remise_Produit, string description_Produit, int val_Nutrition_Produit, int fK_Id_Categorie, int fK_Id_Origine, int fK_Id_Unite, int id_Produit)
-        {
-            Nom_Produit = nom_Produit;
-            TVA = tVA;
-            Prix_Produit = prix_Produit;
-            Remise_Produit = remise_Produit;
-            Description_Produit = description_Produit;
-            Val_Nutrition_Produit = val_Nutrition_Produit;
-            FK_Id_Categorie = fK_Id_Categorie;
-            FK_Id_Origine = fK_Id_Origine;
-            FK_Id_Unite = fK_Id_Unite;
-            Id_Produit = id_Produit;
-        }
-
-
-        /*
-         * public string Nom_Produit 
-         * { 
-         *      get => nom_produit;
-         *      set { 
-             *          if (DataAccess.IsCorrectString(value))
-             *              {
-             *                  nom = value;  
-             *              }
-             *              else
-             *              {
-             *                  "erreur";
-             *              }
-         *          } 
-         * }
-         */
-
-        //Public String FirstName (get; set)
-
-        #region Get Set
+        //Get;Set; Vérifications
+        #region Nom_Produit
+        /// <summary>
+        /// Vérifie si le nom du produit est un string qui comporte au maximum 50 caractères.
+        /// </summary>
         public string Nom_Produit
         {
             get => Nom_produit;
@@ -90,7 +46,6 @@ namespace BoutiqueBDDLibrary
                     {
                         Nom_produit = value;
                     }
-                    
                 }
                 catch (MonMessageErreur)
                 {
@@ -98,8 +53,12 @@ namespace BoutiqueBDDLibrary
                 }
             }
         }
+        #endregion
 
-        
+        #region TVA
+        /// <summary>
+        /// COMMENTAIRE A MODIFIER CAR NON FINI TVA
+        /// </summary>
         public decimal TVA
         {
             get => tva;
@@ -121,9 +80,14 @@ namespace BoutiqueBDDLibrary
                 {
                     throw new MonMessageErreur("La valeur n'est pas valable");
                 }
-                
             }
         }
+        #endregion
+
+        #region Prix_Produit
+        /// <summary>
+        /// COMMENTAIRE A MODIFIER CAR NON FINI PRIX_PRODUIT
+        /// </summary>
         public decimal Prix_Produit
         {
             get => prix_produit;
@@ -137,9 +101,14 @@ namespace BoutiqueBDDLibrary
                 {
                     throw new MonMessageErreur("La valeur n'est pas valable");
                 }
-
             }
         }
+        #endregion
+
+        #region Remise_Produit
+        /// <summary>
+        /// COMMENTAIRE A MODIFIER CAR NON FINI REMISE_PRODUIT
+        /// </summary>
         public decimal Remise_Produit
         {
             get => remise_produit;
@@ -153,9 +122,11 @@ namespace BoutiqueBDDLibrary
                 {
                     throw new MonMessageErreur("La valeur n'est pas valable");
                 }
-
             }
         }
+        #endregion
+
+        #region Description_Produit
         public string Description_Produit
         {
             get => description_produit;
@@ -169,9 +140,14 @@ namespace BoutiqueBDDLibrary
                 {
                     throw new MonMessageErreur("La description n'est pas valable");
                 }
-
             }
         }
+        #endregion
+
+        #region Val_Nutrition_Produit
+        /// <summary>
+        /// COMMENTAIRE A MODIFIER CAR NON FINI
+        /// </summary>
         public int Val_Nutrition_Produit
         {
             get => val_nutrition_produit;
@@ -185,9 +161,14 @@ namespace BoutiqueBDDLibrary
                 {
                     throw new MonMessageErreur("La valeur n'est pas valable");
                 }
-
             }
         }
+        #endregion
+
+        #region FK_Id_Categorie
+        /// <summary>
+        /// COMMENTAIRE A MODIFIER CAR NON FINI
+        /// </summary>
         public int FK_Id_Categorie
         {
             get => fK_Id_Categorie;
@@ -201,9 +182,14 @@ namespace BoutiqueBDDLibrary
                 {
                     throw new MonMessageErreur("La valeur n'est pas valable");
                 }
-
             }
         }
+        #endregion
+
+        #region FK_Id_Origine
+        /// <summary>
+        /// COMMENTAIRE A MODIFIER CAR NON FINI
+        /// </summary>
         public int FK_Id_Origine
         {
             get => fK_Id_Origine;
@@ -217,9 +203,14 @@ namespace BoutiqueBDDLibrary
                 {
                     throw new MonMessageErreur("La valeur n'est pas valable");
                 }
-
             }
         }
+        #endregion
+
+        #region  FK_Id_Unite
+        /// <summary>
+        /// COMMENTAIRE A MODIFIER CAR NON FINI
+        /// </summary>
         public int FK_Id_Unite
         {
             get => fK_Id_Unite;
@@ -233,9 +224,14 @@ namespace BoutiqueBDDLibrary
                 {
                     throw new MonMessageErreur("La valeur n'est pas valable");
                 }
-
             }
         }
+        #endregion
+
+        #region Id_Produit
+        /// <summary>
+        /// COMMENTAIRE A MODIFIER CAR NON FINI
+        /// </summary>
         public int Id_Produit
         {
             get => id_Produit;
@@ -249,12 +245,28 @@ namespace BoutiqueBDDLibrary
                 {
                     throw new MonMessageErreur("La valeur n'est pas valable");
                 }
-
             }
         }
+        #endregion
 
+        #region Nom_Categorie
+        /// <summary>
+        /// COMMENTAIRE A MODIFIER CAR NON FINI
+        /// </summary>
         public string Nom_categorie { get => nom_categorie; set => nom_categorie = value; }
+        #endregion
+
+        #region Nom_Origine
+        /// <summary>
+        /// COMMENTAIRE A MODIFIER CAR NON FINI
+        /// </summary>
         public string Nom_origine { get => nom_origine; set => nom_origine = value; }
+        #endregion
+
+        #region Libelle_Unite
+        /// <summary>
+        /// COMMENTAIRE A MODIFIER CAR NON FINI
+        /// </summary>
         public string Libelle_unite { get => libelle_unite; set => libelle_unite = value; }
         #endregion
 
@@ -289,15 +301,17 @@ namespace BoutiqueBDDLibrary
         }
         #endregion
 
-
-        #region GetAllProducts
-
+        //Base de données
+        #region [BDD] Affiche tout les produits
+        /// <summary>
+        /// Affiche tout les produits présent dans la base de données
+        /// </summary>
+        /// <returns></returns>
         public static List<Produit> GetAllProducts()
         {
             List<Produit> entries = new List<Produit>();
-
             using (MySqlConnection db =
-                new MySqlConnection(DataAccessJL.CHEMINBDD))
+            new MySqlConnection(DataAccessJL.CHEMINBDD))
             {
                 db.Open();
 
@@ -321,15 +335,6 @@ namespace BoutiqueBDDLibrary
                     {
                         produit.Remise_Produit = 0;
                     }
-                    //if (!DBNull.Value.Equals(query.GetValue(5)))
-                    //{
-
-                    //    produit.Description_Produit = "";
-                    //}
-                    //else
-                    //{
-                    //    produit.Description_Produit = query.GetString(5);
-                    //}
                     if (!DBNull.Value.Equals(query.GetValue(5)))
                     {
                         produit.Description_Produit = query.GetString(5);
@@ -345,29 +350,31 @@ namespace BoutiqueBDDLibrary
                     produit.FK_Id_Unite = query.GetInt32(9);
                     entries.Add(produit);
                 }
-
-                db.Close();
             }
-
             return entries;
         }
         #endregion
+
+        #region [BDD] Affiche 10 produits
+        /// <summary>
+        /// Affiche 10 produits à partir du @start et de la catégorie @order.
+        /// </summary>
         public static List<Produit> Get10Products(int start, string group)
         {
             //List<> entries = new List<String>();
             List<Produit> entries = new List<Produit>();
 
             using (MySqlConnection db =
-                new MySqlConnection(DataAccessJL.CHEMINBDD))
+            new MySqlConnection(DataAccessJL.CHEMINBDD))
             {
                 db.Open();
 
                 MySqlCommand insertCommand = new MySqlCommand();
                 insertCommand.Connection = db;
                 insertCommand.CommandText = "SELECT Id_Produit, Nom_Produit, Nom_Categorie, Nom_Origine, Prix_Produit, Libelle_Unite, Description_Produit, ValNutrition_Produit FROM produit INNER JOIN origine ON origine.Id_Origine = produit.FK_Id_Origine INNER JOIN unite ON unite.Id_Unite = produit.FK_Id_Unite INNER JOIN categorie ON categorie.Id_Categorie = produit.FK_Id_Categorie ORDER BY @order LIMIT 5 OFFSET @start ;";
+
                 insertCommand.Parameters.AddWithValue("@start", start);
                 insertCommand.Parameters.AddWithValue("@order", group);
-
                 MySqlDataReader query = insertCommand.ExecuteReader();
 
                 while (query.Read())
@@ -391,84 +398,46 @@ namespace BoutiqueBDDLibrary
                     produit.Val_Nutrition_Produit = query.GetInt32(7);
                     entries.Add(produit);
                 }
-
-                db.Close();
             }
-
             return entries;
         }
-        
-
-        #region Commentaires
-        //public static void DisplayProduct()
-        //{
-        //    List<Produit> produits = GetAllProducts();
-        //    Console.WriteLine("Nous avons trouvé {0} produit(s) :", produits.Count);
-        //    foreach (var produit in produits)
-        //    {
-        //        Console.WriteLine("ID = " + produit.Id_Produit + "; Nom = " + produit.Nom_Produit + "; TVA = " + produit.TVA + "; Prix = " + produit.Prix_Produit + "; Remise = " + produit.Remise_Produit + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit + "; FK_Id_Categorie = " + produit.FK_Id_Categorie + "; FK_Id_Origine = " + produit.FK_Id_Origine + "; FK_Id_Unite = " + produit.FK_Id_Unite);
-        //    }
-        //    Console.WriteLine();
-        //    Console.WriteLine();
-        //}
-        //public static void DisplayOneProduct(string nom)
-        //{
-        //    Produit produit = GetOneProduct(nom);
-
-        //    if (produit.Nom_produit != "Rien")
-        //    {
-        //        Console.WriteLine("Nous avons trouvé votre produit : ");
-
-        //            Console.WriteLine("ID = " + produit.Id_Produit + "; Nom = " + produit.Nom_Produit + "; TVA = " + produit.TVA + "; Prix = " + produit.Prix_Produit + "; Remise = " + produit.Remise_Produit + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit + "; FK_Id_Categorie = " + produit.FK_Id_Categorie + "; FK_Id_Origine = " + produit.FK_Id_Origine + "; FK_Id_Unite = " + produit.FK_Id_Unite);
-
-        //        Console.WriteLine();
-        //        Console.WriteLine();
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("Nous n'avons pas trouvé votre produit .");
-        //    }
-
-        //}
         #endregion
 
-        #region DeleteOneProduct
+        #region [BDD] Supprimer un produit
+        /// <summary>
+        /// Supprime un produit de la base de données
+        /// </summary>
         public static void DeleteOneProduct(string nom)
         {
-            
                 using (MySqlConnection db =
-               new MySqlConnection(DataAccessJL.CHEMINBDD))
+                new MySqlConnection(DataAccessJL.CHEMINBDD))
                 {
                     db.Open();
                     MySqlCommand insertCommand = new MySqlCommand();
                     insertCommand.Connection = db;
 
-                    // Use parameterized query to prevent SQL injection attacks
+                    //Requête qui protège des attaques SQL
                     insertCommand.CommandText = "DELETE FROM produit WHERE Nom_Produit = @Nom_Produit ";
 
                     insertCommand.Parameters.AddWithValue("@Nom_Produit", nom);
-
                     insertCommand.ExecuteReader();
-
-                    db.Close();
                 }
-            
-
         }
         #endregion
 
-        #region ModifyOneProduct
+        #region [BDD] Modifie un produit
+        /// <summary>
+        /// Modifie un produit dans la base de données @nom est le nom du produit à modifié et "Produit p" est l'objet produit avec toute ses informations. 
+        /// </summary>
         public static void ModifyOneProduct(string nom, Produit p)
         {
-            
                 using (MySqlConnection db =
-               new MySqlConnection(DataAccessJL.CHEMINBDD))
+                new MySqlConnection(DataAccessJL.CHEMINBDD))
                 {
                     db.Open();
                     MySqlCommand insertCommand = new MySqlCommand();
                     insertCommand.Connection = db;
 
-                    // Use parameterized query to prevent SQL injection attacks
                     insertCommand.CommandText = "UPDATE produit SET Nom_Produit = @Nom_Produit , TVA = @TVA, Prix_Produit = @Prix_Produit,  Description_Produit = @Description_Produit, ValNutrition_Produit = @ValNutrition_Produit, FK_Id_Categorie = @FK_Id_Categorie, FK_Id_Origine = @FK_Id_Origine, FK_Id_Unite = @FK_Id_Unite, Remise_Produit = @Remise_Produit WHERE Nom_Produit = @nom ";
 
                     insertCommand.Parameters.AddWithValue("@Nom_Produit", p.Nom_Produit);
@@ -481,24 +450,21 @@ namespace BoutiqueBDDLibrary
                     insertCommand.Parameters.AddWithValue("@FK_Id_Origine", p.FK_Id_Origine);
                     insertCommand.Parameters.AddWithValue("@FK_Id_Unite", p.FK_Id_Unite);
                     insertCommand.Parameters.AddWithValue("@nom", nom);
-
                     insertCommand.ExecuteReader();
-
-                    db.Close();
                 }
-                
-
         }
         #endregion
 
-
-        #region GetOneProductByName
+        #region [BDD] Afficher un produit par son nom
+        /// <summary>
+        /// Affiche un produit par son nom, @nom correspond au nom du produit à afficher.
+        /// </summary>
         public static Produit GetOneProduct(string Nom)
         {
             Produit p = new Produit();
 
             using (MySqlConnection db =
-                new MySqlConnection(DataAccessJL.CHEMINBDD))
+            new MySqlConnection(DataAccessJL.CHEMINBDD))
             {
                 db.Open();
                 
@@ -524,15 +490,6 @@ namespace BoutiqueBDDLibrary
                         {
                             p.Remise_Produit = 0;
                         }
-                        //if (!DBNull.Value.Equals(query.GetValue(5)))
-                        //{
-
-                        //    produit.Description_Produit = "";
-                        //}
-                        //else
-                        //{
-                        //    produit.Description_Produit = query.GetString(5);
-                        //}
                         if (!DBNull.Value.Equals(query.GetValue(5)))
                         {
                             p.Description_Produit = query.GetString(5);
@@ -551,19 +508,21 @@ namespace BoutiqueBDDLibrary
                 {
                     p.Nom_produit = "Rien";
                 }
-
-                db.Close();
             }
-
             return p;
         }
         #endregion
+
+        #region [BDD] Affiche un produit par son ID
+        /// <summary>
+        /// Affiche un produit en fonction de son ID, @id correspond à l'id du produit que l'on recherche.
+        /// </summary>
         public static Produit GetOneProductById(int Id)
         {
             Produit p = new Produit();
 
             using (MySqlConnection db =
-                new MySqlConnection(DataAccessJL.CHEMINBDD))
+            new MySqlConnection(DataAccessJL.CHEMINBDD))
             {
                 db.Open();
 
@@ -607,11 +566,42 @@ namespace BoutiqueBDDLibrary
                 {
                     p.Nom_produit = "Rien";
                 }
-
-                db.Close();
             }
-
             return p;
         }
+        #endregion
+
+        #region Commentaires A SUPPRIMER USELESS  <-- JEREMY
+        //public static void DisplayProduct()
+        //{
+        //    List<Produit> produits = GetAllProducts();
+        //    Console.WriteLine("Nous avons trouvé {0} produit(s) :", produits.Count);
+        //    foreach (var produit in produits)
+        //    {
+        //        Console.WriteLine("ID = " + produit.Id_Produit + "; Nom = " + produit.Nom_Produit + "; TVA = " + produit.TVA + "; Prix = " + produit.Prix_Produit + "; Remise = " + produit.Remise_Produit + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit + "; FK_Id_Categorie = " + produit.FK_Id_Categorie + "; FK_Id_Origine = " + produit.FK_Id_Origine + "; FK_Id_Unite = " + produit.FK_Id_Unite);
+        //    }
+        //    Console.WriteLine();
+        //    Console.WriteLine();
+        //}
+        //public static void DisplayOneProduct(string nom)
+        //{
+        //    Produit produit = GetOneProduct(nom);
+
+        //    if (produit.Nom_produit != "Rien")
+        //    {
+        //        Console.WriteLine("Nous avons trouvé votre produit : ");
+
+        //            Console.WriteLine("ID = " + produit.Id_Produit + "; Nom = " + produit.Nom_Produit + "; TVA = " + produit.TVA + "; Prix = " + produit.Prix_Produit + "; Remise = " + produit.Remise_Produit + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit + "; FK_Id_Categorie = " + produit.FK_Id_Categorie + "; FK_Id_Origine = " + produit.FK_Id_Origine + "; FK_Id_Unite = " + produit.FK_Id_Unite);
+
+        //        Console.WriteLine();
+        //        Console.WriteLine();
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Nous n'avons pas trouvé votre produit .");
+        //    }
+
+        //}
+        #endregion
     }
 }

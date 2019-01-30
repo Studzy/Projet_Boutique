@@ -1,16 +1,125 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using BoutiqueBDDLibrary;
-using MySql.Data.MySqlClient;
-
 
 namespace BoutiqueBDDLibrary
 {
-
     public static class FonctionsJL
     {
-        #region DisplayOneProduct
+        //Menus
+        #region [Interface] Menu Principal
+        /// <summary>
+        /// Fonction Menu Principale | Créer un produit | Modifier un produit | Supprimer un produit | Afficher les produits | Afficher un produit | Acheter un produit | Quitter le programme.
+        /// </summary>
+        public static void MenuPrincipalAdmin()
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.Write("MODE ADMIN\n\nMenu principal" +
+                    "\n\t - [1] CREER UN PRODUIT" +
+                    "\n\t - [2] MODIFIER UN PRODUIT" +
+                    "\n\t - [3] SUPPRIMER UN PRODUIT" +
+                    "\n\t - [4] AFFICHER LES PRODUITS" +
+                    "\n\t - [5] AFFICHER UN PRODUIT" +
+                    "\n\t - [6] ACHETER UN PRODUIT" +
+                    "\n\t - [x] QUITTEZ LE PROGRAMME\n");
+                switch (Console.ReadKey(true).Key)
+                {
+                    case ConsoleKey.NumPad1: // CREER UN PRODUIT
+                        Console.Clear();
+                        Console.WriteLine("MODE ADMIN");
+                        Console.WriteLine("AJOUT D'UN PRODUIT DANS LA BASE DE DONNEES");
+                        FonctionsJL.AjouterProduit();
+                        Console.WriteLine("\nAPPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
+                        while (Console.ReadKey(true).Key != ConsoleKey.Enter)
+                        {
+                            Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
+                        }
+                        break;
+                    case ConsoleKey.NumPad2: // MODIFIER UN PRODUIT
+                        Console.Clear();
+                        FonctionsJL.ModifierProduit();
+                        Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
+                        while (Console.ReadKey(true).Key != ConsoleKey.Enter)
+                        {
+                            Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
+                        }
+                        break;
+                    case ConsoleKey.NumPad3: // SUPPRIMER UN PRODUIT
+                        Console.Clear();
+                        FonctionsJL.SupprimerProduit();
+                        Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
+                        while (Console.ReadKey(true).Key != ConsoleKey.Enter)
+                        {
+                            Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
+                        }
+                        break;
+                    case ConsoleKey.NumPad4: // AFFICHER LES PRODUITS
+                        Console.Clear();
+                        FonctionsJL.DisplayProduct();
+                        Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
+                        while (Console.ReadKey(true).Key != ConsoleKey.Enter)
+                        {
+                            Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
+                        }
+                        break;
+                    case ConsoleKey.NumPad5: // AFFICHER UN PRODUIT
+                        Console.Clear();
+                        FonctionsJL.AfficherUnProduit();
+                        Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
+                        while (Console.ReadKey(true).Key != ConsoleKey.Enter)
+                        {
+                            Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
+                        }
+                        break;
+                    case ConsoleKey.NumPad7:
+                        Console.Clear();
+                        Console.WriteLine("ON TEST");
+                        Console.ReadKey();
+                        break;
+                    case ConsoleKey.NumPad6: // ACHETER UN PRODUIT
+                        AcheterProduit();
+                        break;
+                    case ConsoleKey.X:
+                        Console.Clear();
+                        Console.WriteLine("Merci, et à bientôt !");
+                        EndMenu();
+                        return;
+                }
+            }
+        }
+        #endregion
+
+        #region [Interface] Sortie du programme
+        public static void EndMenu()
+        {
+            Console.WriteLine("                         ¶¶¶¶¶¶¶¶¶¶¶¶ ");
+            Console.WriteLine("                         ¶¶            ¶¶ ");
+            Console.WriteLine("           ¶¶¶¶¶        ¶¶                ¶¶ ");
+            Console.WriteLine("           ¶     ¶     ¶¶      ¶¶    ¶¶     ¶¶ ");
+            Console.WriteLine("            ¶     ¶    ¶¶       ¶¶    ¶¶      ¶¶ ");
+            Console.WriteLine("             ¶    ¶   ¶¶        ¶¶    ¶¶      ¶¶ ");
+            Console.WriteLine("              ¶   ¶   ¶                         ¶¶ ");
+            Console.WriteLine("            ¶¶¶¶¶¶¶¶¶¶¶¶                         ¶¶ ");
+            Console.WriteLine("           ¶            ¶    ¶¶            ¶¶    ¶¶ ");
+            Console.WriteLine("          ¶¶            ¶    ¶¶            ¶¶    ¶¶ ");
+            Console.WriteLine("         ¶¶   ¶¶¶¶¶¶¶¶¶¶¶      ¶¶        ¶¶     ¶¶ ");
+            Console.WriteLine("          ¶               ¶       ¶¶¶¶¶¶¶       ¶¶ ");
+            Console.WriteLine("         ¶¶              ¶                    ¶¶ ");
+            Console.WriteLine("          ¶   ¶¶¶¶¶¶¶¶¶¶¶¶                   ¶¶ ");
+            Console.WriteLine("          ¶¶           ¶  ¶¶                ¶¶ ");
+            Console.WriteLine("          ¶¶¶¶¶¶¶¶¶¶¶¶    ¶¶            ¶¶");
+            Console.WriteLine("                          ¶¶¶¶¶¶¶¶¶¶¶");
+
+            Console.ReadKey();
+        }
+        #endregion
+
+        //Menu d'actions sur les produits
+        #region [Interface] Afficher un produit
+        /// <summary>
+        /// Fonction qui affiche le produit en fonction du "string nom".
+        /// </summary>
         public static void DisplayOneProduct(string nom)
         {
             BoutiqueBDDLibrary.Produit produit = BoutiqueBDDLibrary.Produit.GetOneProduct(nom);
@@ -18,51 +127,48 @@ namespace BoutiqueBDDLibrary
             if (produit.Nom_Produit != "Rien")
             {
                 Console.WriteLine("Nous avons trouvé votre produit : ");
-
-                Console.WriteLine("ID = " + produit.Id_Produit + "; Nom = " + produit.Nom_Produit + "; TVA = " + produit.TVA + "; Prix = " + produit.Prix_Produit + "; Remise = " + produit.Remise_Produit + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit + "; FK_Id_Categorie = " + produit.FK_Id_Categorie + "; FK_Id_Origine = " + produit.FK_Id_Origine + "; FK_Id_Unite = " + produit.FK_Id_Unite);
-
-                Console.WriteLine();
-                Console.WriteLine();
+                Console.WriteLine("ID = " + produit.Id_Produit + "; Nom = " + produit.Nom_Produit + "; TVA = " + produit.TVA + "; Prix = " + produit.Prix_Produit + "; Remise = " + produit.Remise_Produit + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit + "; FK_Id_Categorie = " + produit.FK_Id_Categorie + "; FK_Id_Origine = " + produit.FK_Id_Origine + "; FK_Id_Unite = " + produit.FK_Id_Unite+"\n\n");
             }
             else
             {
                 Console.WriteLine("Nous n'avons pas trouvé votre produit.");
             }
-
         }
         #endregion
 
-        #region DisplayProduct
+        #region [Interface] Afficher tout les produits
+        /// <summary>
+        /// Affiche tout les produits. Affiche le nombre de produits trouver ainsi que tout les détails lié à chaque produit.
+        /// </summary>
         public static void DisplayProduct()
         {
             List<Produit> produits = Produit.GetAllProducts();
             Console.WriteLine("Nous avons trouvé {0} produit(s) :", produits.Count);
             foreach (var produit in produits)
             {
-                Console.WriteLine("ID = " + produit.Id_Produit + "; Nom = " + produit.Nom_Produit + "; TVA = " + produit.TVA + "; Prix = " + produit.Prix_Produit + "; Remise = " + produit.Remise_Produit + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit + "; FK_Id_Categorie = " + produit.FK_Id_Categorie + "; FK_Id_Origine = " + produit.FK_Id_Origine + "; FK_Id_Unite = " + produit.FK_Id_Unite);
+                Console.WriteLine("ID = " + produit.Id_Produit + "; Nom = " + produit.Nom_Produit + "; TVA = " + produit.TVA + "; Prix = " + produit.Prix_Produit + "; Remise = " + produit.Remise_Produit + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit + "; FK_Id_Categorie = " + produit.FK_Id_Categorie + "; FK_Id_Origine = " + produit.FK_Id_Origine + "; FK_Id_Unite = " + produit.FK_Id_Unite+"\n\n");
             }
-            Console.WriteLine();
-            Console.WriteLine();
         }
-
         #endregion
 
-        
-        #region Display10Product
+        #region [Interface] Affiche 10 produits
+        /// <summary>
+        /// Fonction qui affiche 10 produits en fonction d'un ID de départ --> @start et d'une catégorie --> @order.
+        /// </summary>
         public static void Display10Product(int start, string group)
         {
             List<Produit> produits = Produit.Get10Products(start, group);
-            //Console.WriteLine("Voici nos produit(s) : Page : "+ page +" sur " + , produits.Count);
             foreach (var produit in produits)
             {
-                Console.WriteLine(produit.Id_Produit +".  Nom = " + produit.Nom_Produit + "; Categorie = " + produit.Nom_categorie + "; Origine = " + produit.Nom_origine + "; Prix = " + produit.Prix_Produit +"; Unite = "+ produit.Libelle_unite + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit);
+                Console.WriteLine(produit.Id_Produit +".  Nom = " + produit.Nom_Produit + "; Categorie = " + produit.Nom_categorie + "; Origine = " + produit.Nom_origine + "; Prix = " + produit.Prix_Produit +"; Unite = "+ produit.Libelle_unite + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit+"\n\n");
             }
-            Console.WriteLine();
-            Console.WriteLine();
         }
         #endregion
 
-        #region Supprimer Produit
+        #region [Interface] Supprimer un produit
+        /// <summary>
+        /// Menu de suppression d'un produit.
+        /// </summary>
         public static void SupprimerProduit()
         {
             BoutiqueBDDLibrary.Produit p = new BoutiqueBDDLibrary.Produit();
@@ -82,13 +188,13 @@ namespace BoutiqueBDDLibrary
             {
                 Console.WriteLine("Votre produit n'existe pas dans la base de données.");
             }
-
         }
         #endregion
 
-
-
-        #region Modifier Produit
+        #region [Interface] Modifier un produit
+        /// <summary>
+        /// Menu de modification d'un produit.
+        /// </summary>
         public static void ModifierProduit()
         {
             string Nom = "";
@@ -96,7 +202,6 @@ namespace BoutiqueBDDLibrary
             BoutiqueBDDLibrary.Produit p = new BoutiqueBDDLibrary.Produit();
             Console.WriteLine("MODE ADMIN");
             Console.WriteLine("MODIFIER UN PRODUIT DANS LA BASE DE DONNEES");
-
             Console.Write("Nom du produit à modifier : ");
             Nom = Console.ReadLine();
             BoutiqueBDDLibrary.Produit produit = BoutiqueBDDLibrary.Produit.GetOneProduct(Nom);
@@ -112,27 +217,40 @@ namespace BoutiqueBDDLibrary
             {
                 Console.WriteLine("Votre produit n'existe pas dans la base de données.");
             }
-
-
         }
         #endregion
 
-        #region Afficher un produit
+        #region [Interface] Afficher un produit
+        /// <summary>
+        /// Menu affichage d'un produit.
+        /// </summary>
         public static void AfficherUnProduit()
         {
             BoutiqueBDDLibrary.Produit p = new BoutiqueBDDLibrary.Produit();
             Console.WriteLine("MODE ADMIN");
             Console.WriteLine("RECHERCHE D'UN PRODUIT DANS LA BASE DE DONNEES");
-
             Console.Write("Nom du produit : ");
             p.Nom_Produit = Console.ReadLine();
-
             FonctionsJL.DisplayOneProduct(p.Nom_Produit);
-
         }
-
         #endregion
 
+        //Menu Panier
+        #region [Interface] Affiche le menu acheter
+        /// <summary>
+        /// Permet d'afficher le menu acheter.
+        /// </summary>
+        public static void AfficherMenuAcheter()
+        {
+            Console.Clear();
+            Console.WriteLine("UTILISER LES FLECHES DE DROITE ET DE GAUCHE POUR AFFICHER LES PRODUITS");
+            Console.WriteLine("APPUYER SUR P POUR FAIRE VOTRE PANIER");
+            Console.WriteLine("APPUYER SUR V POUR VALIDEZ VOS ACHATS\n");
+            Console.WriteLine("Voici nos produit(s) : \n");
+        }
+        #endregion
+
+        //Autres
         #region AfficherLesProduits
         public static void AfficherLesProduits()
         {
@@ -147,6 +265,9 @@ namespace BoutiqueBDDLibrary
         #endregion
 
         #region Patern Produit
+        /// <summary>
+        /// Modèle qui permet de modifier un produit.
+        /// </summary>
         public static void PaternProduit(string x, BoutiqueBDDLibrary.Produit p)
         {
             bool MesTests = false;
@@ -162,7 +283,6 @@ namespace BoutiqueBDDLibrary
                 {
                     Console.WriteLine(error.errorMessage);
                 }
-                
             }
             MesTests = false;
 
@@ -179,7 +299,6 @@ namespace BoutiqueBDDLibrary
                 {
                     Console.WriteLine(e.errorMessage);
                 }
-
             }
             MesTests = false;
 
@@ -197,10 +316,8 @@ namespace BoutiqueBDDLibrary
                 {
                     Console.WriteLine(e.errorMessage);
                 }
-
             }
             
-
             Console.Write("Remise du produit : ");
             x = Console.ReadLine();
             if (x == "")
@@ -224,7 +341,6 @@ namespace BoutiqueBDDLibrary
                 {
                     Console.WriteLine(e.errorMessage);
                 }
-
             }
             MesTests = false;
 
@@ -240,7 +356,6 @@ namespace BoutiqueBDDLibrary
                 {
                     Console.WriteLine(e.errorMessage);
                 }
-
             }
             MesTests = false;
 
@@ -257,7 +372,6 @@ namespace BoutiqueBDDLibrary
                 {
                     Console.WriteLine(e.errorMessage);
                 }
-
             }
             MesTests = false;
 
@@ -285,7 +399,6 @@ namespace BoutiqueBDDLibrary
                 {
                     Console.WriteLine(e.errorMessage);
                 }
-
             }
             MesTests = false;
 
@@ -314,7 +427,6 @@ namespace BoutiqueBDDLibrary
                 {
                     Console.WriteLine(e.errorMessage);
                 }
-
             }
             MesTests = false;
             while (!MesTests)
@@ -341,94 +453,30 @@ namespace BoutiqueBDDLibrary
                 {
                     Console.WriteLine(e.errorMessage);
                 }
-
             }
             MesTests = false;
-
-            
         }
         #endregion
 
-        #region AJOUTER PRODUIT
+        #region Ajoute un produit
+        /// <summary>
+        /// Ajoute un produit 
+        /// </summary>
         public static void AjouterProduit()
         {
             Console.Clear();
             string x = "";
             BoutiqueBDDLibrary.Produit p = new BoutiqueBDDLibrary.Produit();
             PaternProduit(x, p);
-
             BoutiqueBDDLibrary.Produit.AddProduct(p);
             Console.WriteLine("Votre produit a bien été ajouté !");
-
-            #region COMMENTAIRES
-            //CpVille.IdTrouve test = CpVille.VerificationVille(y.Nom_ville);
-            //Console.WriteLine(test);
-            //if (!test.Trouve)
-            //{
-            //    CpVille.InsererVilleEnBDD(y.Code_postal_ville, y.Nom_ville);
-            //    x.Id_CpVille = CpVille.VerificationVille(y.Nom_ville).Id;
-            //}
-            //else
-            //{
-            //    x.Id_CpVille = test.Id;
-            //}
-
-
-            //p.FK_Id_Categorie = Convert.ToInt32(x);
-
-            //Console.Write("Origine du produit : ");
-            //x = Console.ReadLine();
-            //p.FK_Id_Origine = Convert.ToInt32(x);
-
-            //Console.Write("Unite du produit : ");
-            //x = Console.ReadLine();
-            //p.FK_Id_Unite = Convert.ToInt32(x);
-            #endregion
         }
         #endregion
 
-                
-        #region AfficherMenuAcheter
-
-        public static void AfficherMenuAcheter()
-        {
-            Console.Clear();
-            Console.WriteLine("UTILISER LES FLECHES DE DROITE ET DE GAUCHE POUR AFFICHER LES PRODUITS");
-            Console.WriteLine("APPUYER SUR P POUR FAIRE VOTRE PANIER");
-            Console.WriteLine("APPUYER SUR V POUR VALIDEZ VOS ACHATS");
-            Console.WriteLine();
-            Console.WriteLine("Voici nos produit(s) : ");
-            Console.WriteLine();
-        }
-        #endregion
-
-
-        #region EndMenu
-        public static void EndMenu()
-        {
-            Console.WriteLine("                         ¶¶¶¶¶¶¶¶¶¶¶¶ ");
-            Console.WriteLine("                         ¶¶            ¶¶ ");
-            Console.WriteLine("           ¶¶¶¶¶        ¶¶                ¶¶ ");
-            Console.WriteLine("           ¶     ¶     ¶¶      ¶¶    ¶¶     ¶¶ ");
-            Console.WriteLine("            ¶     ¶    ¶¶       ¶¶    ¶¶      ¶¶ ");
-            Console.WriteLine("             ¶    ¶   ¶¶        ¶¶    ¶¶      ¶¶ ");
-            Console.WriteLine("              ¶   ¶   ¶                         ¶¶ ");
-            Console.WriteLine("            ¶¶¶¶¶¶¶¶¶¶¶¶                         ¶¶ ");
-            Console.WriteLine("           ¶            ¶    ¶¶            ¶¶    ¶¶ ");
-            Console.WriteLine("          ¶¶            ¶    ¶¶            ¶¶    ¶¶ ");
-            Console.WriteLine("         ¶¶   ¶¶¶¶¶¶¶¶¶¶¶      ¶¶        ¶¶     ¶¶ ");
-            Console.WriteLine("          ¶               ¶       ¶¶¶¶¶¶¶       ¶¶ ");
-            Console.WriteLine("         ¶¶              ¶                    ¶¶ ");
-            Console.WriteLine("          ¶   ¶¶¶¶¶¶¶¶¶¶¶¶                   ¶¶ ");
-            Console.WriteLine("          ¶¶           ¶  ¶¶                ¶¶ ");
-            Console.WriteLine("          ¶¶¶¶¶¶¶¶¶¶¶¶    ¶¶            ¶¶");
-            Console.WriteLine("                          ¶¶¶¶¶¶¶¶¶¶¶");
-
-            Console.ReadKey();
-        }
-        #endregion
-
-        #region AcheterProduit
+        #region Acheter un produits
+        /// <summary>
+        /// CODE A COMMENTER DEBROUILLE TOI JEREMY AHA :p
+        /// </summary>
         public static void AcheterProduit()
         {
             AfficherMenuAcheter();
@@ -446,9 +494,7 @@ namespace BoutiqueBDDLibrary
             Console.WriteLine("\n Page {0} sur {1}", pageActuel, pagesTotal);
             bool display = false;
             while (display == false)
-
             {
-
                 switch (Console.ReadKey(true).Key)
                 {
                     case ConsoleKey.Enter:
@@ -465,8 +511,6 @@ namespace BoutiqueBDDLibrary
                         break;
                     case ConsoleKey.RightArrow:
                         AfficherMenuAcheter();
-
-                        //Console.WriteLine(taille);
                         if (start < taille - 5)
                         {
                             start = start + 5;
@@ -475,7 +519,6 @@ namespace BoutiqueBDDLibrary
 
                         Display10Product(start, "Nom_Produit");
                         Console.WriteLine("\n Page {0} sur {1}", pageActuel, pagesTotal);
-                        //Console.WriteLine("Fleche de droite");
                         break;
                     case ConsoleKey.P: // PANIER
                         Console.Clear();
@@ -512,11 +555,8 @@ namespace BoutiqueBDDLibrary
                                 {
                                     Panier.Add(produit);
                                 }
-
                                 Console.WriteLine("Votre produit a été ajouter au panier !");
                             }
-
-
                         }
                         Console.WriteLine("Voici votre commande : ");
                         for (int i = 0; i < ListeCommande.Count; i++)
@@ -535,8 +575,6 @@ namespace BoutiqueBDDLibrary
                                 OptionPaiement paiement = new OptionPaiement();
                                 IFP ifp = new IFP();
                                 List<OptionPaiement> optionPaiements = new List<OptionPaiement>();
-
-                                //Commande commande = new Commande();
 
                                 for (int i = 0; i < ListeCommande.Count; i++)
                                 {
@@ -573,17 +611,12 @@ namespace BoutiqueBDDLibrary
                                     ifp.FK_Id_Facture = numfacture;
 
                                     IFP.AddIFP(ifp);
-
-
-
                                 }
                                 display = true;
-
                                 break;
                             case ConsoleKey.N:
                                 Console.WriteLine("Appuyez sur entrée pour continuer");
                                 break;
-
                         }
                         break;
                     case ConsoleKey.LeftArrow:
@@ -596,10 +629,6 @@ namespace BoutiqueBDDLibrary
                         }
                         Display10Product(start, "Nom_Produit");
                         Console.WriteLine("\n Page {0} sur {1}", pageActuel, pagesTotal);
-
-
-
-
                         //Console.WriteLine("Fleche de gauche");
                         break;
                     case ConsoleKey.V:
@@ -628,168 +657,11 @@ namespace BoutiqueBDDLibrary
                             case ConsoleKey.N:
                                 Console.WriteLine("Appuyez sur entrée pour continuer");
                                 break;
-
                         }
                         break;
-
                 }
-
             }
         }
         #endregion
-
-
-
-        #region MENU PRINCIPAL
-        public static void MenuPrincipalAdmin()
-        {
-            while (true)
-            {
-                
-                Console.Clear();
-                Console.WriteLine("MODE ADMIN");
-                Console.Write("\nMenu principal" +
-                    "\n\t - [1] CREER UN PRODUIT" +
-                    "\n\t - [2] MODIFIER UN PRODUIT" +
-                    "\n\t - [3] SUPPRIMER UN PRODUIT" +
-                    "\n\t - [4] AFFICHER LES PRODUITS" +
-                    "\n\t - [5] AFFICHER UN PRODUIT" +
-                    "\n\t - [6] ACHETER UN PRODUIT" +
-                    "\n\t - [x] QUITTEZ LE PROGRAMME");
-                Console.WriteLine();
-                //bool sortie = false;
-                //string choixEffectue = Console.ReadLine();
-                switch (Console.ReadKey(true).Key)
-                {
-                    case ConsoleKey.NumPad1: // CREER UN PRODUIT
-                        Console.Clear();
-                        Console.WriteLine("MODE ADMIN");
-                        Console.WriteLine("AJOUT D'UN PRODUIT DANS LA BASE DE DONNEES");
-                        FonctionsJL.AjouterProduit();
-                        Console.WriteLine();
-                        Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
-                        while (Console.ReadKey(true).Key != ConsoleKey.Enter)
-                        {
-                            Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
-
-                        }
-                        break;
-                    case ConsoleKey.NumPad2: // MODIFIER UN PRODUIT
-                        Console.Clear();
-                        FonctionsJL.ModifierProduit();
-                        Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
-                        while (Console.ReadKey(true).Key != ConsoleKey.Enter)
-                        {
-                            Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
-
-                        }
-                        break;
-                    case ConsoleKey.NumPad3: // SUPPRIMER UN PRODUIT
-                        Console.Clear();
-                        FonctionsJL.SupprimerProduit();
-                        Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
-                        while (Console.ReadKey(true).Key != ConsoleKey.Enter)
-                        {
-                            Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
-
-                        }
-                        break;
-                    case ConsoleKey.NumPad4: // AFFICHER LES PRODUITS
-                        Console.Clear();
-                        FonctionsJL.DisplayProduct();
-                        Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
-                        while (Console.ReadKey(true).Key != ConsoleKey.Enter)
-                        {
-                            Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
-                        }
-
-                        break;
-                    case ConsoleKey.NumPad5: // AFFICHER UN PRODUIT
-                        Console.Clear();
-                        FonctionsJL.AfficherUnProduit();
-                        Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
-                        while (Console.ReadKey(true).Key != ConsoleKey.Enter)
-                        {
-                            Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
-                        }
-
-
-                        break;
-                    case ConsoleKey.NumPad7:
-                        Console.Clear();
-                        Console.WriteLine("ON TEST");
-                        Console.ReadKey();
-                        break;
-                    case ConsoleKey.NumPad6: // ACHETER UN PRODUIT
-                        AcheterProduit();
-                        break;
-                    case ConsoleKey.X:
-                        Console.Clear();
-                        Console.WriteLine("Merci, et à bientôt !");
-
-                        #region trolololo
-                        //Console.WriteLine("                                                .....'',;;::cccllllllllllllcccc:::;;,,,''...'',,'.. ");
-                        //Console.WriteLine("                                        ..';cldkO00KXNNNNXXXKK000OOkkkkkxxxxxddoooddddddxxxxkkkkOO0XXKx:.");
-                        //Console.WriteLine("                                  .':ok0KXXXNXK0kxolc:;;,,,,,,,,,,,;;,,,''''''',,''..              .'lOXKd'");
-                        //Console.WriteLine("                             .,lx00Oxl:,'............''''''...................    ...,;;'.             .oKXd.");
-                        //Console.WriteLine("                          .ckKKkc'...'',:::;,'.........'',;;::::;,'..........'',;;;,'.. .';;'.           'kNKc.");
-                        //Console.WriteLine("                       .:kXXk:.    ..       ..................          .............,:c:'...;:'.         .dNNx.");
-                        //Console.WriteLine("                      :0NKd,          .....''',,,,''..               ',...........',,,'',,::,...,,.        .dNNx.");
-                        //Console.WriteLine("                     .xXd.         .:;'..         ..,'             .;,.               ...,,'';;'. ...       .oNNo");
-                        //Console.WriteLine("                     .0K.         .;.              ;'              ';                      .'...'.           .oXX:");
-                        //Console.WriteLine("                    .oNO.         .                 ,.              .     ..',::ccc:;,..     ..                lXX:");
-                        //Console.WriteLine("                   .dNX:               ......       ;.                'cxOKK0OXWWWWWWWNX0kc.                    :KXd.");
-                        //Console.WriteLine("                 .l0N0;             ;d0KKKKKXK0ko:...              .l0X0xc,...lXWWWWWWWWKO0Kx'                   ,ONKo.");
-                        //Console.WriteLine("               .lKNKl...'......'. .dXWN0kkk0NWWWWWN0o.            :KN0;.  .,cokXWWNNNNWNKkxONK: .,:c:.      .';;;;:lk0XXx;");
-                        //Console.WriteLine("              :KN0l';ll:'.         .,:lodxxkO00KXNWWWX000k.       oXNx;:okKX0kdl:::;'',;coxkkd, ...'. ...'''.......',:lxKO:.");
-                        //Console.WriteLine("             oNNk,;c,'',.                      ...;xNNOc,.         ,d0X0xc,.     .dOd,           ..;dOKXK00000Ox:.   ..''dKO,");
-                        //Console.WriteLine("            'KW0,:,.,:..,oxkkkdl;'.                'KK'              ..           .dXX0o:'....,:oOXNN0d;.'. ..,lOKd.   .. ;KXl.");
-                        //Console.WriteLine("            ; XNd,;  ;. l00kxoooxKXKx:..ld:         ;KK'                             .:dkO000000Okxl;.   c0;      :KK;   .  ;XXc");
-                        //Console.WriteLine("            'XXdc.  :. ..    '' 'kNNNKKKk,      .,dKNO.                                   ....       .'c0NO'      :X0.  ,.  xN0.");
-                        //Console.WriteLine("            .kNOc'  ,.      .00. ..''...      .l0X0d;.             'dOkxo;...                    .;okKXK0KNXx;.   .0X:  ,.  lNX'");
-                        //Console.WriteLine("             , KKdl  .c,    .dNK,            .;xXWKc.                .;:coOXO,,'.......       .,lx0XXOo;...oNWNXKk:.'KX;  '   dNX.");
-                        //Console.WriteLine("              :XXkc'....  .dNWXl        .';l0NXNKl.          ,lxkkkxo' .cK0.          ..;lx0XNX0xc.     ,0Nx'.','.kXo  .,  ,KNx.");
-                        //Console.WriteLine("               cXXd,,;:, .oXWNNKo'    .'..  .'.'dKk;        .cooollox;.xXXl     ..,cdOKXXX00NXc.      'oKWK'     ;k:  .l. ,0Nk.");
-                        //Console.WriteLine("                cXNx.  . ,KWX0NNNXOl'.           .o0Ooldk;            .:c;.':lxOKKK0xo:,.. ;XX:   .,lOXWWXd.      . .':,.lKXd.");
-                        //Console.WriteLine("                 lXNo    cXWWWXooNWNXKko;'..       .lk0x;       ...,:ldk0KXNNOo:,..       ,OWNOxO0KXXNWNO,        ....'l0Xk,");
-                        //Console.WriteLine("                 .dNK.   oNWWNo.cXK;;oOXNNXK0kxdolllllooooddxk00KKKK0kdoc:c0No        .'ckXWWWNXkc,;kNKl.          .,kXXk,");
-                        //Console.WriteLine("                  'KXc  .dNWWX;.xNk.  .kNO::lodxkOXWN0OkxdlcxNKl,..        oN0'..,:ox0XNWWNNWXo.  ,ONO'           .o0Xk;");
-                        //Console.WriteLine("                  .ONo    oNWWN0xXWK, .oNKc       .ONx.      ;X0.          .:XNKKNNWWWWNKkl;kNk. .cKXo.           .ON0;");
-                        //Console.WriteLine("                  .xNd   cNWWWWWWWWKOkKNXxl:,'...;0Xo'.....'lXK;...',:lxk0KNWWWWNNKOd:..   lXKclON0:            .xNk.");
-                        //Console.WriteLine("                  .dXd   ;XWWWWWWWWWWWWWWWWWWNNNNNWWNNNNNNNNNWWNNNNNNWWWWWNXKNNk;..        .dNWWXd.             cXO.");
-                        //Console.WriteLine("                  .xXo   .ONWNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWNNK0ko:'..OXo          'l0NXx,              :KK,");
-                        //Console.WriteLine("                  .OXc    :XNk0NWXKNWWWWWWWWWWWWWWWWWWWWWNNNX00NNx:'..       lXKc.     'lONN0l.              .oXK:");
-                        //Console.WriteLine("                  .KX;    .dNKoON0;lXNkcld0NXo::cd0NNO:;,,'.. .0Xc            lXXo..'l0NNKd,.              .c0Nk,");
-                        //Console.WriteLine("                  :XK.     .xNX0NKc.cXXl  ;KXl    .dN0.       .0No            .xNXOKNXOo,.               .l0Xk;.");
-                        //Console.WriteLine("                 .dXk.      .lKWN0d::OWK;  lXXc    .OX:       .ONx.     . .,cdk0XNXOd;.   .'''....;c:'..;xKXx,");
-                        //Console.WriteLine("                 .0No         .:dOKNNNWNKOxkXWXo:,,;ONk;,,,,,;c0NXOxxkO0XXNXKOdc,.  ..;::,...;lol;..:xKXOl.");
-                        //Console.WriteLine("                 , XX:             ..';cldxkOO0KKKXXXXXXXXXXKKKKK00Okxdol:;'..   .';::,..':llc,..'lkKXkc.");
-                        //Console.WriteLine("                 :NX'    .     ''            ..................             .,;:;,',;ccc;'..'lkKX0d;.");
-                        //Console.WriteLine("                 lNK.   .;      ,lc,.         ................        ..,,;;;;;;:::,....,lkKX0d:.");
-                        //Console.WriteLine("                .oN0.    .'.      .;ccc;,'....              ....'',;;;;;;;;;;'..   .;oOXX0d:.");
-                        //Console.WriteLine("                .dN0.      .;;,..       ....                ..''''''''....     .:dOKKko;.");
-                        //Console.WriteLine("                 lNK'         ..,;::;;,'.........................           .;d0X0kc'.");
-                        //Console.WriteLine("                 .xXO'                                                 .;oOK0x:.");
-                        //Console.WriteLine("                  .cKKo.                                    .,:oxkkkxk0K0xc'.");
-                        //Console.WriteLine("                    .oKKkc,.                         .';cok0XNNNX0Oxoc,.");
-                        //Console.WriteLine("                      .;d0XX0kdlc:;,,,',,,;;:clodkO0KK0Okdl:,'..");
-                        //Console.WriteLine("                          .,coxO0KXXXXXXXKK0OOxdoc:,..");
-                        //Console.WriteLine("                                    ...");
-                        #endregion
-
-
-
-                        EndMenu();
-                        return;
-
-
-                }
-            }
-
-        }
-        #endregion
-
-
-
     }
 }

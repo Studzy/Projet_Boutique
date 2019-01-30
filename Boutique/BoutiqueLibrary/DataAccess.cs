@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
-using BoutiqueBDDLibrary;
 
 namespace BoutiqueBDDLibrary
 {
@@ -85,6 +84,9 @@ namespace BoutiqueBDDLibrary
 
         // 5 requêtes pour supprimer un client de la base de données.
         #region [BDD] 1- Récupère les ID facture et commande d'un client
+            /// <summary>
+            /// Recupère l'ID_Facture et l'ID_Commande, si il trouve l'ID stock les ID sinon renvoi juste 0.
+            /// </summary>
         public static List<int> recupeIdFactureEtIdCommande(string email)
         {
             List<int> IdMultiple = new List<int>();
@@ -116,7 +118,7 @@ namespace BoutiqueBDDLibrary
 
         #region [BDD] 2- Supprime une commande d'un client
         /// <summary>
-        /// Supprime un client dans la base de données.
+        /// Supprime une commande à partir de l'ID d'une commande.
         /// </summary>
         public static void supprimerUneCommande(int Id_Commande)
         {
@@ -136,7 +138,7 @@ namespace BoutiqueBDDLibrary
 
         #region [BDD] 3- Supprime Le lien Inter_Facture_Paiement
         /// <summary>
-        /// Supprime un client dans la base de données.
+        /// Supprime la ligne qui est dans la table Inter_Facture_Paiement qui choisi le moyen de paiement.
         /// </summary>
         public static void supprimerInterFacturePaiement(int Id_Facture)
         {
@@ -156,7 +158,7 @@ namespace BoutiqueBDDLibrary
 
         #region [BDD] 4- Supprime une facture d'un client
         /// <summary>
-        /// Supprime un client dans la base de données.
+        /// Supprime une facture à partir de l'ID d'une facture.
         /// </summary>
         public static void supprimerUneFacture(int Id_Facture)
         {

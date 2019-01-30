@@ -1,6 +1,4 @@
-﻿using BoutiqueBDDLibrary;
-
-namespace BoutiqueBDDLibrary
+﻿namespace BoutiqueBDDLibrary
 {
     public class Admin
     {
