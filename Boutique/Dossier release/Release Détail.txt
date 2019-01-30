@@ -1,0 +1,146 @@
+------------------------------------------------------
+DATE: 15/01/2019
+------------------------------------------------------
+
+Release_V1:
+	- Fonction Inscription
+	- Fonction Connexion (sans menu après)
+
+Release_V2:
+	- Fonction Connexion (uniquement client fonctionnel)
+
+Release_V3:
+	- Fonction Connexion 100% Fonctionnel
+
+Release_V4:
+	- Ajout de cryptage SHA2 dans la fonction inscription
+	- Ajout de cryptage SHA2 dans la fonction connexion
+
+Release_V5:
+	- Ajout d'une fonction MaskPsw qui remplace les caractères par *** dans la console
+
+Release_V6:
+	- DERNIERE SAUVEGARDE DE LA JOURNEE
+------------------------------------------------------
+DATE: 17/01/2019
+------------------------------------------------------
+
+Release_V7:
+	- Ajout de la vérification du type d'email
+
+Release_V8:
+	- Ajout de l'inscription Administrateur
+	- Amélioration de la vérification des emails
+
+Release_V9:
+	- Ajout de la vérification de numéro de téléphone
+	- Ajout de la vérification du code postal
+
+------------------------------------------------------
+DATE: 18/01/2019
+------------------------------------------------------
+
+Release_V10:
+	- Ajout automatique du nom de ville complétement en majuscule dans la BDD
+	- Ajout automatique du nom de client complétement en majuscule dans la BDD
+	- Ajout automatique de la première lettre du prénom en majuscule dans la BDD
+	- Ajout de la vérification des mot de passe 7 lettres minimum dont 1 majuscule et 1 chiffre
+
+Release_V11:
+	- Ajout de la vérification mot de passe pour l'inscription des admins
+
+Release_V12:
+	- Ajout de la vérification lors de l'inscription pour éviter la redondance d'émail dans les table Admin et Client
+
+------------------------------------------------------
+DATE: 19/01/2019
+------------------------------------------------------
+
+ReleaseV_13:
+	- Ajout de la vérification du format DateDeNaissance à l'inscrption des clients. FORMAT JJ/MM/AAAA
+	   (marche à 90% <-- Reste à faire la vérif pour quand c'est vide ou quand ce n'est pas au format demander)
+
+------------------------------------------------------
+DATE: 21/01/2019
+------------------------------------------------------
+
+Release_V14:
+	- Fonction à 100% de la fonction date de naissance
+
+Release_V15:
+	- Ajoute un choix (O/N) de déconnexion lorsque l'on quitte le menu admin et client
+
+Release_V16:
+	- La fonction tout en majuscule à était supprimer --> Pour compensé j'ai ajouter .ToUpper dans le getter de client
+	- La vérification de l'email client est maintenant juste --> avant vérifier dans la table admin
+
+Release_V17:
+	- Déplacement des fonctions du programme vers la Class "Fonctions" dans la Library
+	- Amélioration du menu admin 
+
+Release_V18:
+	- Ajout de l'affiche d'un client
+	- Ajout de la suppression d'un client
+	- Modification de la vérification du némero de téléphonte
+
+------------------------------------------------------
+DATE: 22/01/2019
+------------------------------------------------------
+
+Release_V20:
+	- Modification des vérifications dans le Get;Set; Client
+
+Release_V21:
+	- Fonction à 95% de l'inscription client (Gestion de l'année de la date de naissance FAIL_Verif)
+	- Fonction à 100% de l'inscription admin
+
+Release_V22:
+	- Fonction à 95% de l'inscription client
+
+Release_V23:
+	- Fonction Inscription client 100%
+	- Fonction supprimer client 100%
+	- Fonction modifier client 80% (gestion des erreurs plantes)
+	- Fonction afficher un client 100%
+	- Fonction afficher les clients 100% 
+
+------------------------------------------------------
+DATE: 24/01/2019
+------------------------------------------------------
+
+Release_24:
+	- Modification et Patern client non fonctionnel
+	- Tout le reste fonctionne
+	- Rest à mettre des Readkey sur les menus
+
+Release_25:
+	- Programme ENTIEREMENT fonctionnel
+	- Déplacements des fonctions dans une nouvelle Class FontionsConsole
+
+------------------------------------------------------
+DATE: 26/01/2019
+------------------------------------------------------
+Release_V26:
+	- Ajout des commentaires sur tous le programe
+
+
+------------------------------------------------------
+DATE: 28/01/2019
+------------------------------------------------------
+
+Release_V27: Tout fonctionnes
+
+------------------------------------------------------
+DATE: 28/01/2019
+------------------------------------------------------
+
+Release_V28: 
+	- Suppression des clients pour l'admin même si le client à des factures et commandes (SUPPRIME TOUT)
+
+Release_V29:
+	- Suppresion des clients pour le client même si le client à des factures et commandes (SUPPRIME TOUT)
+	- Inscription Admin est accessible avec la touche diviser du pavé numérique
+
+
+
+
