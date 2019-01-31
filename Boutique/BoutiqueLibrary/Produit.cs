@@ -32,7 +32,7 @@
             get => Nom_produit;
             set
             {
-                if (value.Length < 1 || value.Length > 80 || !FonctionsConsole.VerifieSiQueDesLettres(value))
+                if (value.Length < 1 || value.Length > 50 || !FonctionsConsole.VerifieSiQueDesLettres(value))
                 {
                     throw new FonctionsConsole.MonMessageErreur("Le nom n'est pas valable");
                 }
@@ -53,21 +53,14 @@
             get => tva;
             set
             {
-                try
-                {
-                    if (typeof(decimal).IsAssignableFrom(value.GetType()))
-                    {
-                        tva = value;
-                    }
-                    else
-                    {
-                        throw new FonctionsConsole.MonMessageErreur("");
-                    }
 
-                }
-                catch (FonctionsConsole.MonMessageErreur)
+                if (typeof(decimal).IsAssignableFrom(value.GetType()))
                 {
-                    throw new FonctionsConsole.MonMessageErreur("La valeur n'est pas valable");
+                    tva = value;
+                }
+                else
+                {
+                    throw new FonctionsConsole.MonMessageErreur("");
                 }
             }
         }
@@ -146,10 +139,12 @@
                 {
                     val_nutrition_produit = value;
                 }
-                catch (FonctionsConsole.MonMessageErreur)
+                catch (System.FormatException)
                 {
-                    throw new FonctionsConsole.MonMessageErreur("La valeur n'est pas valable");
+
+                    throw new FonctionsConsole.MonMessageErreur("Cette valeur n'est pas valide");
                 }
+                
             }
         }
         #endregion

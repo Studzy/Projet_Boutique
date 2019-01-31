@@ -23,7 +23,21 @@
         /// <summary>
         /// COMMENTAIRE A MODIFIER CAR NON FINI Nom_Categorie
         /// </summary>
-        public string Nom_categorie { get => nom_categorie; set => nom_categorie = value; }
+        public string Nom_categorie
+        {
+            get => nom_categorie;
+            set
+            {
+                if (value.Length < 1 || value.Length > 50 || !FonctionsConsole.VerifieSiQueDesLettres(value))
+                {
+                    throw new FonctionsConsole.MonMessageErreur("Le nom n'est pas valable");
+                }
+                else
+                {
+                    nom_categorie = value;
+                }
+            }
+        }
         #endregion
     }   
 }

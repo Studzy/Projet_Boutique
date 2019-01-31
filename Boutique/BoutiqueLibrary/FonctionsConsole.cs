@@ -433,9 +433,9 @@ namespace BoutiqueBDDLibrary
                     p.TVA = Convert.ToDecimal(x);
                     MesTests = true;
                 }
-                catch (FonctionsConsole.MonMessageErreur e)
+                catch (FormatException)
                 {
-                    Console.WriteLine(e.errorMessage);
+                    Console.WriteLine("Cette valeur n'est pas valide");
                 }
             }
             MesTests = false;
@@ -450,23 +450,29 @@ namespace BoutiqueBDDLibrary
                     p.Prix_Produit = Convert.ToDecimal(x);
                     MesTests = true;
                 }
-                catch (FonctionsConsole.MonMessageErreur e)
+                catch (FormatException)
                 {
-                    Console.WriteLine(e.errorMessage);
+                    Console.WriteLine("Cette valeur n'est pas valide");
+                }
+            }
+            MesTests = false;
+            while (!MesTests)
+            {
+                try
+                {
+                    Console.Write("Remise du produit : ");
+                    x = Console.ReadLine();
+                    p.Remise_Produit = Convert.ToDecimal(x);
+                }
+                catch (FormatException)
+                {
+
+                    Console.WriteLine("Cette valeur n'est pas valide");
                 }
             }
 
-            Console.Write("Remise du produit : ");
-            x = Console.ReadLine();
-            if (x == "")
-            {
-                p.Remise_Produit = 0;
-            }
-            else
-            {
-                p.Remise_Produit = Convert.ToDecimal(x);
-            }
-
+            MesTests = false;
+            
             while (!MesTests)
             {
                 try
@@ -475,7 +481,7 @@ namespace BoutiqueBDDLibrary
                     p.Description_Produit = Console.ReadLine();
                     MesTests = true;
                 }
-                catch (FonctionsConsole.MonMessageErreur e)
+                catch (MonMessageErreur e)
                 {
                     Console.WriteLine(e.errorMessage);
                 }
@@ -506,9 +512,10 @@ namespace BoutiqueBDDLibrary
                     p.Val_Nutrition_Produit = Convert.ToInt32(x);
                     MesTests = true;
                 }
-                catch (FonctionsConsole.MonMessageErreur e)
+                catch (FormatException)
                 {
-                    Console.WriteLine(e.errorMessage);
+
+                    Console.WriteLine("Cette valeur n'est pas valide");
                 }
             }
             MesTests = false;
@@ -621,6 +628,7 @@ namespace BoutiqueBDDLibrary
             List<Produit> Panier = new List<Produit>();
             List<Commande> ListeCommande = new List<Commande>();
             decimal PrixPanier = 0;
+            bool MesTest = false;
             int IDClientActuel = Fonctions.UtilisateurActuelID; // <------------
             int start = 0;
             int limit = 10; // <---------------
@@ -663,8 +671,22 @@ namespace BoutiqueBDDLibrary
                         Console.ReadKey();
                         break;
                     case ConsoleKey.A: //<-------------
-                        Console.Write("Combien de produit souhaitez vous afficher par pages ? ");//<-------------
-                        limit = Convert.ToInt32(Console.ReadLine());
+                        
+                        while (!MesTest)
+                        {
+                            try
+                            {
+                                Console.Write("Combien de produit souhaitez vous afficher par pages ? ");//<-------------
+                                limit = Convert.ToInt32(Console.ReadLine());
+                                MesTest = true;
+                            }
+                            catch (FormatException)
+                            {
+
+                                Console.WriteLine("Cette valeur n'est pas valide");
+                            }
+                        }
+                        MesTest = false;
                         Console.Clear();
                         Fonctions.AfficherMenuAcheter();
                         Fonctions.DisplayLimitProduct(start, TrierPar, limit);

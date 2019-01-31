@@ -25,7 +25,21 @@ namespace BoutiqueBDDLibrary
         /// <summary>
         /// COMMENTAIRE A MODIFIER CAR NON FINI lIBELLE8uNITE
         /// </summary>
-        public string Libelle_unite { get => libelle_unite; set => libelle_unite = value; }
+        public string Libelle_unite
+        {
+            get => libelle_unite;
+            set
+            {
+                if (value.Length < 1 || value.Length > 50 || !FonctionsConsole.VerifieSiQueDesLettres(value))
+                {
+                    throw new FonctionsConsole.MonMessageErreur("Le libelle n'est pas valable");
+                }
+                else
+                {
+                    libelle_unite = value;
+                }
+            }
+        }
         #endregion
     }
 }

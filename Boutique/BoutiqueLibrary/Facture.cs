@@ -28,7 +28,15 @@ namespace BoutiqueBDDLibrary
         /// <summary>
         /// COMMENTAIRE A MODIFIER CAR NON FINI
         /// </summary>
-        public DateTime Date_facture { get => date_facture; set => date_facture = value; }
+        public DateTime Date_facture
+        {
+            get => date_facture;
+            set
+            {
+                FonctionsConsole.verifDateDeNaissance(value);
+                date_facture = value;
+            }
+        }
         #endregion
 
         #region Montant_Total

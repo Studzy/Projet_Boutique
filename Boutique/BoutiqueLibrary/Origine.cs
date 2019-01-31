@@ -40,7 +40,22 @@ namespace BoutiqueBDDLibrary
         /// <summary>
         /// COMMENTAIRE A MODIFIER CAR NON FINI REMISE_PRODUIT
         /// </summary>
-        public string Nom_Origine { get => nom_Origine; set => nom_Origine = value.ToUpper(); }
+        public string Nom_Origine
+        {
+            get => nom_Origine;
+            set
+            {
+                if (value.Length < 1 || value.Length > 50 || !FonctionsConsole.VerifieSiQueDesLettres(value))
+                {
+                    throw new FonctionsConsole.MonMessageErreur("Le nom n'est pas valable");
+                }
+                else
+                {
+                    nom_Origine = value.ToUpper();
+                }
+            }
+            
+        }
         #endregion
     }
 }
