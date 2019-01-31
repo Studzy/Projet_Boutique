@@ -614,11 +614,11 @@ namespace BoutiqueBDDLibrary
         }
         #endregion
 
-        #region [BDD] Affiche 10 produits
+        #region [BDD] Affiche un nombre limité de produits
         /// <summary>
         /// Affiche 10 produits à partir du @start et de la catégorie @order.
         /// </summary>
-        public static List<Produit> Get10Products(int start, string group)
+        public static List<Produit> GetLimitProducts(int start, string group, int limit)
         {
             List<Produit> entries = new List<Produit>();
 
@@ -629,10 +629,12 @@ namespace BoutiqueBDDLibrary
 
                 MySqlCommand insertCommand = new MySqlCommand();
                 insertCommand.Connection = db;
-                insertCommand.CommandText = "SELECT Id_Produit, Nom_Produit, Nom_Categorie, Nom_Origine, Prix_Produit, Libelle_Unite, Description_Produit, ValNutrition_Produit FROM produit INNER JOIN origine ON origine.Id_Origine = produit.FK_Id_Origine INNER JOIN unite ON unite.Id_Unite = produit.FK_Id_Unite INNER JOIN categorie ON categorie.Id_Categorie = produit.FK_Id_Categorie ORDER BY @order LIMIT 5 OFFSET @start ;";
+                insertCommand.CommandText = "SELECT Id_Produit, Nom_Produit, Nom_Categorie, Nom_Origine, Prix_Produit, Libelle_Unite, Description_Produit, ValNutrition_Produit FROM produit INNER JOIN origine ON origine.Id_Origine = produit.FK_Id_Origine INNER JOIN unite ON unite.Id_Unite = produit.FK_Id_Unite INNER JOIN categorie ON categorie.Id_Categorie = produit.FK_Id_Categorie ORDER BY @order LIMIT @limit OFFSET @start ;";
 
                 insertCommand.Parameters.AddWithValue("@start", start);
                 insertCommand.Parameters.AddWithValue("@order", group);
+                insertCommand.Parameters.AddWithValue("@limit", limit);
+
                 MySqlDataReader query = insertCommand.ExecuteReader();
 
                 while (query.Read())
@@ -1122,6 +1124,41 @@ namespace BoutiqueBDDLibrary
             }
             return resultat;
         }
+        #endregion
+
+        #region [BDD] Trouver le dernier ID de Facture
+
+        public static int GetLastIdFacture()
+        {
+            //Facture facture = new Facture();
+            int ID;
+            using (MySqlConnection db =
+                new MySqlConnection(CHEMINBDD))
+            {
+                db.Open();
+
+                MySqlCommand insertCommand = new MySqlCommand();
+                insertCommand.Connection = db;
+                insertCommand.CommandText = "SELECT facture.Id_Facture FROM facture ORDER BY facture.Id_Facture DESC LIMIT 1";
+
+                MySqlDataReader query = insertCommand.ExecuteReader();
+
+                if (query.Read())
+                {
+
+                    ID = query.GetInt32(0);
+                }
+                else
+                {
+                    ID = 0;
+                }
+
+                db.Close();
+            }
+
+            return ID;
+        }
+
         #endregion
 
         public static bool IsCorrectString80(string insertString)

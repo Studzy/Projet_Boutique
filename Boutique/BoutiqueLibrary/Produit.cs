@@ -16,7 +16,7 @@
         private string nom_categorie;
         private string nom_origine;
         private string libelle_unite;
-        
+
         //Constructeur
         public Produit()
         {
@@ -32,20 +32,13 @@
             get => Nom_produit;
             set
             {
-                try
-                {
-                    if(!DataAccess.IsCorrectString50(value))
-                    {
-                        throw new FonctionsConsole.MonMessageErreur("");
-                    }
-                    else
-                    {
-                        Nom_produit = value;
-                    }
-                }
-                catch (FonctionsConsole.MonMessageErreur)
+                if (value.Length < 1 || value.Length > 80 || !FonctionsConsole.VerifieSiQueDesLettres(value))
                 {
                     throw new FonctionsConsole.MonMessageErreur("Le nom n'est pas valable");
+                }
+                else
+                {
+                    Nom_produit = value;
                 }
             }
         }
@@ -70,7 +63,7 @@
                     {
                         throw new FonctionsConsole.MonMessageErreur("");
                     }
-                    
+
                 }
                 catch (FonctionsConsole.MonMessageErreur)
                 {

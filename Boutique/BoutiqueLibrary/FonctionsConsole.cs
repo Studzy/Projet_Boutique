@@ -621,24 +621,58 @@ namespace BoutiqueBDDLibrary
             List<Produit> Panier = new List<Produit>();
             List<Commande> ListeCommande = new List<Commande>();
             decimal PrixPanier = 0;
+            int IDClientActuel = Fonctions.UtilisateurActuelID; // <------------
             int start = 0;
-            Fonctions.Display10Product(start, "Nom_Produit");
+            int limit = 10; // <---------------
+            string TrierPar = "Prix_Produit";
+            Fonctions.DisplayLimitProduct(start, TrierPar, limit); //<-------------
             List<Produit> AllProduits = new List<Produit>();
             AllProduits = DataAccess.GetAllProducts();
             decimal taille = AllProduits.Count;
             int pageActuel = 1;
-            decimal calcul = (taille / 5m);
+            decimal calcul = (taille / limit);
             decimal pagesTotal = Math.Ceiling(calcul);
             Console.WriteLine("\n Page {0} sur {1}", pageActuel, pagesTotal);
             bool display = false;
             while (display == false)
+
             {
+
                 switch (Console.ReadKey(true).Key)
                 {
+                    case ConsoleKey.T: //<-------------
+                        Console.Write("Trier par [1] Prix(Croissant), [2] Nom(Ordre Alphabetique) ou [3] Categorie(Ordre Alphabetique) : ");
+                        String tri = Console.ReadLine();
+
+                        if (tri == "1")
+                        {
+                            TrierPar = "Prix_Produit";
+                        }
+                        if (tri == "2")
+                        {
+                            TrierPar = "Nom_Produit";
+                        }
+                        if (tri == "3")
+                        {
+                            TrierPar = "Nom_Categorie";
+                        }
+
+                        Console.Clear();
+                        //AfficherMenuAcheter();
+                        Fonctions.DisplayLimitProduct(start, TrierPar, limit);
+                        Console.ReadKey();
+                        break;
+                    case ConsoleKey.A: //<-------------
+                        Console.Write("Combien de produit souhaitez vous afficher par pages ? ");//<-------------
+                        limit = Convert.ToInt32(Console.ReadLine());
+                        Console.Clear();
+                        Fonctions.AfficherMenuAcheter();
+                        Fonctions.DisplayLimitProduct(start, TrierPar, limit);
+                        break;
                     case ConsoleKey.Enter:
                         Fonctions.AfficherMenuAcheter();
                         start = 0;
-                        Fonctions.Display10Product(start, "Nom_Produit");
+                        Fonctions.DisplayLimitProduct(start, TrierPar, limit);
                         AllProduits = DataAccess.GetAllProducts();
                         taille = AllProduits.Count;
                         pageActuel = 1;
@@ -649,19 +683,22 @@ namespace BoutiqueBDDLibrary
                         break;
                     case ConsoleKey.RightArrow:
                         Fonctions.AfficherMenuAcheter();
-                        if (start < taille - 5)
+
+                        //Console.WriteLine(taille);
+                        if (start < taille - limit)
                         {
-                            start = start + 5;
+                            start = start + limit;
                             pageActuel = pageActuel + 1;
                         }
 
-                        Fonctions.Display10Product(start, "Nom_Produit");
+                        Fonctions.DisplayLimitProduct(start, TrierPar, limit);
                         Console.WriteLine("\n Page {0} sur {1}", pageActuel, pagesTotal);
+                        //Console.WriteLine("Fleche de droite");
                         break;
                     case ConsoleKey.P: // PANIER
                         Console.Clear();
                         Console.WriteLine("Voici nos produit(s) : \n");
-                        Fonctions.Display10Product(start, "Nom_Produit");
+                        Fonctions.DisplayLimitProduct(start, TrierPar, limit);
                         Console.WriteLine("\n Page {0} sur {1} \n\n", pageActuel, pagesTotal);
 
                         Console.WriteLine("Selectionnez vos produtis en choississant leur numero");
@@ -686,17 +723,20 @@ namespace BoutiqueBDDLibrary
                                 numero = Convert.ToInt32(message);
                                 PrixPanier = PrixPanier + (produit.Prix_Produit * numero);
                                 commande.Qtite_Produit = numero;
-                                int numfacture = DataAccess.GetLastNumFacture();
-                                commande.FK_Id_Facture = numfacture;
+                                //int numfacture = Facture.GetLastNumFacture(); // <------------
+                                //commande.FK_Id_Facture = numfacture; // <------------
                                 ListeCommande.Add(commande);
                                 for (int i = 0; i < numero; i++)
                                 {
                                     Panier.Add(produit);
                                 }
+
                                 Console.WriteLine("Votre produit a été ajouter au panier !");
                             }
+
+
                         }
-                        Console.WriteLine("Voici votre commande : ");
+                        Console.WriteLine("Voici votre Panier : ");
                         for (int i = 0; i < ListeCommande.Count; i++)
                         {
                             Produit produitCommander = new Produit();
@@ -714,20 +754,26 @@ namespace BoutiqueBDDLibrary
                                 IFP ifp = new IFP();
                                 List<OptionPaiement> optionPaiements = new List<OptionPaiement>();
 
-                                for (int i = 0; i < ListeCommande.Count; i++)
-                                {
-                                    DataAccess.AddCommande(ListeCommande[i]);
-                                }
+                                //Commande commande = new Commande();
+
+
 
                                 int numfacture = DataAccess.GetLastNumFacture();
                                 numfacture = numfacture + 1;
-                                int IdClient = 3;
+                                //int IdClient = 3;
                                 DateTime DateDuJour = DateTime.Today;
                                 facture.Num_facture = numfacture;
                                 facture.Date_facture = DateDuJour;
                                 facture.Montant_total = PrixPanier;
-                                facture.Fk_Id_Client = IdClient;
+                                facture.Fk_Id_Client = IDClientActuel; // <------------
                                 DataAccess.AddFacture(facture);
+                                int DernierIDFacture = DataAccess.GetLastIdFacture(); // <------------
+                                for (int i = 0; i < ListeCommande.Count; i++) // <------------
+                                {
+                                    ListeCommande[i].FK_Id_Facture = DernierIDFacture; // <------------
+                                    DataAccess.AddCommande(ListeCommande[i]); // <------------
+                                }
+
                                 while (PrixPanier != 0)
                                 {
                                     optionPaiements = DataAccess.GetAllPayement();
@@ -746,27 +792,36 @@ namespace BoutiqueBDDLibrary
                                     decimal Payer = Convert.ToDecimal(ChoixUser);
                                     ifp.Montant_Paiement = Payer;
                                     PrixPanier = PrixPanier - Payer;
-                                    ifp.FK_Id_Facture = numfacture;
+                                    ifp.FK_Id_Facture = DernierIDFacture;
 
                                     DataAccess.AddIFP(ifp);
+
+
+
                                 }
                                 display = true;
+
                                 break;
                             case ConsoleKey.N:
                                 Console.WriteLine("Appuyez sur entrée pour continuer");
                                 break;
+
                         }
                         break;
                     case ConsoleKey.LeftArrow:
                         Fonctions.AfficherMenuAcheter();
 
-                        if (start >= 5)
+                        if (start >= limit)
                         {
-                            start = start - 5;
+                            start = start - limit;
                             pageActuel = pageActuel - 1;
                         }
-                        Fonctions.Display10Product(start, "Nom_Produit");
+                        Fonctions.DisplayLimitProduct(start, TrierPar, limit);
                         Console.WriteLine("\n Page {0} sur {1}", pageActuel, pagesTotal);
+
+
+
+
                         //Console.WriteLine("Fleche de gauche");
                         break;
                     case ConsoleKey.V:
@@ -788,14 +843,19 @@ namespace BoutiqueBDDLibrary
                                 facture.Montant_total = PrixPanier;
                                 facture.Fk_Id_Client = IdClient;
                                 DataAccess.AddFacture(facture);
+
                                 display = true;
+
                                 break;
                             case ConsoleKey.N:
                                 Console.WriteLine("Appuyez sur entrée pour continuer");
                                 break;
+
                         }
                         break;
+
                 }
+
             }
         }
         #endregion

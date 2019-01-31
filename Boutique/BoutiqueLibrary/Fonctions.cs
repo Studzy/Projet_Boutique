@@ -685,16 +685,17 @@ namespace BoutiqueBDDLibrary
         }
         #endregion
 
-        #region [Interface] Affiche 10 produits
+        #region [Interface] Affiche Limit produits
         /// <summary>
         /// Fonction qui affiche 10 produits en fonction d'un ID de départ --> @start et d'une catégorie --> @order.
         /// </summary>
-        public static void Display10Product(int start, string group)
+        public static void DisplayLimitProduct(int start, string group, int limit)
         {
-            List<Produit> produits = DataAccess.Get10Products(start, group);
+            List<Produit> produits = DataAccess.GetLimitProducts(start, group, limit); // <---------------
+            //Console.WriteLine("Voici nos produit(s) : Page : "+ page +" sur " + , produits.Count);
             foreach (var produit in produits)
             {
-                Console.WriteLine(produit.Id_Produit + ".  Nom = " + produit.Nom_Produit + "; Categorie = " + produit.Nom_categorie + "; Origine = " + produit.Nom_origine + "; Prix = " + produit.Prix_Produit + "; Unite = " + produit.Libelle_unite + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit + "\n\n");
+                Console.WriteLine(produit.Id_Produit + ".  Nom = " + produit.Nom_Produit + "; Categorie = " + produit.Nom_categorie + "; Origine = " + produit.Nom_origine + "; Prix = " + produit.Prix_Produit + "; Unite = " + produit.Libelle_unite + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit +"\n\n");
             }
         }
         #endregion
@@ -778,8 +779,12 @@ namespace BoutiqueBDDLibrary
             Console.Clear();
             Console.WriteLine("UTILISER LES FLECHES DE DROITE ET DE GAUCHE POUR AFFICHER LES PRODUITS");
             Console.WriteLine("APPUYER SUR P POUR FAIRE VOTRE PANIER");
-            Console.WriteLine("APPUYER SUR V POUR VALIDEZ VOS ACHATS\n");
-            Console.WriteLine("Voici nos produit(s) : \n");
+            Console.WriteLine("APPUYER SUR A POUR DEFINIR LE NOMBRE DE PRODUIT AFFICHER EN UNE PAGE");
+            Console.WriteLine("APPUYER SUR T POUR TRIER LES PRODUITS");
+            Console.WriteLine("APPUYER SUR V POUR VALIDEZ VOS ACHATS");
+            Console.WriteLine();
+            Console.WriteLine("Voici nos produit(s) : ");
+            Console.WriteLine();
         }
         #endregion
     }
