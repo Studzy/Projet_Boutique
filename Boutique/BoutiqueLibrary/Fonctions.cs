@@ -5,6 +5,10 @@ namespace BoutiqueBDDLibrary
 {
     public class Fonctions
     {
+        //-------------------------------------------------//
+        //               [PARTIE QUENTIN]                  //
+        //-------------------------------------------------//
+
         //Sauvegarde l'ID et l'Email du client connecter
         public static int UtilisateurActuelID;
         public static string UtilisateurActuelEmail = "";
@@ -41,7 +45,7 @@ namespace BoutiqueBDDLibrary
                     case ConsoleKey.X:
                         Console.Clear();
                         Console.WriteLine("Merci, et à bientôt !");
-                        FonctionsJL.EndMenu();
+                        Console.ReadKey();
                         return;
                 }
             }
@@ -67,13 +71,11 @@ namespace BoutiqueBDDLibrary
             {
                 case ConsoleKey.NumPad1:
                     Console.Clear();
-                    //AcheterProduit();
-                    FonctionsJL.AcheterProduit();
+                    FonctionsConsole.AcheterProduit();
                     break;
                 case ConsoleKey.NumPad2:
                     Console.Clear();
-                    //AfficherLesProduit();
-                    FonctionsJL.AfficherLesProduits();
+                    FonctionsConsole.AfficherLesProduits();
                     break;
                 case ConsoleKey.NumPad3:
                     Console.Clear();
@@ -137,23 +139,23 @@ namespace BoutiqueBDDLibrary
             switch (Console.ReadKey(true).Key)
             {
                 case ConsoleKey.NumPad1:
-                    FonctionsJL.AjouterProduit();
+                    FonctionsConsole.AjouterProduit();
                     break;
                 case ConsoleKey.NumPad2:
                     //ModifierUnProduit();
-                    FonctionsJL.ModifierProduit();
+                    Fonctions.ModifierProduit();
                     break;
                 case ConsoleKey.NumPad3:
                     //SupprimerUnProduit();
-                    FonctionsJL.SupprimerProduit();
+                    Fonctions.SupprimerProduit();
                     break;
                 case ConsoleKey.NumPad4:
                     //AfficherLesProduits();
-                    FonctionsJL.AfficherLesProduits();
+                    FonctionsConsole.AfficherLesProduits();
                     break;
                 case ConsoleKey.NumPad5:
                     //AfficherUnProduit();
-                    FonctionsJL.AfficherUnProduit();
+                    Fonctions.AfficherUnProduit();
                     break;
                 case ConsoleKey.NumPad6:
                     //Affiche tout les clients
@@ -585,7 +587,7 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         public static void afficheToutLesClients()
         {
-            List<Client> toutclients = DataAccess.GetAllProducts();
+            List<Client> toutclients = DataAccess.GetAllClients();
             Console.Clear();
             Console.WriteLine("Nous avons trouvé {0} client(s) :\n", toutclients.Count);
             foreach (var toutclient in toutclients)
@@ -639,6 +641,145 @@ namespace BoutiqueBDDLibrary
             DataAccess.modifieUnClientenBDD(UtilisateurActuelEmail, p);
             Console.Write("\nVotre profil a été mis à jours.");
             Console.ReadKey();
+        }
+        #endregion
+
+
+        //-------------------------------------------------//
+        //               [PARTIE JEREMY]                   //
+        //-------------------------------------------------//
+
+        //Menu d'actions sur les produits
+        #region [Interface] Afficher un produit
+        /// <summary>
+        /// Fonction qui affiche le produit en fonction du "string nom".
+        /// </summary>
+        public static void DisplayOneProduct(string nom)
+        {
+            Produit produit = DataAccess.GetOneProduct(nom);
+
+            if (produit.Nom_Produit != "Rien")
+            {
+                Console.WriteLine("Nous avons trouvé votre produit : ");
+                Console.WriteLine("ID = " + produit.Id_Produit + "; Nom = " + produit.Nom_Produit + "; TVA = " + produit.TVA + "; Prix = " + produit.Prix_Produit + "; Remise = " + produit.Remise_Produit + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit + "; FK_Id_Categorie = " + produit.FK_Id_Categorie + "; FK_Id_Origine = " + produit.FK_Id_Origine + "; FK_Id_Unite = " + produit.FK_Id_Unite + "\n\n");
+            }
+            else
+            {
+                Console.WriteLine("Nous n'avons pas trouvé votre produit.");
+            }
+        }
+        #endregion
+
+        #region [Interface] Afficher tout les produits
+        /// <summary>
+        /// Affiche tout les produits. Affiche le nombre de produits trouver ainsi que tout les détails lié à chaque produit.
+        /// </summary>
+        public static void DisplayProduct()
+        {
+            List<Produit> produits = DataAccess.GetAllProducts();
+            Console.WriteLine("Nous avons trouvé {0} produit(s) :", produits.Count);
+            foreach (var produit in produits)
+            {
+                Console.WriteLine("ID = " + produit.Id_Produit + "; Nom = " + produit.Nom_Produit + "; TVA = " + produit.TVA + "; Prix = " + produit.Prix_Produit + "; Remise = " + produit.Remise_Produit + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit + "; FK_Id_Categorie = " + produit.FK_Id_Categorie + "; FK_Id_Origine = " + produit.FK_Id_Origine + "; FK_Id_Unite = " + produit.FK_Id_Unite + "\n\n");
+            }
+        }
+        #endregion
+
+        #region [Interface] Affiche 10 produits
+        /// <summary>
+        /// Fonction qui affiche 10 produits en fonction d'un ID de départ --> @start et d'une catégorie --> @order.
+        /// </summary>
+        public static void Display10Product(int start, string group)
+        {
+            List<Produit> produits = DataAccess.Get10Products(start, group);
+            foreach (var produit in produits)
+            {
+                Console.WriteLine(produit.Id_Produit + ".  Nom = " + produit.Nom_Produit + "; Categorie = " + produit.Nom_categorie + "; Origine = " + produit.Nom_origine + "; Prix = " + produit.Prix_Produit + "; Unite = " + produit.Libelle_unite + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit + "\n\n");
+            }
+        }
+        #endregion
+
+        #region [Interface] Supprimer un produit
+        /// <summary>
+        /// Menu de suppression d'un produit.
+        /// </summary>
+        public static void SupprimerProduit()
+        {
+            Produit p = new Produit();
+            Console.WriteLine("MODE ADMIN");
+            Console.WriteLine("SUPPRIMER UN PRODUIT DANS LA BASE DE DONNEES");
+
+            Console.Write("Nom du produit à supprimer : ");
+            p.Nom_Produit = Console.ReadLine();
+            Console.WriteLine();
+
+            Produit produit = DataAccess.GetOneProduct(p.Nom_Produit);
+            if (produit.Nom_Produit != "Rien")
+            {
+                DataAccess.DeleteOneProduct(p.Nom_Produit);
+            }
+            else
+            {
+                Console.WriteLine("Votre produit n'existe pas dans la base de données.");
+            }
+        }
+        #endregion
+
+        #region [Interface] Modifier un produit
+        /// <summary>
+        /// Menu de modification d'un produit.
+        /// </summary>
+        public static void ModifierProduit()
+        {
+            string Nom = "";
+            string x = "";
+            Produit p = new Produit();
+            Console.WriteLine("MODE ADMIN");
+            Console.WriteLine("MODIFIER UN PRODUIT DANS LA BASE DE DONNEES");
+            Console.Write("Nom du produit à modifier : ");
+            Nom = Console.ReadLine();
+            Produit produit = DataAccess.GetOneProduct(Nom);
+            if (produit.Nom_Produit != "Rien")
+            {
+                Console.WriteLine();
+                FonctionsConsole.PaternProduit(x, p);
+                DataAccess.ModifyOneProduct(Nom, p);
+                Console.WriteLine("Votre produit a été modifier avec succès.");
+            }
+            else
+            {
+                Console.WriteLine("Votre produit n'existe pas dans la base de données.");
+            }
+        }
+        #endregion
+
+        #region [Interface] Afficher un produit
+        /// <summary>
+        /// Menu affichage d'un produit.
+        /// </summary>
+        public static void AfficherUnProduit()
+        {
+            Produit p = new Produit();
+            Console.WriteLine("MODE ADMIN");
+            Console.WriteLine("RECHERCHE D'UN PRODUIT DANS LA BASE DE DONNEES");
+            Console.Write("Nom du produit : ");
+            p.Nom_Produit = Console.ReadLine();
+            Fonctions.DisplayOneProduct(p.Nom_Produit);
+        }
+        #endregion
+
+        //Menu Panier
+        #region [Interface] Affiche le menu acheter
+        /// <summary>
+        /// Permet d'afficher le menu acheter.
+        /// </summary>
+        public static void AfficherMenuAcheter()
+        {
+            Console.Clear();
+            Console.WriteLine("UTILISER LES FLECHES DE DROITE ET DE GAUCHE POUR AFFICHER LES PRODUITS");
+            Console.WriteLine("APPUYER SUR P POUR FAIRE VOTRE PANIER");
+            Console.WriteLine("APPUYER SUR V POUR VALIDEZ VOS ACHATS\n");
+            Console.WriteLine("Voici nos produit(s) : \n");
         }
         #endregion
     }

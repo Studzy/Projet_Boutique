@@ -63,10 +63,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BoutiqueBDDLibrary\BoutiqueBDDLibrary.csproj">
-      <Project>{39101668-b657-41b9-b10b-740357feaa32}</Project>
-      <Name>BoutiqueBDDLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BoutiqueLibrary\BoutiqueLibrary.csproj">
       <Project>{c08e16df-2b93-414e-8143-cf5d31ffd92d}</Project>
       <Name>BoutiqueLibrary</Name>

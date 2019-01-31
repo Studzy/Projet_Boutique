@@ -67,6 +67,10 @@ namespace BoutiqueBDDLibrary
     #endregion
     public class FonctionsConsole
     {
+        //-------------------------------------------------//
+        //               [PARTIE QUENTIN]                  //
+        //-------------------------------------------------//
+
         //Autres
         #region Masque le mot de passe
         /// <summary>
@@ -380,6 +384,426 @@ namespace BoutiqueBDDLibrary
         }
         #endregion
 
+        //-------------------------------------------------//
+        //               [PARTIE JEREMY]                   //
+        //-------------------------------------------------//
+
+        //Produits
+        #region AfficherLesProduits
+        public static void AfficherLesProduits()
+        {
+            Console.Clear();
+            Fonctions.DisplayProduct();
+            Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
+            while (Console.ReadKey(true).Key != ConsoleKey.Enter)
+            {
+                Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
+            }
+        }
+        #endregion
+
+        #region Patern Produit
+        /// <summary>
+        /// Modèle qui permet de modifier un produit.
+        /// </summary>
+        public static void PaternProduit(string x, BoutiqueBDDLibrary.Produit p)
+        {
+            bool MesTests = false;
+            while (!MesTests)
+            {
+                try
+                {
+                    Console.Write("Nom du produit : ");
+                    p.Nom_Produit = Console.ReadLine();
+                    MesTests = true;
+                }
+                catch (FonctionsConsole.MonMessageErreur error)
+                {
+                    Console.WriteLine(error.errorMessage);
+                }
+            }
+            MesTests = false;
+
+            while (!MesTests)
+            {
+                Console.Write("TVA du produit : ");
+                x = Console.ReadLine();
+                try
+                {
+                    p.TVA = Convert.ToDecimal(x);
+                    MesTests = true;
+                }
+                catch (FonctionsConsole.MonMessageErreur e)
+                {
+                    Console.WriteLine(e.errorMessage);
+                }
+            }
+            MesTests = false;
+
+            while (!MesTests)
+            {
+                try
+                {
+
+                    Console.Write("Prix du produit : ");
+                    x = Console.ReadLine();
+                    p.Prix_Produit = Convert.ToDecimal(x);
+                    MesTests = true;
+                }
+                catch (FonctionsConsole.MonMessageErreur e)
+                {
+                    Console.WriteLine(e.errorMessage);
+                }
+            }
+
+            Console.Write("Remise du produit : ");
+            x = Console.ReadLine();
+            if (x == "")
+            {
+                p.Remise_Produit = 0;
+            }
+            else
+            {
+                p.Remise_Produit = Convert.ToDecimal(x);
+            }
+
+            while (!MesTests)
+            {
+                try
+                {
+                    Console.Write("Description du produit : ");
+                    p.Description_Produit = Console.ReadLine();
+                    MesTests = true;
+                }
+                catch (FonctionsConsole.MonMessageErreur e)
+                {
+                    Console.WriteLine(e.errorMessage);
+                }
+            }
+            MesTests = false;
+
+            while (!MesTests)
+            {
+                try
+                {
+                    Console.Write("Description du produit : ");
+                    p.Description_Produit = Console.ReadLine();
+                    MesTests = true;
+                }
+                catch (FonctionsConsole.MonMessageErreur e)
+                {
+                    Console.WriteLine(e.errorMessage);
+                }
+            }
+            MesTests = false;
+
+            while (!MesTests)
+            {
+                try
+                {
+                    Console.Write("Valeur nutritionnelle du produit : ");
+                    x = Console.ReadLine();
+                    p.Val_Nutrition_Produit = Convert.ToInt32(x);
+                    MesTests = true;
+                }
+                catch (FonctionsConsole.MonMessageErreur e)
+                {
+                    Console.WriteLine(e.errorMessage);
+                }
+            }
+            MesTests = false;
+
+            while (!MesTests)
+            {
+                try
+                {
+                    Console.Write("Categorie du produit : ");
+                    Categorie categorie = new Categorie();
+                    categorie.Nom_categorie = Console.ReadLine();
+                    IdTrouve testCategorie = DataAccess.VerificationCategorie(categorie.Nom_categorie);
+
+                    if (!testCategorie.Trouve)
+                    {
+                        DataAccess.AddCategorie(categorie);
+                        p.FK_Id_Categorie = DataAccess.VerificationCategorie(categorie.Nom_categorie).Id;
+                    }
+                    else
+                    {
+                        p.FK_Id_Categorie = testCategorie.Id;
+                    }
+                    MesTests = true;
+                }
+                catch (FonctionsConsole.MonMessageErreur e)
+                {
+                    Console.WriteLine(e.errorMessage);
+                }
+            }
+            MesTests = false;
+
+
+            while (!MesTests)
+            {
+                try
+                {
+                    Console.Write("Origine du produit : ");
+                    Origine origine = new Origine();
+                    origine.Nom_Origine = Console.ReadLine();
+                    IdTrouve testOrigine = DataAccess.VerificationOrigine(origine.Nom_Origine);
+
+                    if (!testOrigine.Trouve)
+                    {
+                        DataAccess.AddOrigine(origine);
+                        p.FK_Id_Origine = DataAccess.VerificationOrigine(origine.Nom_Origine).Id;
+                    }
+                    else
+                    {
+                        p.FK_Id_Origine = testOrigine.Id;
+                    }
+                    MesTests = true;
+                }
+                catch (FonctionsConsole.MonMessageErreur e)
+                {
+                    Console.WriteLine(e.errorMessage);
+                }
+            }
+            MesTests = false;
+            while (!MesTests)
+            {
+                try
+                {
+                    Console.Write("Unite du produit : ");
+                    Unite unite = new Unite();
+                    unite.Libelle_unite = Console.ReadLine();
+                    IdTrouve testUnite =DataAccess.VerificationUnite(unite.Libelle_unite);
+
+                    if (!testUnite.Trouve)
+                    {
+                        DataAccess.AddUnite(unite);
+                        p.FK_Id_Unite = DataAccess.VerificationUnite(unite.Libelle_unite).Id;
+                    }
+                    else
+                    {
+                        p.FK_Id_Unite = testUnite.Id;
+                    }
+                    MesTests = true;
+                }
+                catch (FonctionsConsole.MonMessageErreur e)
+                {
+                    Console.WriteLine(e.errorMessage);
+                }
+            }
+            MesTests = false;
+        }
+        #endregion
+
+        #region Ajoute un produit
+        /// <summary>
+        /// Ajoute un produit 
+        /// </summary>
+        public static void AjouterProduit()
+        {
+            Console.Clear();
+            string x = "";
+            Produit p = new Produit();
+            PaternProduit(x, p);
+            DataAccess.AddProduct(p);
+            Console.WriteLine("Votre produit a bien été ajouté !");
+        }
+        #endregion
+
+        #region Acheter un produits
+        /// <summary>
+        /// CODE A COMMENTER DEBROUILLE TOI JEREMY AHA :p
+        /// </summary>
+        public static void AcheterProduit()
+        {
+            Fonctions.AfficherMenuAcheter();
+            List<Produit> Panier = new List<Produit>();
+            List<Commande> ListeCommande = new List<Commande>();
+            decimal PrixPanier = 0;
+            int start = 0;
+            Fonctions.Display10Product(start, "Nom_Produit");
+            List<Produit> AllProduits = new List<Produit>();
+            AllProduits = DataAccess.GetAllProducts();
+            decimal taille = AllProduits.Count;
+            int pageActuel = 1;
+            decimal calcul = (taille / 5m);
+            decimal pagesTotal = Math.Ceiling(calcul);
+            Console.WriteLine("\n Page {0} sur {1}", pageActuel, pagesTotal);
+            bool display = false;
+            while (display == false)
+            {
+                switch (Console.ReadKey(true).Key)
+                {
+                    case ConsoleKey.Enter:
+                        Fonctions.AfficherMenuAcheter();
+                        start = 0;
+                        Fonctions.Display10Product(start, "Nom_Produit");
+                        AllProduits = DataAccess.GetAllProducts();
+                        taille = AllProduits.Count;
+                        pageActuel = 1;
+                        calcul = taille / 5;
+                        pagesTotal = Math.Ceiling(calcul);
+                        Console.WriteLine(pagesTotal);
+                        Console.WriteLine("\n Page {0} sur {1}", pageActuel, pagesTotal);
+                        break;
+                    case ConsoleKey.RightArrow:
+                        Fonctions.AfficherMenuAcheter();
+                        if (start < taille - 5)
+                        {
+                            start = start + 5;
+                            pageActuel = pageActuel + 1;
+                        }
+
+                        Fonctions.Display10Product(start, "Nom_Produit");
+                        Console.WriteLine("\n Page {0} sur {1}", pageActuel, pagesTotal);
+                        break;
+                    case ConsoleKey.P: // PANIER
+                        Console.Clear();
+                        Console.WriteLine("Voici nos produit(s) : \n");
+                        Fonctions.Display10Product(start, "Nom_Produit");
+                        Console.WriteLine("\n Page {0} sur {1} \n\n", pageActuel, pagesTotal);
+
+                        Console.WriteLine("Selectionnez vos produtis en choississant leur numero");
+                        Console.WriteLine("Validez en appuyant sur V");
+                        bool test = false;
+                        while (test == false)
+                        {
+                            Commande commande = new Commande();
+                            Produit produit = new Produit();
+                            string message = Console.ReadLine();
+                            if (message == "V" || message == "v")
+                            {
+                                test = true;
+                            }
+                            else
+                            {
+                                int numero = Convert.ToInt32(message);
+                                produit = DataAccess.GetOneProductById(numero);
+                                commande.FK_Id_Produit = numero;
+                                Console.WriteLine("Combien ?");
+                                message = Console.ReadLine();
+                                numero = Convert.ToInt32(message);
+                                PrixPanier = PrixPanier + (produit.Prix_Produit * numero);
+                                commande.Qtite_Produit = numero;
+                                int numfacture = DataAccess.GetLastNumFacture();
+                                commande.FK_Id_Facture = numfacture;
+                                ListeCommande.Add(commande);
+                                for (int i = 0; i < numero; i++)
+                                {
+                                    Panier.Add(produit);
+                                }
+                                Console.WriteLine("Votre produit a été ajouter au panier !");
+                            }
+                        }
+                        Console.WriteLine("Voici votre commande : ");
+                        for (int i = 0; i < ListeCommande.Count; i++)
+                        {
+                            Produit produitCommander = new Produit();
+                            produitCommander = DataAccess.GetOneProductById(ListeCommande[i].FK_Id_Produit);
+                            Console.WriteLine("{0} : x {1}", produitCommander.Nom_Produit, ListeCommande[i].Qtite_Produit);
+                        }
+                        Console.WriteLine("Le prix de votre panier est de : " + PrixPanier + "e \n");
+                        Console.WriteLine("Confirmez vos achats O/N");
+
+                        switch (Console.ReadKey(true).Key)
+                        {
+                            case ConsoleKey.O:
+                                Facture facture = new Facture();
+                                OptionPaiement paiement = new OptionPaiement();
+                                IFP ifp = new IFP();
+                                List<OptionPaiement> optionPaiements = new List<OptionPaiement>();
+
+                                for (int i = 0; i < ListeCommande.Count; i++)
+                                {
+                                    DataAccess.AddCommande(ListeCommande[i]);
+                                }
+
+                                int numfacture = DataAccess.GetLastNumFacture();
+                                numfacture = numfacture + 1;
+                                int IdClient = 3;
+                                DateTime DateDuJour = DateTime.Today;
+                                facture.Num_facture = numfacture;
+                                facture.Date_facture = DateDuJour;
+                                facture.Montant_total = PrixPanier;
+                                facture.Fk_Id_Client = IdClient;
+                                DataAccess.AddFacture(facture);
+                                while (PrixPanier != 0)
+                                {
+                                    optionPaiements = DataAccess.GetAllPayement();
+                                    Console.WriteLine("Voici nos differents moyens de paiements : ");
+
+                                    for (int i = 0; i < optionPaiements.Count; i++)
+                                    {
+                                        Console.WriteLine("\n\t - {0} {1} \n", optionPaiements[i].Id_Paiement, optionPaiements[i].Libelle_paiement);
+                                    }
+                                    Console.Write("Choisissez votre moyens de paiements en indiquant le numero correspondants : ");
+                                    string ChoixUser = Console.ReadLine();
+                                    int numeroPaiement = Convert.ToInt32(ChoixUser);
+                                    ifp.FK_Id_Paiement = numeroPaiement;
+                                    Console.Write("Il vous reste {0}e a payé, combien souhaitez vous regler ?", PrixPanier);
+                                    ChoixUser = Console.ReadLine();
+                                    decimal Payer = Convert.ToDecimal(ChoixUser);
+                                    ifp.Montant_Paiement = Payer;
+                                    PrixPanier = PrixPanier - Payer;
+                                    ifp.FK_Id_Facture = numfacture;
+
+                                    DataAccess.AddIFP(ifp);
+                                }
+                                display = true;
+                                break;
+                            case ConsoleKey.N:
+                                Console.WriteLine("Appuyez sur entrée pour continuer");
+                                break;
+                        }
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        Fonctions.AfficherMenuAcheter();
+
+                        if (start >= 5)
+                        {
+                            start = start - 5;
+                            pageActuel = pageActuel - 1;
+                        }
+                        Fonctions.Display10Product(start, "Nom_Produit");
+                        Console.WriteLine("\n Page {0} sur {1}", pageActuel, pagesTotal);
+                        //Console.WriteLine("Fleche de gauche");
+                        break;
+                    case ConsoleKey.V:
+                        switch (Console.ReadKey(true).Key)
+                        {
+                            case ConsoleKey.O:
+                                Facture facture = new Facture();
+                                //Commande commande = new Commande();
+                                for (int i = 0; i < ListeCommande.Count; i++)
+                                {
+                                    DataAccess.AddCommande(ListeCommande[i]);
+                                }
+                                int numfacture = DataAccess.GetLastNumFacture();
+                                numfacture = numfacture + 1;
+                                int IdClient = 3;
+                                DateTime DateDuJour = DateTime.Today;
+                                facture.Num_facture = numfacture;
+                                facture.Date_facture = DateDuJour;
+                                facture.Montant_total = PrixPanier;
+                                facture.Fk_Id_Client = IdClient;
+                                DataAccess.AddFacture(facture);
+                                display = true;
+                                break;
+                            case ConsoleKey.N:
+                                Console.WriteLine("Appuyez sur entrée pour continuer");
+                                break;
+                        }
+                        break;
+                }
+            }
+        }
+        #endregion
+
+        //-------------------------------------------------//
+        //              [PARTIE COMMUNE]                   //
+        //-------------------------------------------------//
+
         //Vérifications de chants
         public static bool VerifieSiQueDesLettres(string mot)
         {
@@ -410,7 +834,6 @@ namespace BoutiqueBDDLibrary
         {
             if (string.IsNullOrWhiteSpace(email))
                 return false;
-
             try
             {
                 // Normalize the domain
@@ -437,10 +860,8 @@ namespace BoutiqueBDDLibrary
             {
                 return false;
             }
-
             try
             {
-
                 return Regex.IsMatch(email,
                     @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
                     @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",

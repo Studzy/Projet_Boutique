@@ -1,6 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-
-namespace BoutiqueBDDLibrary
+﻿namespace BoutiqueBDDLibrary
 {
     public class Commande
     {
@@ -42,30 +40,6 @@ namespace BoutiqueBDDLibrary
         /// COMMENTAIRE A MODIFIER CAR NON FINI Qtite_Produit
         /// </summary>
         public int Qtite_Produit { get => qtite_Produit; set => qtite_Produit = value; }
-        #endregion
-
-        //Base de données
-        #region [BDD] Ajouter une commande
-        /// <summary>
-        /// Requête SQL qui ajoute une commande à la table "commande".
-        /// </summary>
-        public static void AddCommande(Commande commande)
-        {
-            using (MySqlConnection db =
-            new MySqlConnection(DataAccessJL.CHEMINBDD))
-            {
-                db.Open();
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
-
-                insertCommand.CommandText = "INSERT INTO commande (FK_Id_Facture, FK_Id_Produit, Qtite_Produit) VALUES (@FK_Id_Facture, @FK_Id_Produit, @Qtite_Produit)";
-
-                insertCommand.Parameters.AddWithValue("@FK_Id_Facture", commande.FK_Id_Facture);
-                insertCommand.Parameters.AddWithValue("@FK_Id_Produit", commande.FK_Id_Produit);
-                insertCommand.Parameters.AddWithValue("@Qtite_Produit", commande.Qtite_Produit);
-                insertCommand.ExecuteReader();
-            }       
-        }
         #endregion
     }
 }

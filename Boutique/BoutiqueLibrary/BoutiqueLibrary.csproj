@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BoutiqueBDDLibrary\BoutiqueBDDLibrary.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="MySql.Data">
       <HintPath>..\..\mysql-connector.h\MySql.Data.dll</HintPath>
     </Reference>

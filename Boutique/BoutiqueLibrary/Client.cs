@@ -164,6 +164,5 @@ namespace BoutiqueBDDLibrary
         #region Nom_Ville
         public string nom_Ville { get => Nom_Ville; set => Nom_Ville = value; }
         #endregion
-
     }
 }
