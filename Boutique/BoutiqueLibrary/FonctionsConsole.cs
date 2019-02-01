@@ -428,9 +428,10 @@ namespace BoutiqueBDDLibrary
             while (!MesTests)
             {
                 Console.Write("TVA du produit : ");
-                x = Console.ReadLine();
                 try
                 {
+                    x = Console.ReadLine();
+                    x = x.Replace('.', ',');
                     NbTest = Convert.ToDecimal(x);
                     NbTest = (Math.Round(NbTest, 1));
                     p.TVA = NbTest;
@@ -450,6 +451,7 @@ namespace BoutiqueBDDLibrary
 
                     Console.Write("Prix du produit : ");
                     x = Console.ReadLine();
+                    x = x.Replace('.', ',');
                     NbTest = Convert.ToDecimal(x);
                     NbTest = (Math.Round(NbTest, 3));
                     p.Prix_Produit = NbTest;
@@ -467,9 +469,11 @@ namespace BoutiqueBDDLibrary
                 {
                     Console.Write("Remise du produit : ");
                     x = Console.ReadLine();
+                    x = x.Replace('.', ',');
                     NbTest = Convert.ToDecimal(x);
                     NbTest = (Math.Round(NbTest, 1));
                     p.Remise_Produit = NbTest;
+                    MesTests = true;
                 }
                 catch (FormatException)
                 {
@@ -691,12 +695,16 @@ namespace BoutiqueBDDLibrary
                             {
 
                                 Console.WriteLine(e.Message);
+
                             }
                         }
+
                         MesTest = false;
+
                         Console.Clear();
                         Fonctions.AfficherMenuAcheter();
                         Fonctions.DisplayLimitProduct(start, TrierPar, limit);
+
                         break;
                     case ConsoleKey.Enter:
                         Fonctions.AfficherMenuAcheter();
@@ -782,11 +790,6 @@ namespace BoutiqueBDDLibrary
                                 OptionPaiement paiement = new OptionPaiement();
                                 IFP ifp = new IFP();
                                 List<OptionPaiement> optionPaiements = new List<OptionPaiement>();
-
-                                //Commande commande = new Commande();
-
-
-
                                 int numfacture = DataAccess.GetLastNumFacture();
                                 numfacture = numfacture + 1;
                                 //int IdClient = 3;
@@ -971,7 +974,7 @@ namespace BoutiqueBDDLibrary
 
         public static void verifDecimal(decimal NbDecimal)
         {
-            if (NbDecimal < 0)
+            if (NbDecimal < 0 )
             {
                 throw new FormatException("Cette valeur n'est pas valide");
             }

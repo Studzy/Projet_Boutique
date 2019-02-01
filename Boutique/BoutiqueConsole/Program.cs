@@ -18,7 +18,7 @@ namespace BoutiqueConsole
             Console.WriteLine("                                        _ | |___   _  ||[]|[]||  _      | | _ ");
             Console.WriteLine("                                       (!)||OPEN|_(!)_|| ,| ,||_(!)_____| |(!) ");
             Console.WriteLine("                                      .T~T|:.....:T~T.:|__|__|:.T~T.:....:|T~T. ");
-            Console.WriteLine("                                     || _||||||||||_|||||||||||||_||||||||||_|| ");
+            Console.WriteLine("                                      ||_||||||||||_|||||||||||||_||||||||||_|| ");
             Console.WriteLine("                                     ~\\=/~~~~~~~~\\=/~~~~~~~~~~~\\=/~~~~~~~~\\=/~ ");
             Console.WriteLine("                                       | -------- | ----------- | -------- | ");
             Console.WriteLine("                                     ~ |~^ ^~~^ ~~| ~^  ~~ ^~^~ |~ ^~^ ~~^ |^~ \n\n");
@@ -28,10 +28,6 @@ namespace BoutiqueConsole
             }
             Console.Clear();
             Fonctions.MenuPrincipal();
-
-            //ON TEST LES BRANCHES 
-            //AVEC LES BRANCHES QUENTIN ET JEREMY
-            //MODIFICATION SUR LA BRANCHE JEREMY
         }
     }
 }

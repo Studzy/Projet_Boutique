@@ -45,6 +45,23 @@ namespace BoutiqueBDDLibrary
                     case ConsoleKey.X:
                         Console.Clear();
                         Console.WriteLine("Merci, et à bientôt !");
+                        Console.WriteLine("                         ¶¶¶¶¶¶¶¶¶¶¶¶ ");
+                        Console.WriteLine("                         ¶¶            ¶¶ ");
+                        Console.WriteLine("           ¶¶¶¶¶        ¶¶                ¶¶ ");
+                        Console.WriteLine("           ¶     ¶     ¶¶      ¶¶    ¶¶     ¶¶ ");
+                        Console.WriteLine("            ¶     ¶    ¶¶       ¶¶    ¶¶      ¶¶ ");
+                        Console.WriteLine("             ¶    ¶   ¶¶        ¶¶    ¶¶      ¶¶ ");
+                        Console.WriteLine("              ¶   ¶   ¶                         ¶¶ ");
+                        Console.WriteLine("            ¶¶¶¶¶¶¶¶¶¶¶¶                         ¶¶ ");
+                        Console.WriteLine("           ¶            ¶    ¶¶            ¶¶    ¶¶ ");
+                        Console.WriteLine("          ¶¶            ¶    ¶¶            ¶¶    ¶¶ ");
+                        Console.WriteLine("         ¶¶   ¶¶¶¶¶¶¶¶¶¶¶      ¶¶        ¶¶     ¶¶ ");
+                        Console.WriteLine("          ¶               ¶       ¶¶¶¶¶¶¶       ¶¶ ");
+                        Console.WriteLine("         ¶¶              ¶                    ¶¶ ");
+                        Console.WriteLine("          ¶   ¶¶¶¶¶¶¶¶¶¶¶¶                   ¶¶ ");
+                        Console.WriteLine("          ¶¶           ¶  ¶¶                ¶¶ ");
+                        Console.WriteLine("          ¶¶¶¶¶¶¶¶¶¶¶¶    ¶¶            ¶¶");
+                        Console.WriteLine("                          ¶¶¶¶¶¶¶¶¶¶¶");
                         Console.ReadKey();
                         return;
                 }

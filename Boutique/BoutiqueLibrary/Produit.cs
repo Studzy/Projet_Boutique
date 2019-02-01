@@ -98,7 +98,7 @@
             get => description_produit;
             set
             {
-                if (value.Length < 1 || value.Length > 65.535)
+                if (value.Length > 65535)
                 {
                     throw new FonctionsConsole.MonMessageErreur("ERREUR: La taille est invalide");
                 }
