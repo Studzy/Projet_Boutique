@@ -29,7 +29,9 @@ namespace BoutiqueConsole
             Console.Clear();
             Fonctions.MenuPrincipal();
 
-            //TEST REBASE !!!!
+            //ON TEST LES BRANCHES 
+            //AVEC LES BRANCHES QUENTIN ET JEREMY
+            //MODIFICATION SUR LA BRANCHE JEREMY
         }
     }
 }
