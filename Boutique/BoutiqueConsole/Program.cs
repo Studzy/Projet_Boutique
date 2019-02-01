@@ -7,16 +7,16 @@ namespace BoutiqueConsole
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("                                          _______________________________  ");
-            Console.WriteLine("                                         [=U=U=U=U=U=U=U=U=U=U=U=U=U=U=U=] ");
-            Console.WriteLine("                                         |.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.| ");
-            Console.WriteLine("                                         |        +-+-+-+-+-+-+-+        | ");
-            Console.WriteLine("                                         |        |   BOUTIQUE  |        | ");
-            Console.WriteLine("                                         |        +-+-+-+-+-+-+-+        | ");
-            Console.WriteLine("                                         |.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.| ");
-            Console.WriteLine("                                         |  _________  __ __  _________  | ");
-            Console.WriteLine("                                       _ | |___   _  ||[]|[]||  _      | | _ ");
-            Console.WriteLine("                                      (!)||OPEN|_(!)_|| ,| ,||_(!)_____| |(!) ");
+            Console.WriteLine("                                           _______________________________  ");
+            Console.WriteLine("                                          [=U=U=U=U=U=U=U=U=U=U=U=U=U=U=U=] ");
+            Console.WriteLine("                                          |.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.| ");
+            Console.WriteLine("                                          |        +-+-+-+-+-+-+-+        | ");
+            Console.WriteLine("                                          |        |   BOUTIQUE  |        | ");
+            Console.WriteLine("                                          |        +-+-+-+-+-+-+-+        | ");
+            Console.WriteLine("                                          |.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.| ");
+            Console.WriteLine("                                          |  _________  __ __  _________  | ");
+            Console.WriteLine("                                        _ | |___   _  ||[]|[]||  _      | | _ ");
+            Console.WriteLine("                                       (!)||OPEN|_(!)_|| ,| ,||_(!)_____| |(!) ");
             Console.WriteLine("                                      .T~T|:.....:T~T.:|__|__|:.T~T.:....:|T~T. ");
             Console.WriteLine("                                     || _||||||||||_|||||||||||||_||||||||||_|| ");
             Console.WriteLine("                                     ~\\=/~~~~~~~~\\=/~~~~~~~~~~~\\=/~~~~~~~~\\=/~ ");
