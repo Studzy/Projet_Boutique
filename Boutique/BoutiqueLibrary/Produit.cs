@@ -54,14 +54,9 @@
             set
             {
 
-                if (typeof(decimal).IsAssignableFrom(value.GetType()))
-                {
-                    tva = value;
-                }
-                else
-                {
-                    throw new FonctionsConsole.MonMessageErreur("");
-                }
+                FonctionsConsole.verifDecimal(value);
+                tva = value;
+
             }
         }
         #endregion
@@ -75,14 +70,9 @@
             get => prix_produit;
             set
             {
-                try
-                {
-                    prix_produit = value;
-                }
-                catch (FonctionsConsole.MonMessageErreur)
-                {
-                    throw new FonctionsConsole.MonMessageErreur("La valeur n'est pas valable");
-                }
+                FonctionsConsole.verifDecimal(value);
+                prix_produit = value;
+
             }
         }
         #endregion
@@ -96,14 +86,8 @@
             get => remise_produit;
             set
             {
-                try
-                {
-                    remise_produit = value;
-                }
-                catch (FonctionsConsole.MonMessageErreur)
-                {
-                    throw new FonctionsConsole.MonMessageErreur("La valeur n'est pas valable");
-                }
+                FonctionsConsole.verifDecimal(value);
+                remise_produit = value;
             }
         }
         #endregion
@@ -114,13 +98,13 @@
             get => description_produit;
             set
             {
-                try
+                if (value.Length < 1 || value.Length > 65.535)
                 {
-                    description_produit = value;
+                    throw new FonctionsConsole.MonMessageErreur("ERREUR: La taille est invalide");
                 }
-                catch (FonctionsConsole.MonMessageErreur)
-                {
-                    throw new FonctionsConsole.MonMessageErreur("La description n'est pas valable");
+                else
+	            {
+                    description_produit = value;
                 }
             }
         }
@@ -144,7 +128,7 @@
 
                     throw new FonctionsConsole.MonMessageErreur("Cette valeur n'est pas valide");
                 }
-                
+
             }
         }
         #endregion

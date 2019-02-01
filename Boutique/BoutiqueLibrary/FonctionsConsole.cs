@@ -408,6 +408,7 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         public static void PaternProduit(string x, BoutiqueBDDLibrary.Produit p)
         {
+            decimal NbTest;
             bool MesTests = false;
             while (!MesTests)
             {
@@ -417,7 +418,7 @@ namespace BoutiqueBDDLibrary
                     p.Nom_Produit = Console.ReadLine();
                     MesTests = true;
                 }
-                catch (FonctionsConsole.MonMessageErreur error)
+                catch (MonMessageErreur error)
                 {
                     Console.WriteLine(error.errorMessage);
                 }
@@ -430,12 +431,14 @@ namespace BoutiqueBDDLibrary
                 x = Console.ReadLine();
                 try
                 {
-                    p.TVA = Convert.ToDecimal(x);
+                    NbTest = Convert.ToDecimal(x);
+                    NbTest = (Math.Round(NbTest, 1));
+                    p.TVA = NbTest;
                     MesTests = true;
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("Cette valeur n'est pas valide");
+                    Console.WriteLine("ERREUR: Cette valeur n'est pas decimal");
                 }
             }
             MesTests = false;
@@ -447,12 +450,14 @@ namespace BoutiqueBDDLibrary
 
                     Console.Write("Prix du produit : ");
                     x = Console.ReadLine();
-                    p.Prix_Produit = Convert.ToDecimal(x);
+                    NbTest = Convert.ToDecimal(x);
+                    NbTest = (Math.Round(NbTest, 3));
+                    p.Prix_Produit = NbTest;
                     MesTests = true;
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("Cette valeur n'est pas valide");
+                    Console.WriteLine("ERREUR: Cette valeur n'est pas decimal");
                 }
             }
             MesTests = false;
@@ -462,12 +467,14 @@ namespace BoutiqueBDDLibrary
                 {
                     Console.Write("Remise du produit : ");
                     x = Console.ReadLine();
-                    p.Remise_Produit = Convert.ToDecimal(x);
+                    NbTest = Convert.ToDecimal(x);
+                    NbTest = (Math.Round(NbTest, 1));
+                    p.Remise_Produit = NbTest;
                 }
                 catch (FormatException)
                 {
 
-                    Console.WriteLine("Cette valeur n'est pas valide");
+                    Console.WriteLine("ERREUR: Cette valeur n'est pas valide");
                 }
             }
 
@@ -496,7 +503,7 @@ namespace BoutiqueBDDLibrary
                     p.Description_Produit = Console.ReadLine();
                     MesTests = true;
                 }
-                catch (FonctionsConsole.MonMessageErreur e)
+                catch (MonMessageErreur e)
                 {
                     Console.WriteLine(e.errorMessage);
                 }
@@ -540,7 +547,7 @@ namespace BoutiqueBDDLibrary
                     }
                     MesTests = true;
                 }
-                catch (FonctionsConsole.MonMessageErreur e)
+                catch (MonMessageErreur e)
                 {
                     Console.WriteLine(e.errorMessage);
                 }
@@ -568,7 +575,7 @@ namespace BoutiqueBDDLibrary
                     }
                     MesTests = true;
                 }
-                catch (FonctionsConsole.MonMessageErreur e)
+                catch (MonMessageErreur e)
                 {
                     Console.WriteLine(e.errorMessage);
                 }
@@ -594,7 +601,7 @@ namespace BoutiqueBDDLibrary
                     }
                     MesTests = true;
                 }
-                catch (FonctionsConsole.MonMessageErreur e)
+                catch (MonMessageErreur e)
                 {
                     Console.WriteLine(e.errorMessage);
                 }
@@ -680,10 +687,10 @@ namespace BoutiqueBDDLibrary
                                 limit = Convert.ToInt32(Console.ReadLine());
                                 MesTest = true;
                             }
-                            catch (FormatException)
+                            catch (FormatException e)
                             {
 
-                                Console.WriteLine("Cette valeur n'est pas valide");
+                                Console.WriteLine(e.Message);
                             }
                         }
                         MesTest = false;
@@ -961,6 +968,15 @@ namespace BoutiqueBDDLibrary
                 throw new FormatException("L'année de naissance est invalide.");
             }
         }
+
+        public static void verifDecimal(decimal NbDecimal)
+        {
+            if (NbDecimal < 0)
+            {
+                throw new FormatException("Cette valeur n'est pas valide");
+            }
+        }
+
         public static bool verifMotDePasse(string valeur)
         {
             while (true)

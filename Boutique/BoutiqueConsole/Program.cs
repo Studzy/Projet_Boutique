@@ -28,6 +28,8 @@ namespace BoutiqueConsole
             }
             Console.Clear();
             Fonctions.MenuPrincipal();
+
+            //TEST REBASE !!!!
         }
     }
 }
