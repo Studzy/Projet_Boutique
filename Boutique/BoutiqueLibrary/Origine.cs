@@ -42,7 +42,7 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         public string Nom_Origine
         {
-            get => nom_Origine;
+            get => nom_Origine.ToUpper();
             set
             {
                 if (value.Length < 1 || value.Length > 50 || !FonctionsConsole.VerifieSiQueDesLettres(value))

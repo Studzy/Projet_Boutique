@@ -750,7 +750,6 @@ namespace BoutiqueBDDLibrary
         public static void ModifierProduit()
         {
             string Nom = "";
-            string x = "";
             Produit p = new Produit();
             Console.WriteLine("MODE ADMIN");
             Console.WriteLine("MODIFIER UN PRODUIT DANS LA BASE DE DONNEES");
@@ -760,7 +759,7 @@ namespace BoutiqueBDDLibrary
             if (produit.Nom_Produit != "Rien")
             {
                 Console.WriteLine();
-                FonctionsConsole.PaternProduit(x, p);
+                FonctionsConsole.PaternProduit(p);
                 DataAccess.ModifyOneProduct(Nom, p);
                 Console.WriteLine("Votre produit a été modifier avec succès.");
             }
@@ -799,10 +798,51 @@ namespace BoutiqueBDDLibrary
             Console.WriteLine("APPUYER SUR A POUR DEFINIR LE NOMBRE DE PRODUIT AFFICHER EN UNE PAGE");
             Console.WriteLine("APPUYER SUR T POUR TRIER LES PRODUITS");
             Console.WriteLine("APPUYER SUR V POUR VALIDEZ VOS ACHATS");
+            Console.WriteLine("APPUYER SUR Q POUR QUITTEZ");
             Console.WriteLine();
             Console.WriteLine("Voici nos produit(s) : ");
             Console.WriteLine();
         }
+        #endregion
+
+        #region [Interface] Affiche le panier
+
+        public static void AffichePanier(List<Commande> list)
+        {
+            Console.WriteLine("Voici votre Panier : ");
+            for (int i = 0; i < list.Count; i++)
+            {
+                Produit produitCommander = new Produit();
+                produitCommander = DataAccess.GetOneProductById(list[i].FK_Id_Produit);
+                Console.WriteLine((i + 1) + ". {0} : x {1} = {2}e", produitCommander.Nom_Produit, list[i].Qtite_Produit, (produitCommander.Prix_Produit * list[i].Qtite_Produit));
+            }
+        }
+        #endregion
+
+        #region Calcul Le nombre de page total
+
+        public static decimal CalculPageMax(decimal taille, int limit)
+        {
+            decimal calcul = (taille / limit);
+            return calcul;
+        }
+
+        #endregion
+
+        #region Calcul le prix du panier
+
+        public static decimal CalculPanier(List<Commande> list)
+        {
+            decimal resultat = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                Produit produitCommander = new Produit();
+                produitCommander = DataAccess.GetOneProductById(list[i].FK_Id_Produit);
+                resultat = resultat + (produitCommander.Prix_Produit * list[i].Qtite_Produit);
+            }
+            return resultat;
+        }
+
         #endregion
     }
 }

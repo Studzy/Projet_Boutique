@@ -4,7 +4,7 @@
     {
         //Déclaration des variables
         private int id_Produit;
-        private string Nom_produit;
+        private string nom_produit;
         private decimal tva;
         private decimal prix_produit;
         private decimal remise_produit;
@@ -23,22 +23,39 @@
         }
 
         //Get;Set; Vérifications
+
+        #region Id_Produit
+        /// <summary>
+        /// COMMENTAIRE A MODIFIER CAR NON FINI
+        /// </summary>
+        public int Id_Produit
+        {
+            get => id_Produit;
+            set
+            {
+
+                id_Produit = value;
+
+            }
+        }
+        #endregion
+
         #region Nom_Produit
         /// <summary>
         /// Vérifie si le nom du produit est un string qui comporte au maximum 50 caractères.
         /// </summary>
         public string Nom_Produit
         {
-            get => Nom_produit;
+            get => nom_produit;
             set
             {
                 if (value.Length < 1 || value.Length > 50 || !FonctionsConsole.VerifieSiQueDesLettres(value))
                 {
-                    throw new FonctionsConsole.MonMessageErreur("Le nom n'est pas valable");
+                    throw new FonctionsConsole.MonMessageErreur("ERREUR: Le nom n'est pas valable");
                 }
                 else
                 {
-                    Nom_produit = value;
+                    nom_produit = value;
                 }
             }
         }
@@ -103,7 +120,7 @@
                     throw new FonctionsConsole.MonMessageErreur("ERREUR: La taille est invalide");
                 }
                 else
-	            {
+                {
                     description_produit = value;
                 }
             }
@@ -196,26 +213,7 @@
         }
         #endregion
 
-        #region Id_Produit
-        /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI
-        /// </summary>
-        public int Id_Produit
-        {
-            get => id_Produit;
-            set
-            {
-                try
-                {
-                    id_Produit = value;
-                }
-                catch (FonctionsConsole.MonMessageErreur)
-                {
-                    throw new FonctionsConsole.MonMessageErreur("La valeur n'est pas valable");
-                }
-            }
-        }
-        #endregion
+
 
         #region Nom_Categorie
         /// <summary>

@@ -39,7 +39,16 @@
         /// <summary>
         /// COMMENTAIRE A MODIFIER CAR NON FINI Qtite_Produit
         /// </summary>
-        public int Qtite_Produit { get => qtite_Produit; set => qtite_Produit = value; }
+        public int Qtite_Produit
+        {
+            get => qtite_Produit;
+            set
+            {
+                FonctionsConsole.verifInt(value);
+                qtite_Produit = value;
+
+            }
+        }
         #endregion
     }
 }

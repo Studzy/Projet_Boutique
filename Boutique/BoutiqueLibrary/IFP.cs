@@ -39,7 +39,16 @@
         /// <summary>
         /// COMMENTAIRE A MODIFIER CAR NON FINI Montant_Paiement
         /// </summary>
-        public decimal Montant_Paiement { get => montant_Paiement; set => montant_Paiement = value; }
+        public decimal Montant_Paiement
+        {
+            get => montant_Paiement;
+            set
+            {
+                FonctionsConsole.verifDecimal(value);
+                montant_Paiement = value;
+
+            }
+        }
         #endregion
     }
 }

@@ -815,11 +815,64 @@ namespace BoutiqueBDDLibrary
                 }
                 else
                 {
-                    p.Nom_origine = "Rien";
+                    p.Nom_Produit = "Rien";
                 }
             }
             return p;
         }
+        #endregion
+
+        #region [BDD] Affiche les produits trier par nom
+
+        public static List<Produit> GetAllProductsByName(int start, int limit)
+        {
+            List<Produit> entries = new List<Produit>();
+
+            using (MySqlConnection db =
+            new MySqlConnection(DataAccess.CHEMINBDD))
+            {
+                db.Open();
+
+                MySqlCommand insertCommand = new MySqlCommand();
+                insertCommand.Connection = db;
+                insertCommand.CommandText = "SELECT Id_Produit, Nom_Produit, Nom_Categorie, Nom_Origine, Prix_Produit, Libelle_Unite, Description_Produit, ValNutrition_Produit FROM produit INNER JOIN origine ON origine.Id_Origine = produit.FK_Id_Origine INNER JOIN unite ON unite.Id_Unite = produit.FK_Id_Unite INNER JOIN categorie ON categorie.Id_Categorie = produit.FK_Id_Categorie ORDER BY @order LIMIT @limit OFFSET @start ;";
+
+                insertCommand.Parameters.AddWithValue("@start", start);
+                insertCommand.Parameters.AddWithValue("@limit", limit);
+
+                MySqlDataReader query = insertCommand.ExecuteReader();
+
+                while (query.Read())
+                {
+                    Produit produit = new Produit();
+                    produit.Id_Produit = query.GetInt32(0);
+                    produit.Nom_Produit = query.GetString(1);
+                    produit.Nom_categorie = query.GetString(2);
+                    produit.Nom_origine = query.GetString(3);
+                    produit.Prix_Produit = query.GetDecimal(4);
+                    produit.Libelle_unite = query.GetString(5);
+                    if (!DBNull.Value.Equals(query.GetValue(6)))
+                    {
+                        produit.Description_Produit = query.GetString(6);
+                    }
+                    else
+                    {
+                        produit.Description_Produit = "";
+                    }
+                    //produit.Description_Produit = query.GetString(5);
+                    produit.Val_Nutrition_Produit = query.GetInt32(7);
+                    entries.Add(produit);
+                }
+            }
+            return entries;
+        }
+
+        #endregion
+
+        #region [BDD] Affiche les produits trier par categorie
+        #endregion
+
+        #region [BDD] Affiche les produits trier par prix
         #endregion
 
         //Catégorie

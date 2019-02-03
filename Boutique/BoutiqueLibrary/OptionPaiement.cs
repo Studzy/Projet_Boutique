@@ -23,7 +23,11 @@
         /// <summary>
         /// COMMENTAIRE A MODIFIER CAR NON FINI REMISE_PRODUIT
         /// </summary>
-        public string Libelle_paiement { get => libelle_paiement; set => libelle_paiement = value; }
+        public string Libelle_paiement
+        {
+            get => libelle_paiement;
+            set => libelle_paiement = value;
+        }
         #endregion
     }
 }

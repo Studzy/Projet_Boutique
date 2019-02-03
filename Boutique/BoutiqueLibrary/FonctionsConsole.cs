@@ -406,8 +406,9 @@ namespace BoutiqueBDDLibrary
         /// <summary>
         /// Modèle qui permet de modifier un produit.
         /// </summary>
-        public static void PaternProduit(string x, BoutiqueBDDLibrary.Produit p)
+        public static void PaternProduit(Produit p)
         {
+            string x = "";
             decimal NbTest;
             bool MesTests = false;
             while (!MesTests)
@@ -427,9 +428,10 @@ namespace BoutiqueBDDLibrary
 
             while (!MesTests)
             {
-                Console.Write("TVA du produit : ");
+
                 try
                 {
+                    Console.Write("TVA du produit : ");
                     x = Console.ReadLine();
                     x = x.Replace('.', ',');
                     NbTest = Convert.ToDecimal(x);
@@ -470,6 +472,10 @@ namespace BoutiqueBDDLibrary
                     Console.Write("Remise du produit : ");
                     x = Console.ReadLine();
                     x = x.Replace('.', ',');
+                    if (x == "")
+                    {
+                        x = "0";
+                    }
                     NbTest = Convert.ToDecimal(x);
                     NbTest = (Math.Round(NbTest, 1));
                     p.Remise_Produit = NbTest;
@@ -482,21 +488,6 @@ namespace BoutiqueBDDLibrary
                 }
             }
 
-            MesTests = false;
-            
-            while (!MesTests)
-            {
-                try
-                {
-                    Console.Write("Description du produit : ");
-                    p.Description_Produit = Console.ReadLine();
-                    MesTests = true;
-                }
-                catch (MonMessageErreur e)
-                {
-                    Console.WriteLine(e.errorMessage);
-                }
-            }
             MesTests = false;
 
             while (!MesTests)
@@ -519,14 +510,13 @@ namespace BoutiqueBDDLibrary
                 try
                 {
                     Console.Write("Valeur nutritionnelle du produit : ");
-                    x = Console.ReadLine();
-                    p.Val_Nutrition_Produit = Convert.ToInt32(x);
+                    p.Val_Nutrition_Produit = Convert.ToInt32(Console.ReadLine());
                     MesTests = true;
                 }
                 catch (FormatException)
                 {
 
-                    Console.WriteLine("Cette valeur n'est pas valide");
+                    Console.WriteLine("Cette valeur n'est pas une valeur entière");
                 }
             }
             MesTests = false;
@@ -539,16 +529,6 @@ namespace BoutiqueBDDLibrary
                     Categorie categorie = new Categorie();
                     categorie.Nom_categorie = Console.ReadLine();
                     IdTrouve testCategorie = DataAccess.VerificationCategorie(categorie.Nom_categorie);
-
-                    if (!testCategorie.Trouve)
-                    {
-                        DataAccess.AddCategorie(categorie);
-                        p.FK_Id_Categorie = DataAccess.VerificationCategorie(categorie.Nom_categorie).Id;
-                    }
-                    else
-                    {
-                        p.FK_Id_Categorie = testCategorie.Id;
-                    }
                     MesTests = true;
                 }
                 catch (MonMessageErreur e)
@@ -567,16 +547,6 @@ namespace BoutiqueBDDLibrary
                     Origine origine = new Origine();
                     origine.Nom_Origine = Console.ReadLine();
                     IdTrouve testOrigine = DataAccess.VerificationOrigine(origine.Nom_Origine);
-
-                    if (!testOrigine.Trouve)
-                    {
-                        DataAccess.AddOrigine(origine);
-                        p.FK_Id_Origine = DataAccess.VerificationOrigine(origine.Nom_Origine).Id;
-                    }
-                    else
-                    {
-                        p.FK_Id_Origine = testOrigine.Id;
-                    }
                     MesTests = true;
                 }
                 catch (MonMessageErreur e)
@@ -592,17 +562,7 @@ namespace BoutiqueBDDLibrary
                     Console.Write("Unite du produit : ");
                     Unite unite = new Unite();
                     unite.Libelle_unite = Console.ReadLine();
-                    IdTrouve testUnite =DataAccess.VerificationUnite(unite.Libelle_unite);
-
-                    if (!testUnite.Trouve)
-                    {
-                        DataAccess.AddUnite(unite);
-                        p.FK_Id_Unite = DataAccess.VerificationUnite(unite.Libelle_unite).Id;
-                    }
-                    else
-                    {
-                        p.FK_Id_Unite = testUnite.Id;
-                    }
+                    IdTrouve testUnite = DataAccess.VerificationUnite(unite.Libelle_unite);
                     MesTests = true;
                 }
                 catch (MonMessageErreur e)
@@ -621,25 +581,29 @@ namespace BoutiqueBDDLibrary
         public static void AjouterProduit()
         {
             Console.Clear();
-            string x = "";
             Produit p = new Produit();
-            PaternProduit(x, p);
+            PaternProduit(p);
             DataAccess.AddProduct(p);
             Console.WriteLine("Votre produit a bien été ajouté !");
         }
         #endregion
 
+
         #region Acheter un produits
         /// <summary>
-        /// CODE A COMMENTER DEBROUILLE TOI JEREMY AHA :p
+        /// Interface du client pour faire ses achats
         /// </summary>
         public static void AcheterProduit()
         {
+            #region Initialisation des variables principales
             Fonctions.AfficherMenuAcheter();
             List<Produit> Panier = new List<Produit>();
             List<Commande> ListeCommande = new List<Commande>();
             decimal PrixPanier = 0;
             bool MesTest = false;
+            bool MesTest2 = false;
+            bool MesTest3 = false;
+            string message;
             int IDClientActuel = Fonctions.UtilisateurActuelID; // <------------
             int start = 0;
             int limit = 10; // <---------------
@@ -649,16 +613,20 @@ namespace BoutiqueBDDLibrary
             AllProduits = DataAccess.GetAllProducts();
             decimal taille = AllProduits.Count;
             int pageActuel = 1;
-            decimal calcul = (taille / limit);
-            decimal pagesTotal = Math.Ceiling(calcul);
+            //decimal calcul = (taille / limit);
+            decimal pagesTotal = Math.Ceiling(Fonctions.CalculPageMax(taille, limit));
             Console.WriteLine("\n Page {0} sur {1}", pageActuel, pagesTotal);
             bool display = false;
+            #endregion
+
+
             while (display == false)
 
             {
 
                 switch (Console.ReadKey(true).Key)
                 {
+                    #region Fonctionnalité : trie
                     case ConsoleKey.T: //<-------------
                         Console.Write("Trier par [1] Prix(Croissant), [2] Nom(Ordre Alphabetique) ou [3] Categorie(Ordre Alphabetique) : ");
                         String tri = Console.ReadLine();
@@ -681,8 +649,11 @@ namespace BoutiqueBDDLibrary
                         Fonctions.DisplayLimitProduct(start, TrierPar, limit);
                         Console.ReadKey();
                         break;
+                    #endregion
+
+                    #region Fonctionnalité : Nombre de produit a affiché par pages
                     case ConsoleKey.A: //<-------------
-                        
+
                         while (!MesTest)
                         {
                             try
@@ -700,12 +671,16 @@ namespace BoutiqueBDDLibrary
                         }
 
                         MesTest = false;
-
+                        pagesTotal = Math.Ceiling(Fonctions.CalculPageMax(taille, limit));
                         Console.Clear();
                         Fonctions.AfficherMenuAcheter();
                         Fonctions.DisplayLimitProduct(start, TrierPar, limit);
-
+                        Console.WriteLine("\n Page {0} sur {1}", pageActuel, pagesTotal);
                         break;
+                    #endregion
+
+                    case ConsoleKey.Q:
+                        return;
                     case ConsoleKey.Enter:
                         Fonctions.AfficherMenuAcheter();
                         start = 0;
@@ -713,15 +688,13 @@ namespace BoutiqueBDDLibrary
                         AllProduits = DataAccess.GetAllProducts();
                         taille = AllProduits.Count;
                         pageActuel = 1;
-                        calcul = taille / 5;
-                        pagesTotal = Math.Ceiling(calcul);
+                        pagesTotal = Math.Ceiling(Fonctions.CalculPageMax(taille, limit));
                         Console.WriteLine(pagesTotal);
                         Console.WriteLine("\n Page {0} sur {1}", pageActuel, pagesTotal);
                         break;
+
                     case ConsoleKey.RightArrow:
                         Fonctions.AfficherMenuAcheter();
-
-                        //Console.WriteLine(taille);
                         if (start < taille - limit)
                         {
                             start = start + limit;
@@ -730,61 +703,108 @@ namespace BoutiqueBDDLibrary
 
                         Fonctions.DisplayLimitProduct(start, TrierPar, limit);
                         Console.WriteLine("\n Page {0} sur {1}", pageActuel, pagesTotal);
-                        //Console.WriteLine("Fleche de droite");
                         break;
+
+                    #region Fonctionnalité : Le panier
                     case ConsoleKey.P: // PANIER
                         Console.Clear();
                         Console.WriteLine("Voici nos produit(s) : \n");
                         Fonctions.DisplayLimitProduct(start, TrierPar, limit);
                         Console.WriteLine("\n Page {0} sur {1} \n\n", pageActuel, pagesTotal);
 
-                        Console.WriteLine("Selectionnez vos produtis en choississant leur numero");
+                        Console.WriteLine("Selectionnez vos produits en choississant leur numero");
                         Console.WriteLine("Validez en appuyant sur V");
-                        bool test = false;
-                        while (test == false)
+                        Console.WriteLine("Quittez en appuyant sur Q");
+                        while (!MesTest)
                         {
+
                             Commande commande = new Commande();
                             Produit produit = new Produit();
-                            string message = Console.ReadLine();
-                            if (message == "V" || message == "v")
+                            message = Console.ReadLine();
+                            if (string.IsNullOrWhiteSpace(message))
                             {
-                                test = true;
+                                Console.WriteLine("Veuillez renseigner un champs");
+                            }
+                            else if (message == "Q" || message == "q")
+                            {
+                                return;
+
+                            }
+                            else if (message == "V" || message == "v")
+                            {
+                                MesTest = true;
+                            }
+                            else if (verifieSiQueDesChiffres(message))
+                            {
+                                int numero = 0;
+                                while (!MesTest2)
+                                {
+                                    try
+                                    {
+                                        numero = Convert.ToInt32(message);
+                                        MesTest2 = true;
+
+                                    }
+                                    catch (FormatException)
+                                    {
+                                        Console.WriteLine("La valeur n'est pas une valeur entiere");
+                                    }
+                                }
+                                MesTest2 = false;
+
+
+                                produit = DataAccess.GetOneProductById(numero);
+                                if (produit.Nom_Produit == "Rien")
+                                {
+                                    Console.WriteLine("Votre choix ne fait pas parti de nos produits");
+                                }
+                                else
+                                {
+                                    commande.FK_Id_Produit = numero;
+                                    Console.WriteLine("Combien ?");
+                                    numero = 0;
+                                    while (!MesTest2)
+                                    {
+                                        try
+                                        {
+                                            numero = Convert.ToInt32(Console.ReadLine());
+                                            MesTest2 = true;
+                                        }
+                                        catch (FormatException)
+                                        {
+                                            Console.WriteLine("La valeur n'est pas une valeur entiere");
+                                        }
+                                    }
+                                    MesTest2 = false;
+
+                                    PrixPanier = PrixPanier + (produit.Prix_Produit * numero);
+                                    commande.Qtite_Produit = numero;
+                                    ListeCommande.Add(commande);
+                                    for (int i = 0; i < numero; i++)
+                                    {
+                                        Panier.Add(produit);
+                                    }
+
+                                    Console.WriteLine("Votre produit a été ajouter au panier !\n");
+                                }
+
                             }
                             else
                             {
-                                int numero = Convert.ToInt32(message);
-                                produit = DataAccess.GetOneProductById(numero);
-                                commande.FK_Id_Produit = numero;
-                                Console.WriteLine("Combien ?");
-                                message = Console.ReadLine();
-                                numero = Convert.ToInt32(message);
-                                PrixPanier = PrixPanier + (produit.Prix_Produit * numero);
-                                commande.Qtite_Produit = numero;
-                                //int numfacture = Facture.GetLastNumFacture(); // <------------
-                                //commande.FK_Id_Facture = numfacture; // <------------
-                                ListeCommande.Add(commande);
-                                for (int i = 0; i < numero; i++)
-                                {
-                                    Panier.Add(produit);
-                                }
-
-                                Console.WriteLine("Votre produit a été ajouter au panier !");
+                                Console.WriteLine("Veuillez renseigner un champs valide");
                             }
 
 
                         }
-                        Console.WriteLine("Voici votre Panier : ");
-                        for (int i = 0; i < ListeCommande.Count; i++)
-                        {
-                            Produit produitCommander = new Produit();
-                            produitCommander = DataAccess.GetOneProductById(ListeCommande[i].FK_Id_Produit);
-                            Console.WriteLine("{0} : x {1}", produitCommander.Nom_Produit, ListeCommande[i].Qtite_Produit);
-                        }
+                        MesTest = false;
+                        Fonctions.AffichePanier(ListeCommande);
                         Console.WriteLine("Le prix de votre panier est de : " + PrixPanier + "e \n");
-                        Console.WriteLine("Confirmez vos achats O/N");
+                        Console.WriteLine("Supprimer des éléments du panier [S]");
+                        Console.WriteLine("Confirmez vos achats [O/N]");
 
                         switch (Console.ReadKey(true).Key)
                         {
+                            
                             case ConsoleKey.O:
                                 Facture facture = new Facture();
                                 OptionPaiement paiement = new OptionPaiement();
@@ -799,11 +819,11 @@ namespace BoutiqueBDDLibrary
                                 facture.Montant_total = PrixPanier;
                                 facture.Fk_Id_Client = IDClientActuel; // <------------
                                 DataAccess.AddFacture(facture);
-                                int DernierIDFacture = DataAccess.GetLastIdFacture(); // <------------
-                                for (int i = 0; i < ListeCommande.Count; i++) // <------------
+                                int DernierIDFacture = DataAccess.GetLastIdFacture();
+                                for (int i = 0; i < ListeCommande.Count; i++)
                                 {
-                                    ListeCommande[i].FK_Id_Facture = DernierIDFacture; // <------------
-                                    DataAccess.AddCommande(ListeCommande[i]); // <------------
+                                    ListeCommande[i].FK_Id_Facture = DernierIDFacture;
+                                    DataAccess.AddCommande(ListeCommande[i]);
                                 }
 
                                 while (PrixPanier != 0)
@@ -816,12 +836,47 @@ namespace BoutiqueBDDLibrary
                                         Console.WriteLine("\n\t - {0} {1} \n", optionPaiements[i].Id_Paiement, optionPaiements[i].Libelle_paiement);
                                     }
                                     Console.Write("Choisissez votre moyens de paiements en indiquant le numero correspondants : ");
-                                    string ChoixUser = Console.ReadLine();
-                                    int numeroPaiement = Convert.ToInt32(ChoixUser);
+                                    //string ChoixUser = Console.ReadLine();
+                                    int numeroPaiement = 0;
+                                    while (!MesTest2)
+                                    {
+                                        try
+                                        {
+                                            numeroPaiement = Convert.ToInt32(Console.ReadLine());
+                                            if (numeroPaiement <= 0 || numeroPaiement > 3)
+                                            {
+                                                Console.WriteLine("Veuillez choisir un moyen de paiement valide");
+                                            }
+                                            else
+                                            {
+                                                MesTest2 = true;
+                                            }
+
+                                        }
+                                        catch (FormatException)
+                                        {
+                                            Console.WriteLine("La valeur n'est pas une valeur entiere");
+                                        }
+                                    }
+                                    MesTest2 = false;
                                     ifp.FK_Id_Paiement = numeroPaiement;
                                     Console.Write("Il vous reste {0}e a payé, combien souhaitez vous regler ?", PrixPanier);
-                                    ChoixUser = Console.ReadLine();
-                                    decimal Payer = Convert.ToDecimal(ChoixUser);
+                                    //ChoixUser = Console.ReadLine();
+                                    decimal Payer = 0;
+                                    while (!MesTest2)
+                                    {
+                                        try
+                                        {
+                                            Payer = Convert.ToDecimal(Console.ReadLine());
+                                            MesTest2 = true;
+                                        }
+                                        catch (FormatException)
+                                        {
+                                            Console.WriteLine("Cette valeur n'est pas decimal");
+                                        }
+                                    }
+                                    MesTest2 = false;
+
                                     ifp.Montant_Paiement = Payer;
                                     PrixPanier = PrixPanier - Payer;
                                     ifp.FK_Id_Facture = DernierIDFacture;
@@ -835,11 +890,74 @@ namespace BoutiqueBDDLibrary
 
                                 break;
                             case ConsoleKey.N:
-                                Console.WriteLine("Appuyez sur entrée pour continuer");
+                                break;
+                            case ConsoleKey.S:
+
+                                Console.WriteLine("Tappez le numero correspondant au produit dans votre panier pour le supprimer");
+                                Console.WriteLine("Confirmez vos suppression [V]\n");
+                                while (!MesTest)
+                                {
+                                    int ProduitASuppr = 0;
+                                    message = Console.ReadLine();
+                                    if (string.IsNullOrWhiteSpace(message))
+                                    {
+                                        Console.WriteLine("Veuillez renseigner un champs");
+                                    }
+                                    else if (message == "V" || message == "v")
+                                    {
+                                        MesTest = true;
+                                    }
+                                    else if (verifieSiQueDesChiffres(message))
+                                    {
+
+                                        ProduitASuppr = Convert.ToInt32(message);
+                                        if (ProduitASuppr <= 0 || ProduitASuppr > ListeCommande.Count)
+                                        {
+                                            Console.WriteLine("Veuillez renseigner un nombre valide");
+                                        }
+                                        else
+                                        {
+                                            ListeCommande.RemoveAt(ProduitASuppr - 1);
+                                            Fonctions.AffichePanier(ListeCommande);
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Veuillez renseigner un champs valide");
+                                    }
+
+                                }
+                                MesTest = false;
+                                Fonctions.AffichePanier(ListeCommande);
+                                PrixPanier = Fonctions.CalculPanier(ListeCommande);
+                                Console.WriteLine("Le prix de votre panier est de : " + PrixPanier + "e \n");
+                                Console.WriteLine("Confirmez vos achats [O/N]");
+                                while (!MesTest)
+                                {
+                                    message = Console.ReadLine();
+                                    if (message == "o" || message == "O")
+                                    {
+                                        MesTest = true;
+                                        goto case ConsoleKey.O;
+                                    }
+                                    else if (message == "n" || message == "N")
+                                    {
+                                        MesTest = true;
+                                        goto case ConsoleKey.N;
+                                    }
+                                    else
+                                    {
+                                        MesTest = false;
+                                        Console.WriteLine("Veuillez renseigner un champs valide");
+                                    }
+                                }
+                                MesTest = false;
                                 break;
 
                         }
                         break;
+                    #endregion
                     case ConsoleKey.LeftArrow:
                         Fonctions.AfficherMenuAcheter();
 
@@ -851,11 +969,9 @@ namespace BoutiqueBDDLibrary
                         Fonctions.DisplayLimitProduct(start, TrierPar, limit);
                         Console.WriteLine("\n Page {0} sur {1}", pageActuel, pagesTotal);
 
-
-
-
-                        //Console.WriteLine("Fleche de gauche");
                         break;
+
+                    #region Fonctionnalité : Validation achats
                     case ConsoleKey.V:
                         switch (Console.ReadKey(true).Key)
                         {
@@ -885,6 +1001,7 @@ namespace BoutiqueBDDLibrary
 
                         }
                         break;
+                        #endregion
 
                 }
 
@@ -974,7 +1091,14 @@ namespace BoutiqueBDDLibrary
 
         public static void verifDecimal(decimal NbDecimal)
         {
-            if (NbDecimal < 0 )
+            if (NbDecimal < 0)
+            {
+                throw new FormatException("Cette valeur n'est pas valide");
+            }
+        }
+        public static void verifInt(int NbInt)
+        {
+            if (NbInt < 0)
             {
                 throw new FormatException("Cette valeur n'est pas valide");
             }
