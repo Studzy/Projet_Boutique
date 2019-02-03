@@ -390,6 +390,9 @@ namespace BoutiqueBDDLibrary
 
         //Produits
         #region AfficherLesProduits
+            /// <summary>
+            /// Affiche les differents produits
+            /// </summary>
         public static void AfficherLesProduits()
         {
             Console.Clear();
@@ -607,13 +610,12 @@ namespace BoutiqueBDDLibrary
             int IDClientActuel = Fonctions.UtilisateurActuelID; // <------------
             int start = 0;
             int limit = 10; // <---------------
-            string TrierPar = "Prix_Produit";
+            string TrierPar = "Nom_Produit";
             Fonctions.DisplayLimitProduct(start, TrierPar, limit); //<-------------
             List<Produit> AllProduits = new List<Produit>();
             AllProduits = DataAccess.GetAllProducts();
             decimal taille = AllProduits.Count;
             int pageActuel = 1;
-            //decimal calcul = (taille / limit);
             decimal pagesTotal = Math.Ceiling(Fonctions.CalculPageMax(taille, limit));
             Console.WriteLine("\n Page {0} sur {1}", pageActuel, pagesTotal);
             bool display = false;
@@ -626,28 +628,37 @@ namespace BoutiqueBDDLibrary
 
                 switch (Console.ReadKey(true).Key)
                 {
-                    #region Fonctionnalité : trie
+                    #region Fonctionnalité : Trier les produits
                     case ConsoleKey.T: //<-------------
                         Console.Write("Trier par [1] Prix(Croissant), [2] Nom(Ordre Alphabetique) ou [3] Categorie(Ordre Alphabetique) : ");
-                        String tri = Console.ReadLine();
-
-                        if (tri == "1")
+                        
+                        while (!MesTest)
                         {
-                            TrierPar = "Prix_Produit";
+                            String tri = Console.ReadLine();
+                            if (tri == "1")
+                            {
+                                TrierPar = "Prix_Produit";
+                                MesTest = false;
+                                goto case ConsoleKey.Enter;
+                            }
+                            else if (tri == "2")
+                            {
+                                TrierPar = "Nom_Produit";
+                                MesTest = false;
+                                goto case ConsoleKey.Enter;
+                            }
+                            else if (tri == "3")
+                            {
+                                TrierPar = "Nom_Categorie";
+                                MesTest = false;
+                                goto case ConsoleKey.Enter;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Choisir un nombre valable");
+                            }
                         }
-                        if (tri == "2")
-                        {
-                            TrierPar = "Nom_Produit";
-                        }
-                        if (tri == "3")
-                        {
-                            TrierPar = "Nom_Categorie";
-                        }
-
-                        Console.Clear();
-                        //AfficherMenuAcheter();
-                        Fonctions.DisplayLimitProduct(start, TrierPar, limit);
-                        Console.ReadKey();
+                        MesTest = false;
                         break;
                     #endregion
 
@@ -679,8 +690,12 @@ namespace BoutiqueBDDLibrary
                         break;
                     #endregion
 
+                    #region Fonctionnalité : Quittez le programme
                     case ConsoleKey.Q:
                         return;
+                    #endregion
+
+                    #region Fonctionnalité : Reafficher les produits
                     case ConsoleKey.Enter:
                         Fonctions.AfficherMenuAcheter();
                         start = 0;
@@ -689,10 +704,11 @@ namespace BoutiqueBDDLibrary
                         taille = AllProduits.Count;
                         pageActuel = 1;
                         pagesTotal = Math.Ceiling(Fonctions.CalculPageMax(taille, limit));
-                        Console.WriteLine(pagesTotal);
                         Console.WriteLine("\n Page {0} sur {1}", pageActuel, pagesTotal);
                         break;
+                    #endregion
 
+                    #region Fonctionnalité : Parcourir les differentes pages avec la fleche de droite
                     case ConsoleKey.RightArrow:
                         Fonctions.AfficherMenuAcheter();
                         if (start < taille - limit)
@@ -704,9 +720,11 @@ namespace BoutiqueBDDLibrary
                         Fonctions.DisplayLimitProduct(start, TrierPar, limit);
                         Console.WriteLine("\n Page {0} sur {1}", pageActuel, pagesTotal);
                         break;
+                    #endregion
 
                     #region Fonctionnalité : Le panier
                     case ConsoleKey.P: // PANIER
+                        #region Creation du panier
                         Console.Clear();
                         Console.WriteLine("Voici nos produit(s) : \n");
                         Fonctions.DisplayLimitProduct(start, TrierPar, limit);
@@ -797,11 +815,15 @@ namespace BoutiqueBDDLibrary
 
                         }
                         MesTest = false;
+                        #endregion
+
+                        #region Validation du panier
                         Fonctions.AffichePanier(ListeCommande);
                         Console.WriteLine("Le prix de votre panier est de : " + PrixPanier + "e \n");
                         Console.WriteLine("Supprimer des éléments du panier [S]");
                         Console.WriteLine("Confirmez vos achats [O/N]");
 
+                        
                         switch (Console.ReadKey(true).Key)
                         {
                             
@@ -884,7 +906,6 @@ namespace BoutiqueBDDLibrary
                                     DataAccess.AddIFP(ifp);
 
 
-
                                 }
                                 display = true;
 
@@ -956,8 +977,12 @@ namespace BoutiqueBDDLibrary
                                 break;
 
                         }
-                        break;
+                        goto case ConsoleKey.Enter;
                     #endregion
+
+                    #endregion
+
+                    #region Fonctionnalité : Parcourir les differentes pages avec la fleche de gauche
                     case ConsoleKey.LeftArrow:
                         Fonctions.AfficherMenuAcheter();
 
@@ -970,6 +995,7 @@ namespace BoutiqueBDDLibrary
                         Console.WriteLine("\n Page {0} sur {1}", pageActuel, pagesTotal);
 
                         break;
+                    #endregion
 
                     #region Fonctionnalité : Validation achats
                     case ConsoleKey.V:

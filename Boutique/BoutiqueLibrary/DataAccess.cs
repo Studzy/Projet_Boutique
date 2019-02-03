@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
+using System.Linq;
 
 namespace BoutiqueBDDLibrary
 {
@@ -614,10 +615,10 @@ namespace BoutiqueBDDLibrary
         }
         #endregion
 
-        #region [BDD] Affiche un nombre limité de produits
+        #region [BDD] Affiche un nombre limité de produits et trier
         /// <summary>
-        /// Affiche 10 produits à partir du @start et de la catégorie @order.
-        /// </summary>
+        /// Affiche un nombre de produits limité par la valeur 'limit' à partir du 'start' et trier par 'group'.
+        /// </summary
         public static List<Produit> GetLimitProducts(int start, string group, int limit)
         {
             List<Produit> entries = new List<Produit>();
@@ -629,10 +630,9 @@ namespace BoutiqueBDDLibrary
 
                 MySqlCommand insertCommand = new MySqlCommand();
                 insertCommand.Connection = db;
-                insertCommand.CommandText = "SELECT Id_Produit, Nom_Produit, Nom_Categorie, Nom_Origine, Prix_Produit, Libelle_Unite, Description_Produit, ValNutrition_Produit FROM produit INNER JOIN origine ON origine.Id_Origine = produit.FK_Id_Origine INNER JOIN unite ON unite.Id_Unite = produit.FK_Id_Unite INNER JOIN categorie ON categorie.Id_Categorie = produit.FK_Id_Categorie ORDER BY @order LIMIT @limit OFFSET @start ;";
-
+                insertCommand.CommandText = "SELECT Id_Produit, Nom_Produit, Nom_Categorie, Nom_Origine, Prix_Produit, Libelle_Unite, Description_Produit, ValNutrition_Produit FROM produit INNER JOIN origine ON origine.Id_Origine = produit.FK_Id_Origine INNER JOIN unite ON unite.Id_Unite = produit.FK_Id_Unite INNER JOIN categorie ON categorie.Id_Categorie = produit.FK_Id_Categorie LIMIT @limit OFFSET @start;";
+                //insertCommand.Parameters.AddWithValue("@order", group);
                 insertCommand.Parameters.AddWithValue("@start", start);
-                insertCommand.Parameters.AddWithValue("@order", group);
                 insertCommand.Parameters.AddWithValue("@limit", limit);
 
                 MySqlDataReader query = insertCommand.ExecuteReader();
@@ -654,11 +654,23 @@ namespace BoutiqueBDDLibrary
                     {
                         produit.Description_Produit = "";
                     }
-                    //produit.Description_Produit = query.GetString(5);
                     produit.Val_Nutrition_Produit = query.GetInt32(7);
                     entries.Add(produit);
                 }
             }
+            if (group == "Prix_Produit")
+            {
+                entries = entries.OrderBy(x => x.Prix_Produit).ToList();
+            }
+            else if (group == "Nom_Categorie")
+            {
+                entries = entries.OrderBy(x => x.Nom_categorie).ToList();
+            }
+            else
+            {
+                entries = entries.OrderBy(x => x.Nom_Produit).ToList();
+            }
+            
             return entries;
         }
         #endregion
@@ -1213,91 +1225,6 @@ namespace BoutiqueBDDLibrary
         }
 
         #endregion
-
-        public static bool IsCorrectString80(string insertString)
-        {
-            if (string.IsNullOrWhiteSpace(insertString) || insertString.Length > 79)
-            {
-                // EXCEPTION
-                throw new FonctionsConsole.MonMessageErreur("");
-            }
-            else
-            {
-                return true;
-            }
-        }
-        public static bool IsCorrectString100(string insertString)
-        {
-            if (string.IsNullOrWhiteSpace(insertString) || insertString.Length > 99)
-            {
-                // EXCEPTION
-                throw new FonctionsConsole.MonMessageErreur("");
-            }
-            else
-            {
-                return true;
-            }
-        }
-        public static bool IsCorrectString50(string insertString)
-        {
-            if (string.IsNullOrWhiteSpace(insertString) || insertString.Length > 51)
-            {
-                // EXCEPTION
-                throw new FonctionsConsole.MonMessageErreur("");
-            }
-            else
-            {
-                return true;
-            }
-        }
-        public static bool IsCorrectString15(string insertString)
-        {
-            if (string.IsNullOrWhiteSpace(insertString) || insertString.Length < 16)
-            {
-                // EXCEPTION
-                throw new FonctionsConsole.MonMessageErreur("");
-            }
-            else
-            {
-                return true;
-            }
-        }
-        public static bool IsCorrectString5(string insertString)
-        {
-            if (string.IsNullOrWhiteSpace(insertString) || insertString.Length < 6)
-            {
-                // EXCEPTION
-                throw new FonctionsConsole.MonMessageErreur("");
-            }
-            else
-            {
-                return true;
-            }
-        }
-        public static bool IsCorrectString25(string insertString)
-        {
-            if (string.IsNullOrWhiteSpace(insertString) || insertString.Length < 26)
-            {
-                // EXCEPTION
-                throw new FonctionsConsole.MonMessageErreur("");
-            }
-            else
-            {
-                return true;
-            }
-        }
-        public static bool IsCorrectDecimal(string param)
-        {
-
-            if (typeof(decimal).IsAssignableFrom(param.GetType()))
-            {
-                // EXCEPTION
-                throw new FonctionsConsole.MonMessageErreur("");
-            }
-            else
-            {
-                return true;
-            }
-        }
+        
     }
 }
