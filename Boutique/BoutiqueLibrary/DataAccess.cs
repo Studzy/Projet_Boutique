@@ -26,32 +26,30 @@ namespace BoutiqueBDDLibrary
         {
             try
             {
-                MySqlConnection connection = new MySqlConnection(DataAccess.CHEMINBDD);
-                connection.Open();
+                using (MySqlConnection db = new MySqlConnection(CHEMINBDD))
+                {
+                    db.Open();
 
-                MySqlCommand firstInsert =
-                    new MySqlCommand("INSERT INTO Client (Nom_Client, Prenom_Client, Adresse_Client, Mail_Client, NumTel_Client, Date_Naissance_Client, MDP_Client, FK_Id_CPVille) VALUES (@nom, @prenom, @adresse, @email, @telephone, @datenaissance, SHA2(@motdepasse,256), @idcpville)", connection);
-                var nomParameter = new MySqlParameter("@nom", x.Nom_Client);
-                var prenomParameter = new MySqlParameter("@prenom", x.Prenom_client);
-                var adresseParameter = new MySqlParameter("@adresse", x.Adresse_client);
-                var emailParameter = new MySqlParameter("@email", x.Mail_client);
-                var telephoneParameter = new MySqlParameter("@telephone", x.Numtel_Client);
-                var datenaissanceParameter = new MySqlParameter("@datenaissance", x.Date_naissance_client);
-                var motdepasseParameter = new MySqlParameter("@motdepasse", x.Mdp_client);
-                var idcpvilleParameter = new MySqlParameter("@idcpville", x.Id_CpVille);
-                firstInsert.Parameters.Add(nomParameter);
-                firstInsert.Parameters.Add(prenomParameter);
-                firstInsert.Parameters.Add(adresseParameter);
-                firstInsert.Parameters.Add(emailParameter);
-                firstInsert.Parameters.Add(telephoneParameter);
-                firstInsert.Parameters.Add(datenaissanceParameter);
-                firstInsert.Parameters.Add(motdepasseParameter);
-                firstInsert.Parameters.Add(idcpvilleParameter);
-                firstInsert.ExecuteNonQuery();
-
-                Console.Clear();
-
-                connection.Close();
+                    MySqlCommand firstInsert =
+                        new MySqlCommand("INSERT INTO Client (Nom_Client, Prenom_Client, Adresse_Client, Mail_Client, NumTel_Client, Date_Naissance_Client, MDP_Client, FK_Id_CPVille) VALUES (@nom, @prenom, @adresse, @email, @telephone, @datenaissance, SHA2(@motdepasse,256), @idcpville)", db);
+                    var nomParameter = new MySqlParameter("@nom", x.Nom_Client);
+                    var prenomParameter = new MySqlParameter("@prenom", x.Prenom_client);
+                    var adresseParameter = new MySqlParameter("@adresse", x.Adresse_client);
+                    var emailParameter = new MySqlParameter("@email", x.Mail_client);
+                    var telephoneParameter = new MySqlParameter("@telephone", x.Numtel_Client);
+                    var datenaissanceParameter = new MySqlParameter("@datenaissance", x.Date_naissance_client);
+                    var motdepasseParameter = new MySqlParameter("@motdepasse", x.Mdp_client);
+                    var idcpvilleParameter = new MySqlParameter("@idcpville", x.Id_CpVille);
+                    firstInsert.Parameters.Add(nomParameter);
+                    firstInsert.Parameters.Add(prenomParameter);
+                    firstInsert.Parameters.Add(adresseParameter);
+                    firstInsert.Parameters.Add(emailParameter);
+                    firstInsert.Parameters.Add(telephoneParameter);
+                    firstInsert.Parameters.Add(datenaissanceParameter);
+                    firstInsert.Parameters.Add(motdepasseParameter);
+                    firstInsert.Parameters.Add(idcpvilleParameter);
+                    firstInsert.ExecuteNonQuery();
+                }
             }
             catch (Exception e)
             {
@@ -72,8 +70,7 @@ namespace BoutiqueBDDLibrary
         {
             try
             {
-                using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+                using (MySqlConnection db = new MySqlConnection(CHEMINBDD))
                 {
                     db.Open();
                     MySqlCommand insertCommand = new MySqlCommand();
@@ -113,8 +110,7 @@ namespace BoutiqueBDDLibrary
 
             try
             {
-                using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+                using (MySqlConnection db = new MySqlConnection(CHEMINBDD))
                 {
                     db.Open();
                     MySqlCommand insertCommand = new MySqlCommand();
@@ -134,7 +130,6 @@ namespace BoutiqueBDDLibrary
                     {
                         IdMultiple.Add(0);
                     }
-                    
                 }
             }
             catch (Exception e)
@@ -155,8 +150,7 @@ namespace BoutiqueBDDLibrary
         {
             try
             {
-                using (MySqlConnection db =
-            new MySqlConnection(DataAccess.CHEMINBDD))
+                using (MySqlConnection db = new MySqlConnection(CHEMINBDD))
                 {
                     db.Open();
                     MySqlCommand insertCommand = new MySqlCommand();
@@ -172,7 +166,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
         }
         #endregion
 
@@ -184,8 +178,7 @@ namespace BoutiqueBDDLibrary
         {
             try
             {
-                using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+                using (MySqlConnection db = new MySqlConnection(CHEMINBDD))
                 {
                     db.Open();
                     MySqlCommand insertCommand = new MySqlCommand();
@@ -201,7 +194,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
         }
         #endregion
 
@@ -213,8 +206,7 @@ namespace BoutiqueBDDLibrary
         {
             try
             {
-                using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+                using (MySqlConnection db = new MySqlConnection(CHEMINBDD))
                 {
                     db.Open();
                     MySqlCommand insertCommand = new MySqlCommand();
@@ -230,7 +222,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
         }
         #endregion
 
@@ -243,8 +235,7 @@ namespace BoutiqueBDDLibrary
         {
             try
             {
-                using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+                using (MySqlConnection db = new MySqlConnection(CHEMINBDD))
                 {
                     db.Open();
                     MySqlCommand insertCommand = new MySqlCommand();
@@ -261,7 +252,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
         }
         #endregion
 
@@ -278,8 +269,7 @@ namespace BoutiqueBDDLibrary
             Client z = new Client();
             try
             {
-                using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+                using (MySqlConnection db = new MySqlConnection(CHEMINBDD))
                 {
                     db.Open();
 
@@ -313,7 +303,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-           
+
             return z;
         }
         #endregion
@@ -330,8 +320,7 @@ namespace BoutiqueBDDLibrary
             Client z = new Client();
             try
             {
-                using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+                using (MySqlConnection db = new MySqlConnection(CHEMINBDD))
                 {
                     db.Open();
 
@@ -358,7 +347,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
             return z;
         }
         #endregion
@@ -373,8 +362,7 @@ namespace BoutiqueBDDLibrary
             List<Client> entries = new List<Client>();
             try
             {
-                using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+                using (MySqlConnection db = new MySqlConnection(DataAccess.CHEMINBDD))
                 {
                     db.Open();
 
@@ -403,7 +391,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
             return entries;
         }
         #endregion
@@ -419,15 +407,14 @@ namespace BoutiqueBDDLibrary
             bool resultat = false;
             try
             {
-                
                 using (MySqlConnection connection = new MySqlConnection(CHEMINBDD))
                 {
                     connection.Open();
-                    using (MySqlCommand firstInsert = connection.CreateCommand())
+                    MySqlCommand firstInsert = connection.CreateCommand();
                     {
                         firstInsert.CommandText = "SELECT Mail_Client FROM Client WHERE Mail_Client = @mail";
                         firstInsert.Parameters.AddWithValue("@mail", mail);
-                        using (MySqlDataReader reader = firstInsert.ExecuteReader())
+                        MySqlDataReader reader = firstInsert.ExecuteReader();
                         {
                             if (reader.Read() == true)
                             {
@@ -462,8 +449,7 @@ namespace BoutiqueBDDLibrary
             bool resultat = false;
             try
             {
-                using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+                using (MySqlConnection db = new MySqlConnection(CHEMINBDD))
                 {
                     db.Open();
                     MySqlCommand selectCommand = new MySqlCommand
@@ -504,29 +490,27 @@ namespace BoutiqueBDDLibrary
         {
             try
             {
-                MySqlConnection connection = new MySqlConnection(CHEMINBDD);
-                connection.Open();
+                using (MySqlConnection db = new MySqlConnection(CHEMINBDD))
+                {
+                    MySqlCommand firstInsert =
+                    new MySqlCommand("INSERT INTO admin (Mail_Admin, MDP_Admin) VALUES (@email,SHA2(@motdepasse,256))", db);
 
-                MySqlCommand firstInsert =
-                    new MySqlCommand("INSERT INTO admin (Mail_Admin, MDP_Admin) VALUES (@email,SHA2(@motdepasse,256))", connection);
-                var emailParameter = new MySqlParameter("@email", x.Mail_Admin);
-                var motdepasseParameter = new MySqlParameter("@motdepasse", x.Mot_De_Passe);
-                firstInsert.Parameters.Add(emailParameter);
-                firstInsert.Parameters.Add(motdepasseParameter);
-                firstInsert.ExecuteNonQuery();
-
+                    db.Open();
+                    var emailParameter = new MySqlParameter("@email", x.Mail_Admin);
+                    var motdepasseParameter = new MySqlParameter("@motdepasse", x.Mot_De_Passe);
+                    firstInsert.Parameters.Add(emailParameter);
+                    firstInsert.Parameters.Add(motdepasseParameter);
+                    firstInsert.ExecuteNonQuery();
+                }
                 Console.Clear();
                 Console.WriteLine("L'inscription s'est déroulée avec succès !\n");
-
-
-                connection.Close();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
         }
         #endregion
 
@@ -568,7 +552,7 @@ namespace BoutiqueBDDLibrary
                 Console.ReadKey();
             }
             return resultat;
-            
+
         }
         #endregion
 
@@ -584,8 +568,7 @@ namespace BoutiqueBDDLibrary
             bool resultat = false;
             try
             {
-                using (MySqlConnection db =
-                new MySqlConnection(CHEMINBDD))
+                using (MySqlConnection db = new MySqlConnection(CHEMINBDD))
                 {
                     db.Open();
                     MySqlCommand selectCommand = new MySqlCommand
@@ -644,7 +627,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
         }
         #endregion
 
@@ -885,7 +868,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
         }
         #endregion
 
@@ -924,7 +907,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
         }
         #endregion
 
@@ -1101,12 +1084,12 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
             return entries;
         }
 
         #endregion
-        
+
         //Catégorie
         #region [BDD] Ajouter une catégorie
         /// <summary>
@@ -1135,7 +1118,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
         }
         #endregion
 
@@ -1210,7 +1193,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
         }
         #endregion
 
@@ -1249,7 +1232,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
             return entries;
         }
         #endregion
@@ -1282,7 +1265,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
         }
         #endregion
 
@@ -1312,7 +1295,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
         }
         #endregion
 
@@ -1388,7 +1371,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
 
         }
         #endregion
@@ -1465,7 +1448,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
         }
         #endregion
 
@@ -1505,7 +1488,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
             return resultat;
         }
         #endregion
@@ -1546,7 +1529,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-            
+
             return ID;
         }
 
