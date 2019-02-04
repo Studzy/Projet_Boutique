@@ -93,10 +93,14 @@ namespace BoutiqueBDDLibrary
                 case ConsoleKey.NumPad2:
                     Console.Clear();
                     FonctionsConsole.AfficherLesProduits();
+                    Console.Clear();
+                    InterfaceClient();
                     break;
                 case ConsoleKey.NumPad3:
                     Console.Clear();
                     ModifierSonProfil();
+                    Console.Clear();
+                    InterfaceClient();
                     break;
                 case ConsoleKey.NumPad4:
                     Console.Clear();
@@ -156,23 +160,48 @@ namespace BoutiqueBDDLibrary
             switch (Console.ReadKey(true).Key)
             {
                 case ConsoleKey.NumPad1:
+                    Console.Clear();
                     FonctionsConsole.AjouterProduit();
+                    Console.WriteLine("APPUYER SUR UNE TOUCHE POUR RETOURNER AU MENU ADMIN");
+                    Console.ReadKey();
+                    Console.Clear();
+                    InterfaceAdmin();
                     break;
                 case ConsoleKey.NumPad2:
                     //ModifierUnProduit();
+                    Console.Clear();
                     Fonctions.ModifierProduit();
+                    Console.WriteLine("APPUYER SUR UNE TOUCHE POUR RETOURNER AU MENU ADMIN");
+                    Console.ReadKey();
+                    Console.Clear();
+                    InterfaceAdmin();
                     break;
                 case ConsoleKey.NumPad3:
                     //SupprimerUnProduit();
+                    Console.Clear();
                     Fonctions.SupprimerProduit();
+                    Console.WriteLine("APPUYER SUR UNE TOUCHE POUR RETOURNER AU MENU ADMIN");
+                    Console.ReadKey();
+                    Console.Clear();
+                    InterfaceAdmin();
                     break;
                 case ConsoleKey.NumPad4:
                     //AfficherLesProduits();
+                    Console.Clear();
                     FonctionsConsole.AfficherLesProduits();
+                    Console.WriteLine("APPUYER SUR UNE TOUCHE POUR RETOURNER AU MENU ADMIN");
+                    Console.ReadKey();
+                    Console.Clear();
+                    InterfaceAdmin();
                     break;
                 case ConsoleKey.NumPad5:
                     //AfficherUnProduit();
+                    Console.Clear();
                     Fonctions.AfficherUnProduit();
+                    Console.WriteLine("APPUYER SUR UNE TOUCHE POUR RETOURNER AU MENU ADMIN");
+                    Console.ReadKey();
+                    Console.Clear();
+                    InterfaceAdmin();
                     break;
                 case ConsoleKey.NumPad6:
                     //Affiche tout les clients
@@ -514,7 +543,7 @@ namespace BoutiqueBDDLibrary
             {
                 Console.Clear();
                 Client client = new Client();
-                client = DataAccess.afficheIDEmailClient(Mail);
+                client = DataAccess.AfficheIDEmailClient(Mail);
                 UtilisateurActuelEmail = Mail;
                 UtilisateurActuelID = client.Id_client;
                 InterfaceClient();
@@ -694,22 +723,21 @@ namespace BoutiqueBDDLibrary
         public static void DisplayProduct()
         {
             List<Produit> produits = DataAccess.GetAllProducts();
-            Console.WriteLine("Nous avons trouvé {0} produit(s) :", produits.Count);
+            Console.WriteLine("Nous avons {0} produit(s) :", produits.Count);
             foreach (var produit in produits)
             {
-                Console.WriteLine("ID = " + produit.Id_Produit + "; Nom = " + produit.Nom_Produit + "; TVA = " + produit.TVA + "; Prix = " + produit.Prix_Produit + "; Remise = " + produit.Remise_Produit + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit + "; FK_Id_Categorie = " + produit.FK_Id_Categorie + "; FK_Id_Origine = " + produit.FK_Id_Origine + "; FK_Id_Unite = " + produit.FK_Id_Unite + "\n\n");
+                Console.WriteLine("ID = " + produit.Id_Produit + "; Nom = " + produit.Nom_Produit + "; TVA = " + produit.TVA + "; Prix = " + produit.Prix_Produit + "; Remise = " + produit.Remise_Produit + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit + "; Categorie = " + produit.Nom_categorie + "; Origine = " + produit.Nom_origine + "; Unite = " + produit.Libelle_unite + "\n\n");
             }
         }
         #endregion
 
         #region [Interface] Affiche Limit produits
         /// <summary>
-        /// Fonction qui affiche 10 produits en fonction d'un ID de départ --> @start et d'une catégorie --> @order.
+        /// Fonction qui affiche des produits en fonction d'un tri 'group' qui commence au produit 'start' et affiche une nombre 'limit'.
         /// </summary>
         public static void DisplayLimitProduct(int start, string group, int limit)
         {
-            List<Produit> produits = DataAccess.GetLimitProducts(start, group, limit); // <---------------
-            //Console.WriteLine("Voici nos produit(s) : Page : "+ page +" sur " + , produits.Count);
+            List<Produit> produits = DataAccess.GetLimitProducts(start, group, limit);
             foreach (var produit in produits)
             {
                 Console.WriteLine(produit.Id_Produit + ".  Nom = " + produit.Nom_Produit + "; Categorie = " + produit.Nom_categorie + "; Origine = " + produit.Nom_origine + "; Prix = " + produit.Prix_Produit + "; Unite = " + produit.Libelle_unite + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit +"\n\n");
@@ -723,13 +751,26 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         public static void SupprimerProduit()
         {
+            bool MesTest = false;
             Produit p = new Produit();
             Console.WriteLine("MODE ADMIN");
             Console.WriteLine("SUPPRIMER UN PRODUIT DANS LA BASE DE DONNEES");
-
-            Console.Write("Nom du produit à supprimer : ");
-            p.Nom_Produit = Console.ReadLine();
-            Console.WriteLine();
+            while (!MesTest)
+            {
+                try
+                {
+                    Console.Write("Nom du produit à supprimer : ");
+                    p.Nom_Produit = Console.ReadLine();
+                    Console.WriteLine();
+                    MesTest = true;
+                }
+                catch (FonctionsConsole.MonMessageErreur error)
+                {
+                    Console.WriteLine(error.errorMessage);
+                }
+            }
+            MesTest = false;
+            
 
             Produit produit = DataAccess.GetOneProduct(p.Nom_Produit);
             if (produit.Nom_Produit != "Rien")

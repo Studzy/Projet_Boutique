@@ -24,32 +24,41 @@ namespace BoutiqueBDDLibrary
         /// <param name="x"></param>
         public static void InsererClientEnBDD(Client x)
         {
-            MySqlConnection connection = new MySqlConnection(DataAccess.CHEMINBDD);
-            connection.Open();
+            try
+            {
+                MySqlConnection connection = new MySqlConnection(DataAccess.CHEMINBDD);
+                connection.Open();
 
-            MySqlCommand firstInsert =
-                new MySqlCommand("INSERT INTO Client (Nom_Client, Prenom_Client, Adresse_Client, Mail_Client, NumTel_Client, Date_Naissance_Client, MDP_Client, FK_Id_CPVille) VALUES (@nom, @prenom, @adresse, @email, @telephone, @datenaissance, SHA2(@motdepasse,256), @idcpville)", connection);
-            var nomParameter = new MySqlParameter("@nom", x.Nom_Client);
-            var prenomParameter = new MySqlParameter("@prenom", x.Prenom_client);
-            var adresseParameter = new MySqlParameter("@adresse", x.Adresse_client);
-            var emailParameter = new MySqlParameter("@email", x.Mail_client);
-            var telephoneParameter = new MySqlParameter("@telephone", x.Numtel_Client);
-            var datenaissanceParameter = new MySqlParameter("@datenaissance", x.Date_naissance_client);
-            var motdepasseParameter = new MySqlParameter("@motdepasse", x.Mdp_client);
-            var idcpvilleParameter = new MySqlParameter("@idcpville", x.Id_CpVille);
-            firstInsert.Parameters.Add(nomParameter);
-            firstInsert.Parameters.Add(prenomParameter);
-            firstInsert.Parameters.Add(adresseParameter);
-            firstInsert.Parameters.Add(emailParameter);
-            firstInsert.Parameters.Add(telephoneParameter);
-            firstInsert.Parameters.Add(datenaissanceParameter);
-            firstInsert.Parameters.Add(motdepasseParameter);
-            firstInsert.Parameters.Add(idcpvilleParameter);
-            firstInsert.ExecuteNonQuery();
+                MySqlCommand firstInsert =
+                    new MySqlCommand("INSERT INTO Client (Nom_Client, Prenom_Client, Adresse_Client, Mail_Client, NumTel_Client, Date_Naissance_Client, MDP_Client, FK_Id_CPVille) VALUES (@nom, @prenom, @adresse, @email, @telephone, @datenaissance, SHA2(@motdepasse,256), @idcpville)", connection);
+                var nomParameter = new MySqlParameter("@nom", x.Nom_Client);
+                var prenomParameter = new MySqlParameter("@prenom", x.Prenom_client);
+                var adresseParameter = new MySqlParameter("@adresse", x.Adresse_client);
+                var emailParameter = new MySqlParameter("@email", x.Mail_client);
+                var telephoneParameter = new MySqlParameter("@telephone", x.Numtel_Client);
+                var datenaissanceParameter = new MySqlParameter("@datenaissance", x.Date_naissance_client);
+                var motdepasseParameter = new MySqlParameter("@motdepasse", x.Mdp_client);
+                var idcpvilleParameter = new MySqlParameter("@idcpville", x.Id_CpVille);
+                firstInsert.Parameters.Add(nomParameter);
+                firstInsert.Parameters.Add(prenomParameter);
+                firstInsert.Parameters.Add(adresseParameter);
+                firstInsert.Parameters.Add(emailParameter);
+                firstInsert.Parameters.Add(telephoneParameter);
+                firstInsert.Parameters.Add(datenaissanceParameter);
+                firstInsert.Parameters.Add(motdepasseParameter);
+                firstInsert.Parameters.Add(idcpvilleParameter);
+                firstInsert.ExecuteNonQuery();
 
-            Console.Clear();
+                Console.Clear();
 
-            connection.Close();
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+
         }
         #endregion
 
@@ -61,60 +70,80 @@ namespace BoutiqueBDDLibrary
         /// <param name="x"></param>
         public static void modifieUnClientenBDD(string email, Client x)
         {
-            using (MySqlConnection db =
-            new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
+                using (MySqlConnection db =
+                new MySqlConnection(DataAccess.CHEMINBDD))
+                {
+                    db.Open();
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
 
-                //Format qui protège des SQL Injections.
-                insertCommand.CommandText = "UPDATE client SET Nom_Client = @Nom_Client , Prenom_Client = @Prenom_Client, Adresse_Client = @Adresse_Client, NumTel_Client = @Numtel_Client, Date_Naissance_Client = @Date_Naissance_Client, MDP_Client = SHA2(@MDP_Client,256), FK_Id_CPVille = @FK_Id_CpVille WHERE Mail_Client = @email ";
+                    //Format qui protège des SQL Injections.
+                    insertCommand.CommandText = "UPDATE client SET Nom_Client = @Nom_Client , Prenom_Client = @Prenom_Client, Adresse_Client = @Adresse_Client, NumTel_Client = @Numtel_Client, Date_Naissance_Client = @Date_Naissance_Client, MDP_Client = SHA2(@MDP_Client,256), FK_Id_CPVille = @FK_Id_CpVille WHERE Mail_Client = @email ";
 
-                insertCommand.Parameters.AddWithValue("@Nom_Client", x.Nom_Client);
-                insertCommand.Parameters.AddWithValue("@Prenom_Client", x.Prenom_client);
-                insertCommand.Parameters.AddWithValue("@Adresse_Client", x.Adresse_client);
-                insertCommand.Parameters.AddWithValue("@NumTel_Client", x.Numtel_Client);
-                insertCommand.Parameters.AddWithValue("@MDP_Client", x.Mdp_client);
-                insertCommand.Parameters.AddWithValue("@Date_Naissance_Client", x.Date_naissance_client);
-                insertCommand.Parameters.AddWithValue("@FK_Id_CpVille", x.Id_CpVille);
-                insertCommand.Parameters.AddWithValue("@email", email);
-                insertCommand.ExecuteReader();
+                    insertCommand.Parameters.AddWithValue("@Nom_Client", x.Nom_Client);
+                    insertCommand.Parameters.AddWithValue("@Prenom_Client", x.Prenom_client);
+                    insertCommand.Parameters.AddWithValue("@Adresse_Client", x.Adresse_client);
+                    insertCommand.Parameters.AddWithValue("@NumTel_Client", x.Numtel_Client);
+                    insertCommand.Parameters.AddWithValue("@MDP_Client", x.Mdp_client);
+                    insertCommand.Parameters.AddWithValue("@Date_Naissance_Client", x.Date_naissance_client);
+                    insertCommand.Parameters.AddWithValue("@FK_Id_CpVille", x.Id_CpVille);
+                    insertCommand.Parameters.AddWithValue("@email", email);
+                    insertCommand.ExecuteReader();
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+
         }
         #endregion
 
         // 5 requêtes pour supprimer un client de la base de données.
         #region [BDD] 1- Récupère les ID facture et commande d'un client
-            /// <summary>
-            /// Recupère l'ID_Facture et l'ID_Commande, si il trouve l'ID stock les ID sinon renvoi juste 0.
-            /// </summary>
+        /// <summary>
+        /// Recupère l'ID_Facture et l'ID_Commande, si il trouve l'ID stock les ID sinon renvoi juste 0.
+        /// </summary>
         public static List<int> recupeIdFactureEtIdCommande(string email)
         {
             List<int> IdMultiple = new List<int>();
-            using (MySqlConnection db =
-            new MySqlConnection(DataAccess.CHEMINBDD))
+
+            try
             {
-                db.Open();
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
-
-                insertCommand.CommandText = "SELECT facture.Id_Facture, commande.Id_Commande FROM client INNER JOIN facture ON facture.FK_Id_Client = client.Id_Client INNER JOIN commande ON commande.FK_Id_Facture = facture.Id_Facture WHERE Mail_Client = @email";
-
-                insertCommand.Parameters.AddWithValue("@email", email);
-                MySqlDataReader query = insertCommand.ExecuteReader();
-                
-                if (query.Read())
+                using (MySqlConnection db =
+                new MySqlConnection(DataAccess.CHEMINBDD))
                 {
-                    IdMultiple.Add(query.GetInt32(1));//Commande
-                    IdMultiple.Add(query.GetInt32(0));//Facture
+                    db.Open();
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
+
+                    insertCommand.CommandText = "SELECT facture.Id_Facture, commande.Id_Commande FROM client INNER JOIN facture ON facture.FK_Id_Client = client.Id_Client INNER JOIN commande ON commande.FK_Id_Facture = facture.Id_Facture WHERE Mail_Client = @email";
+
+                    insertCommand.Parameters.AddWithValue("@email", email);
+                    MySqlDataReader query = insertCommand.ExecuteReader();
+
+                    if (query.Read())
+                    {
+                        IdMultiple.Add(query.GetInt32(1));//Commande
+                        IdMultiple.Add(query.GetInt32(0));//Facture
+                    }
+                    else
+                    {
+                        IdMultiple.Add(0);
+                    }
+                    
                 }
-                else
-                {
-                    IdMultiple.Add(0);
-                }
-                return IdMultiple;
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            return IdMultiple;
+
         }
         #endregion
 
@@ -124,17 +153,26 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         public static void supprimerUneCommande(int Id_Commande)
         {
-            using (MySqlConnection db =
-            new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
+                using (MySqlConnection db =
+            new MySqlConnection(DataAccess.CHEMINBDD))
+                {
+                    db.Open();
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
 
-                insertCommand.CommandText = "DELETE FROM commande WHERE commande.Id_Commande = @idcommande";
-                insertCommand.Parameters.AddWithValue("@idcommande", Id_Commande);
-                insertCommand.ExecuteNonQuery();
+                    insertCommand.CommandText = "DELETE FROM commande WHERE commande.Id_Commande = @idcommande";
+                    insertCommand.Parameters.AddWithValue("@idcommande", Id_Commande);
+                    insertCommand.ExecuteNonQuery();
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
         }
         #endregion
 
@@ -144,17 +182,26 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         public static void supprimerInterFacturePaiement(int Id_Facture)
         {
-            using (MySqlConnection db =
-            new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
+                using (MySqlConnection db =
+                new MySqlConnection(DataAccess.CHEMINBDD))
+                {
+                    db.Open();
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
 
-                insertCommand.CommandText = "DELETE FROM inter_facture_paiement WHERE inter_facture_paiement.FK_Id_Facture = @idfacture";
-                insertCommand.Parameters.AddWithValue("@idfacture", Id_Facture);
-                insertCommand.ExecuteNonQuery();
+                    insertCommand.CommandText = "DELETE FROM inter_facture_paiement WHERE inter_facture_paiement.FK_Id_Facture = @idfacture";
+                    insertCommand.Parameters.AddWithValue("@idfacture", Id_Facture);
+                    insertCommand.ExecuteNonQuery();
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
         }
         #endregion
 
@@ -164,17 +211,26 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         public static void supprimerUneFacture(int Id_Facture)
         {
-            using (MySqlConnection db =
-            new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
+                using (MySqlConnection db =
+                new MySqlConnection(DataAccess.CHEMINBDD))
+                {
+                    db.Open();
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
 
-                insertCommand.CommandText = "DELETE FROM facture WHERE facture.Id_Facture = @idfacture";
-                insertCommand.Parameters.AddWithValue("@idfacture", Id_Facture);
-                insertCommand.ExecuteNonQuery();
+                    insertCommand.CommandText = "DELETE FROM facture WHERE facture.Id_Facture = @idfacture";
+                    insertCommand.Parameters.AddWithValue("@idfacture", Id_Facture);
+                    insertCommand.ExecuteNonQuery();
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
         }
         #endregion
 
@@ -185,18 +241,27 @@ namespace BoutiqueBDDLibrary
         /// <param name="email"></param>
         public static void supprimerUnClient(string email)
         {
-            using (MySqlConnection db =
-            new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
+                using (MySqlConnection db =
+                new MySqlConnection(DataAccess.CHEMINBDD))
+                {
+                    db.Open();
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
 
-                insertCommand.CommandText = "DELETE FROM client WHERE Mail_Client = @email ";
-                insertCommand.Parameters.AddWithValue("@email", email);
-                insertCommand.ExecuteNonQuery();
+                    insertCommand.CommandText = "DELETE FROM client WHERE Mail_Client = @email ";
+                    insertCommand.Parameters.AddWithValue("@email", email);
+                    insertCommand.ExecuteNonQuery();
+                }
+                Console.WriteLine("\nNous avons supprimer le client ainsi que toutes les données qui lui étaient liés !");
             }
-            Console.WriteLine("\nNous avons supprimer le client ainsi que toutes les données qui lui étaient liés !");
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
         }
         #endregion
 
@@ -211,35 +276,44 @@ namespace BoutiqueBDDLibrary
         public static Client verifieSiClientExiste(string email)
         {
             Client z = new Client();
-            using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
-                insertCommand.CommandText = "SELECT * FROM client INNER JOIN cp_ville ON cp_ville.Id_CPVille=client.FK_Id_CPVille WHERE Mail_Client= @email";
-                insertCommand.Parameters.AddWithValue("@email", email);
-
-                MySqlDataReader query = insertCommand.ExecuteReader();
-
-                if (query.Read())
+                using (MySqlConnection db =
+                new MySqlConnection(DataAccess.CHEMINBDD))
                 {
-                    z.Nom_Client = query.GetString(1);
-                    z.Prenom_client = query.GetString(2);
-                    z.Adresse_client = query.GetString(3);
-                    z.Mail_client = query.GetString(4);
-                    z.Numtel_Client = query.GetString(5);
-                    z.Date_naissance_client = query.GetDateTime(6);
-                    z.Id_CpVille = query.GetInt32(8);
-                    z.codePostal_Ville = query.GetString(10);
-                    z.nom_Ville = query.GetString(11);
-                }
-                else
-                {
-                    z.Mail_client = "Rien";
+                    db.Open();
+
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
+                    insertCommand.CommandText = "SELECT * FROM client INNER JOIN cp_ville ON cp_ville.Id_CPVille=client.FK_Id_CPVille WHERE Mail_Client= @email";
+                    insertCommand.Parameters.AddWithValue("@email", email);
+
+                    MySqlDataReader query = insertCommand.ExecuteReader();
+
+                    if (query.Read())
+                    {
+                        z.Nom_Client = query.GetString(1);
+                        z.Prenom_client = query.GetString(2);
+                        z.Adresse_client = query.GetString(3);
+                        z.Mail_client = query.GetString(4);
+                        z.Numtel_Client = query.GetString(5);
+                        z.Date_naissance_client = query.GetDateTime(6);
+                        z.Id_CpVille = query.GetInt32(8);
+                        z.codePostal_Ville = query.GetString(10);
+                        z.nom_Ville = query.GetString(11);
+                    }
+                    else
+                    {
+                        z.Mail_client = "Rien";
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+           
             return z;
         }
         #endregion
@@ -251,31 +325,40 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public static Client afficheIDEmailClient(string email)
+        public static Client AfficheIDEmailClient(string email)
         {
             Client z = new Client();
-            using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
-                insertCommand.CommandText = "SELECT Id_Client, Mail_Client FROM client WHERE Mail_Client= @email";
-                insertCommand.Parameters.AddWithValue("@email", email);
-
-                MySqlDataReader query = insertCommand.ExecuteReader();
-
-                if (query.Read())
+                using (MySqlConnection db =
+                new MySqlConnection(DataAccess.CHEMINBDD))
                 {
-                    z.Mail_client = query.GetString(1);
-                    z.Id_client = query.GetInt32(0);
-                }
-                else
-                {
-                    z.Mail_client = "Rien";
+                    db.Open();
+
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
+                    insertCommand.CommandText = "SELECT Id_Client, Mail_Client FROM client WHERE Mail_Client= @email";
+                    insertCommand.Parameters.AddWithValue("@email", email);
+
+                    MySqlDataReader query = insertCommand.ExecuteReader();
+
+                    if (query.Read())
+                    {
+                        z.Mail_client = query.GetString(1);
+                        z.Id_client = query.GetInt32(0);
+                    }
+                    else
+                    {
+                        z.Mail_client = "Rien";
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
             return z;
         }
         #endregion
@@ -288,31 +371,39 @@ namespace BoutiqueBDDLibrary
         public static List<Client> GetAllClients()
         {
             List<Client> entries = new List<Client>();
-
-            using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-
-                MySqlCommand selectCommand = new MySqlCommand
-                    ("SELECT * FROM client INNER JOIN cp_ville ON cp_ville.Id_CPVille = client.FK_Id_CPVille", db);
-
-                MySqlDataReader query = selectCommand.ExecuteReader();
-
-                while (query.Read())
+                using (MySqlConnection db =
+                new MySqlConnection(DataAccess.CHEMINBDD))
                 {
-                    Client client = new Client();
-                    client.Nom_Client = query.GetString(1);
-                    client.Prenom_client = query.GetString(2);
-                    client.Adresse_client = query.GetString(3);
-                    client.Mail_client = query.GetString(4);
-                    client.Numtel_Client = query.GetString(5);
-                    client.Date_naissance_client = query.GetDateTime(6);
-                    client.codePostal_Ville = query.GetString(10);
-                    client.nom_Ville = query.GetString(11);
-                    entries.Add(client);
+                    db.Open();
+
+                    MySqlCommand selectCommand = new MySqlCommand
+                        ("SELECT * FROM client INNER JOIN cp_ville ON cp_ville.Id_CPVille = client.FK_Id_CPVille", db);
+
+                    MySqlDataReader query = selectCommand.ExecuteReader();
+
+                    while (query.Read())
+                    {
+                        Client client = new Client();
+                        client.Nom_Client = query.GetString(1);
+                        client.Prenom_client = query.GetString(2);
+                        client.Adresse_client = query.GetString(3);
+                        client.Mail_client = query.GetString(4);
+                        client.Numtel_Client = query.GetString(5);
+                        client.Date_naissance_client = query.GetDateTime(6);
+                        client.codePostal_Ville = query.GetString(10);
+                        client.nom_Ville = query.GetString(11);
+                        entries.Add(client);
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
             return entries;
         }
         #endregion
@@ -325,26 +416,37 @@ namespace BoutiqueBDDLibrary
         /// <returns></returns>
         public static bool VerifierExistanceMailClient(string mail)
         {
-            using (MySqlConnection connection = new MySqlConnection(DataAccess.CHEMINBDD))
+            bool resultat = false;
+            try
             {
-                connection.Open();
-                using (MySqlCommand firstInsert = connection.CreateCommand())
+                
+                using (MySqlConnection connection = new MySqlConnection(CHEMINBDD))
                 {
-                    firstInsert.CommandText = "SELECT Mail_Client FROM Client WHERE Mail_Client = @mail";
-                    firstInsert.Parameters.AddWithValue("@mail", mail);
-                    using (MySqlDataReader reader = firstInsert.ExecuteReader())
+                    connection.Open();
+                    using (MySqlCommand firstInsert = connection.CreateCommand())
                     {
-                        if (reader.Read() == true)
+                        firstInsert.CommandText = "SELECT Mail_Client FROM Client WHERE Mail_Client = @mail";
+                        firstInsert.Parameters.AddWithValue("@mail", mail);
+                        using (MySqlDataReader reader = firstInsert.ExecuteReader())
                         {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
+                            if (reader.Read() == true)
+                            {
+                                resultat = true;
+                            }
+                            else
+                            {
+                                resultat = false;
+                            }
                         }
                     }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            return resultat;
         }
         #endregion
 
@@ -358,27 +460,36 @@ namespace BoutiqueBDDLibrary
         public static bool VerifieMailMdpClient(string email, string motdepasse)
         {
             bool resultat = false;
-            using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-                MySqlCommand selectCommand = new MySqlCommand
-                    ("SELECT Mail_Client, MDP_Client FROM client WHERE Mail_Client = @email AND MDP_Client = SHA2(@motdepasse,256)", db);
-                selectCommand.Parameters.AddWithValue("@email", email);
-                selectCommand.Parameters.AddWithValue("@motdepasse", motdepasse);
-
-                MySqlDataReader query = selectCommand.ExecuteReader();
-
-                if (query.Read())
+                using (MySqlConnection db =
+                new MySqlConnection(DataAccess.CHEMINBDD))
                 {
-                    resultat = true;
+                    db.Open();
+                    MySqlCommand selectCommand = new MySqlCommand
+                        ("SELECT Mail_Client, MDP_Client FROM client WHERE Mail_Client = @email AND MDP_Client = SHA2(@motdepasse,256)", db);
+                    selectCommand.Parameters.AddWithValue("@email", email);
+                    selectCommand.Parameters.AddWithValue("@motdepasse", motdepasse);
+
+                    MySqlDataReader query = selectCommand.ExecuteReader();
+
+                    if (query.Read())
+                    {
+                        resultat = true;
+                    }
+                    else
+                    {
+                        resultat = false;
+                    }
+                    return resultat;
                 }
-                else
-                {
-                    resultat = false;
-                }
-                return resultat;
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            return resultat;
         }
         #endregion
 
@@ -391,22 +502,31 @@ namespace BoutiqueBDDLibrary
         /// <param name="motdepasse"></param>
         public static void InsererAdministrateurEnBDD(Admin x)
         {
-            MySqlConnection connection = new MySqlConnection(DataAccess.CHEMINBDD);
-            connection.Open();
+            try
+            {
+                MySqlConnection connection = new MySqlConnection(CHEMINBDD);
+                connection.Open();
 
-            MySqlCommand firstInsert =
-                new MySqlCommand("INSERT INTO admin (Mail_Admin, MDP_Admin) VALUES (@email,SHA2(@motdepasse,256))", connection);
-            var emailParameter = new MySqlParameter("@email", x.Mail_Admin);
-            var motdepasseParameter = new MySqlParameter("@motdepasse", x.Mot_De_Passe);
-            firstInsert.Parameters.Add(emailParameter);
-            firstInsert.Parameters.Add(motdepasseParameter);
-            firstInsert.ExecuteNonQuery();
+                MySqlCommand firstInsert =
+                    new MySqlCommand("INSERT INTO admin (Mail_Admin, MDP_Admin) VALUES (@email,SHA2(@motdepasse,256))", connection);
+                var emailParameter = new MySqlParameter("@email", x.Mail_Admin);
+                var motdepasseParameter = new MySqlParameter("@motdepasse", x.Mot_De_Passe);
+                firstInsert.Parameters.Add(emailParameter);
+                firstInsert.Parameters.Add(motdepasseParameter);
+                firstInsert.ExecuteNonQuery();
 
-            Console.Clear();
-            Console.WriteLine("L'inscription s'est déroulée avec succès !\n");
+                Console.Clear();
+                Console.WriteLine("L'inscription s'est déroulée avec succès !\n");
 
 
-            connection.Close();
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
         }
         #endregion
 
@@ -418,26 +538,37 @@ namespace BoutiqueBDDLibrary
         /// <returns></returns>
         public static bool VerifierExistanceMailAdmin(string mail)
         {
-            using (MySqlConnection connection = new MySqlConnection(DataAccess.CHEMINBDD))
+            bool resultat = false;
+            try
             {
-                connection.Open();
-                using (MySqlCommand firstInsert = connection.CreateCommand())
+                using (MySqlConnection connection = new MySqlConnection(CHEMINBDD))
                 {
-                    firstInsert.CommandText = "SELECT Mail_Admin FROM Admin WHERE Mail_Admin = @mail";
-                    firstInsert.Parameters.AddWithValue("@mail", mail);
-                    using (MySqlDataReader reader = firstInsert.ExecuteReader())
+                    connection.Open();
+                    using (MySqlCommand firstInsert = connection.CreateCommand())
                     {
-                        if (reader.Read() == true)
+                        firstInsert.CommandText = "SELECT Mail_Admin FROM Admin WHERE Mail_Admin = @mail";
+                        firstInsert.Parameters.AddWithValue("@mail", mail);
+                        using (MySqlDataReader reader = firstInsert.ExecuteReader())
                         {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
+                            if (reader.Read() == true)
+                            {
+                                resultat = true;
+                            }
+                            else
+                            {
+                                resultat = false;
+                            }
                         }
                     }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            return resultat;
+            
         }
         #endregion
 
@@ -451,27 +582,36 @@ namespace BoutiqueBDDLibrary
         public static bool VerifieMailMdpAdministrateur(string email, string motdepasse)
         {
             bool resultat = false;
-            using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-                MySqlCommand selectCommand = new MySqlCommand
-                    ("SELECT Mail_Admin, MDP_Admin FROM admin WHERE Mail_Admin = @email AND MDP_Admin = SHA2(@motdepasse,256)", db);
-                selectCommand.Parameters.AddWithValue("@email", email);
-                selectCommand.Parameters.AddWithValue("@motdepasse", motdepasse);
-
-                MySqlDataReader query = selectCommand.ExecuteReader();
-
-                if (query.Read())
+                using (MySqlConnection db =
+                new MySqlConnection(CHEMINBDD))
                 {
-                    resultat = true;
+                    db.Open();
+                    MySqlCommand selectCommand = new MySqlCommand
+                        ("SELECT Mail_Admin, MDP_Admin FROM admin WHERE Mail_Admin = @email AND MDP_Admin = SHA2(@motdepasse,256)", db);
+                    selectCommand.Parameters.AddWithValue("@email", email);
+                    selectCommand.Parameters.AddWithValue("@motdepasse", motdepasse);
+
+                    MySqlDataReader query = selectCommand.ExecuteReader();
+
+                    if (query.Read())
+                    {
+                        resultat = true;
+                    }
+                    else
+                    {
+                        resultat = false;
+                    }
+                    return resultat;
                 }
-                else
-                {
-                    resultat = false;
-                }
-                return resultat;
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            return resultat;
         }
         #endregion
 
@@ -484,18 +624,27 @@ namespace BoutiqueBDDLibrary
         /// <param name="nomville"></param>
         public static void InsererVilleEnBDD(string codepostal, string nomville)
         {
-            MySqlConnection connection = new MySqlConnection(DataAccess.CHEMINBDD);
-            connection.Open();
+            try
+            {
+                MySqlConnection connection = new MySqlConnection(CHEMINBDD);
+                connection.Open();
 
-            MySqlCommand firstInsert =
-                new MySqlCommand("INSERT INTO cp_ville (CodePostal_Ville, Nom_Ville) VALUES (@codepostal, @nomville)", connection);
-            var codepostalParameter = new MySqlParameter("@codepostal", codepostal);
-            var nomvilleParameter = new MySqlParameter("@nomville", nomville);
-            firstInsert.Parameters.Add(codepostalParameter);
-            firstInsert.Parameters.Add(nomvilleParameter);
-            firstInsert.ExecuteNonQuery();
+                MySqlCommand firstInsert =
+                    new MySqlCommand("INSERT INTO cp_ville (CodePostal_Ville, Nom_Ville) VALUES (@codepostal, @nomville)", connection);
+                var codepostalParameter = new MySqlParameter("@codepostal", codepostal);
+                var nomvilleParameter = new MySqlParameter("@nomville", nomville);
+                firstInsert.Parameters.Add(codepostalParameter);
+                firstInsert.Parameters.Add(nomvilleParameter);
+                firstInsert.ExecuteNonQuery();
 
-            connection.Close();
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
         }
         #endregion
 
@@ -507,28 +656,38 @@ namespace BoutiqueBDDLibrary
         /// <returns></returns>
         public static FonctionsConsole.IdTrouve VerificationVille(string Ville)
         {
-            string nomVille = Ville.ToUpper();
-            using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+            FonctionsConsole.IdTrouve resultat = new FonctionsConsole.IdTrouve();
+            try
             {
-                db.Open();
-
-                MySqlCommand selectCommand = new MySqlCommand
-                    ("SELECT Id_CPVille, Nom_Ville FROM cp_ville WHERE Nom_Ville = @Ville", db);
-                selectCommand.Parameters.AddWithValue("@Ville", Ville);
-
-                MySqlDataReader query = selectCommand.ExecuteReader();
-
-                if (query.Read())
+                string nomVille = Ville.ToUpper();
+                using (MySqlConnection db =
+                    new MySqlConnection(CHEMINBDD))
                 {
-                    int idVille = (int)query["Id_CPVille"];
-                    return new FonctionsConsole.IdTrouve(idVille);
-                }
-                else
-                {
-                    return new FonctionsConsole.IdTrouve();
+                    db.Open();
+
+                    MySqlCommand selectCommand = new MySqlCommand
+                        ("SELECT Id_CPVille, Nom_Ville FROM cp_ville WHERE Nom_Ville = @Ville", db);
+                    selectCommand.Parameters.AddWithValue("@Ville", Ville);
+
+                    MySqlDataReader query = selectCommand.ExecuteReader();
+
+                    if (query.Read())
+                    {
+                        int idVille = (int)query["Id_CPVille"];
+                        resultat = new FonctionsConsole.IdTrouve(idVille);
+                    }
+                    else
+                    {
+                        resultat = new FonctionsConsole.IdTrouve();
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            return resultat;
         }
         #endregion
 
@@ -541,25 +700,33 @@ namespace BoutiqueBDDLibrary
         /// <param name="produit"></param>
         public static void AddProduct(Produit produit)
         {
-            using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
+                using (MySqlConnection db =
+                new MySqlConnection(CHEMINBDD))
+                {
+                    db.Open();
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
 
-                insertCommand.CommandText = "INSERT INTO produit (Nom_Produit, TVA, Prix_Produit,  Description_Produit, ValNutrition_Produit, FK_Id_Categorie, FK_Id_Origine, FK_Id_Unite, Remise_Produit) VALUES (@Nom_Produit, @TVA, @Prix_Produit, @Description_Produit, @ValNutrition_Produit, @FK_Id_Categorie, @FK_Id_Origine, @FK_Id_Unite , @Remise_Produit)";
+                    insertCommand.CommandText = "INSERT INTO produit (Nom_Produit, TVA, Prix_Produit,  Description_Produit, ValNutrition_Produit, FK_Id_Categorie, FK_Id_Origine, FK_Id_Unite, Remise_Produit) VALUES (@Nom_Produit, @TVA, @Prix_Produit, @Description_Produit, @ValNutrition_Produit, @FK_Id_Categorie, @FK_Id_Origine, @FK_Id_Unite , @Remise_Produit)";
 
-                insertCommand.Parameters.AddWithValue("@Nom_Produit", produit.Nom_Produit);
-                insertCommand.Parameters.AddWithValue("@TVA", produit.TVA);
-                insertCommand.Parameters.AddWithValue("@Prix_Produit", produit.Prix_Produit);
-                insertCommand.Parameters.AddWithValue("@Remise_Produit", produit.Remise_Produit);
-                insertCommand.Parameters.AddWithValue("@Description_Produit", produit.Description_Produit);
-                insertCommand.Parameters.AddWithValue("@ValNutrition_Produit", produit.Val_Nutrition_Produit);
-                insertCommand.Parameters.AddWithValue("@FK_Id_Categorie", produit.FK_Id_Categorie);
-                insertCommand.Parameters.AddWithValue("@FK_Id_Origine", produit.FK_Id_Origine);
-                insertCommand.Parameters.AddWithValue("@FK_Id_Unite", produit.FK_Id_Unite);
-                insertCommand.ExecuteReader();
+                    insertCommand.Parameters.AddWithValue("@Nom_Produit", produit.Nom_Produit);
+                    insertCommand.Parameters.AddWithValue("@TVA", produit.TVA);
+                    insertCommand.Parameters.AddWithValue("@Prix_Produit", produit.Prix_Produit);
+                    insertCommand.Parameters.AddWithValue("@Remise_Produit", produit.Remise_Produit);
+                    insertCommand.Parameters.AddWithValue("@Description_Produit", produit.Description_Produit);
+                    insertCommand.Parameters.AddWithValue("@ValNutrition_Produit", produit.Val_Nutrition_Produit);
+                    insertCommand.Parameters.AddWithValue("@FK_Id_Categorie", produit.FK_Id_Categorie);
+                    insertCommand.Parameters.AddWithValue("@FK_Id_Origine", produit.FK_Id_Origine);
+                    insertCommand.Parameters.AddWithValue("@FK_Id_Unite", produit.FK_Id_Unite);
+                    insertCommand.ExecuteReader();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
             }
         }
         #endregion
@@ -572,44 +739,52 @@ namespace BoutiqueBDDLibrary
         public static List<Produit> GetAllProducts()
         {
             List<Produit> entries = new List<Produit>();
-            using (MySqlConnection db =
-            new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-                MySqlCommand selectCommand = new MySqlCommand
-                    ("SELECT * from produit", db);
-
-                MySqlDataReader query = selectCommand.ExecuteReader();
-
-                while (query.Read())
+                using (MySqlConnection db =
+                new MySqlConnection(CHEMINBDD))
                 {
-                    Produit produit = new Produit();
-                    produit.Id_Produit = query.GetInt32(0);
-                    produit.Nom_Produit = query.GetString(1);
-                    produit.TVA = query.GetDecimal(2);
-                    produit.Prix_Produit = query.GetDecimal(3);
-                    if (!DBNull.Value.Equals(query.GetValue(4)))
+                    db.Open();
+                    MySqlCommand selectCommand = new MySqlCommand
+                        ("SELECT Id_Produit, Nom_Produit, TVA, Nom_Categorie, Nom_Origine, Prix_Produit, Libelle_Unite, Description_Produit, Remise_Produit, ValNutrition_Produit FROM produit INNER JOIN origine ON origine.Id_Origine = produit.FK_Id_Origine INNER JOIN unite ON unite.Id_Unite = produit.FK_Id_Unite INNER JOIN categorie ON categorie.Id_Categorie = produit.FK_Id_Categorie", db);
+
+                    MySqlDataReader query = selectCommand.ExecuteReader();
+
+                    while (query.Read())
                     {
-                        produit.Remise_Produit = query.GetUInt32(4);
+                        Produit produit = new Produit();
+                        produit.Id_Produit = query.GetInt32(0);
+                        produit.Nom_Produit = query.GetString(1);
+                        produit.TVA = query.GetInt32(2);
+                        produit.Nom_categorie = query.GetString(3);
+                        produit.Nom_origine = query.GetString(4);
+                        produit.Prix_Produit = query.GetDecimal(5);
+                        produit.Libelle_unite = query.GetString(6);
+                        if (!DBNull.Value.Equals(query.GetValue(7)))
+                        {
+                            produit.Description_Produit = query.GetString(7);
+                        }
+                        else
+                        {
+                            produit.Description_Produit = "";
+                        }
+                        if (!DBNull.Value.Equals(query.GetValue(8)))
+                        {
+                            produit.Remise_Produit = query.GetDecimal(8);
+                        }
+                        else
+                        {
+                            produit.Remise_Produit = 0;
+                        }
+                        produit.Val_Nutrition_Produit = query.GetInt32(9);
+                        entries.Add(produit);
                     }
-                    else
-                    {
-                        produit.Remise_Produit = 0;
-                    }
-                    if (!DBNull.Value.Equals(query.GetValue(5)))
-                    {
-                        produit.Description_Produit = query.GetString(5);
-                    }
-                    else
-                    {
-                        produit.Description_Produit = "";
-                    }
-                    produit.Val_Nutrition_Produit = query.GetInt32(6);
-                    produit.FK_Id_Categorie = query.GetInt32(7);
-                    produit.FK_Id_Origine = query.GetInt32(8);
-                    produit.FK_Id_Unite = query.GetInt32(9);
-                    entries.Add(produit);
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
             }
             return entries;
         }
@@ -622,78 +797,95 @@ namespace BoutiqueBDDLibrary
         public static List<Produit> GetLimitProducts(int start, string group, int limit)
         {
             List<Produit> entries = new List<Produit>();
-
-            using (MySqlConnection db =
-            new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
-                insertCommand.CommandText = "SELECT Id_Produit, Nom_Produit, Nom_Categorie, Nom_Origine, Prix_Produit, Libelle_Unite, Description_Produit, ValNutrition_Produit FROM produit INNER JOIN origine ON origine.Id_Origine = produit.FK_Id_Origine INNER JOIN unite ON unite.Id_Unite = produit.FK_Id_Unite INNER JOIN categorie ON categorie.Id_Categorie = produit.FK_Id_Categorie LIMIT @limit OFFSET @start;";
-                //insertCommand.Parameters.AddWithValue("@order", group);
-                insertCommand.Parameters.AddWithValue("@start", start);
-                insertCommand.Parameters.AddWithValue("@limit", limit);
-
-                MySqlDataReader query = insertCommand.ExecuteReader();
-
-                while (query.Read())
+                using (MySqlConnection db =
+                new MySqlConnection(CHEMINBDD))
                 {
-                    Produit produit = new Produit();
-                    produit.Id_Produit = query.GetInt32(0);
-                    produit.Nom_Produit = query.GetString(1);
-                    produit.Nom_categorie = query.GetString(2);
-                    produit.Nom_origine = query.GetString(3);
-                    produit.Prix_Produit = query.GetDecimal(4);
-                    produit.Libelle_unite = query.GetString(5);
-                    if (!DBNull.Value.Equals(query.GetValue(6)))
+                    db.Open();
+
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
+                    insertCommand.CommandText = "SELECT Id_Produit, Nom_Produit, Nom_Categorie, Nom_Origine, Prix_Produit, Libelle_Unite, Description_Produit, ValNutrition_Produit FROM produit INNER JOIN origine ON origine.Id_Origine = produit.FK_Id_Origine INNER JOIN unite ON unite.Id_Unite = produit.FK_Id_Unite INNER JOIN categorie ON categorie.Id_Categorie = produit.FK_Id_Categorie LIMIT @limit OFFSET @start;";
+                    //insertCommand.Parameters.AddWithValue("@order", group);
+                    insertCommand.Parameters.AddWithValue("@start", start);
+                    insertCommand.Parameters.AddWithValue("@limit", limit);
+
+                    MySqlDataReader query = insertCommand.ExecuteReader();
+
+                    while (query.Read())
                     {
-                        produit.Description_Produit = query.GetString(6);
+                        Produit produit = new Produit();
+                        produit.Id_Produit = query.GetInt32(0);
+                        produit.Nom_Produit = query.GetString(1);
+                        produit.Nom_categorie = query.GetString(2);
+                        produit.Nom_origine = query.GetString(3);
+                        produit.Prix_Produit = query.GetDecimal(4);
+                        produit.Libelle_unite = query.GetString(5);
+                        if (!DBNull.Value.Equals(query.GetValue(6)))
+                        {
+                            produit.Description_Produit = query.GetString(6);
+                        }
+                        else
+                        {
+                            produit.Description_Produit = "";
+                        }
+                        produit.Val_Nutrition_Produit = query.GetInt32(7);
+                        entries.Add(produit);
                     }
-                    else
-                    {
-                        produit.Description_Produit = "";
-                    }
-                    produit.Val_Nutrition_Produit = query.GetInt32(7);
-                    entries.Add(produit);
+                }
+
+                // Condition qui permettent de trier en fonction de la variable group, par defaut les produits sont trier par Ordre alphabetique
+                if (group == "Prix_Produit")
+                {
+                    entries = entries.OrderBy(x => x.Prix_Produit).ToList();
+                }
+                else if (group == "Nom_Categorie")
+                {
+                    entries = entries.OrderBy(x => x.Nom_categorie).ToList();
+                }
+                else
+                {
+                    entries = entries.OrderBy(x => x.Nom_Produit).ToList();
                 }
             }
-            if (group == "Prix_Produit")
+            catch (Exception e)
             {
-                entries = entries.OrderBy(x => x.Prix_Produit).ToList();
+                Console.WriteLine(e);
+                Console.ReadKey();
             }
-            else if (group == "Nom_Categorie")
-            {
-                entries = entries.OrderBy(x => x.Nom_categorie).ToList();
-            }
-            else
-            {
-                entries = entries.OrderBy(x => x.Nom_Produit).ToList();
-            }
-            
             return entries;
         }
         #endregion
 
         #region [BDD] Supprimer un produit
         /// <summary>
-        /// Supprime un produit de la base de données
+        /// Supprime un produit de la base de données en fonction du nom
         /// </summary>
         public static void DeleteOneProduct(string nom)
         {
-            using (MySqlConnection db =
-            new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
+                using (MySqlConnection db =
+                new MySqlConnection(CHEMINBDD))
+                {
+                    db.Open();
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
 
-                //Requête qui protège des attaques SQL
-                insertCommand.CommandText = "DELETE FROM produit WHERE Nom_Produit = @Nom_Produit ";
+                    //Requête qui protège des attaques SQL
+                    insertCommand.CommandText = "DELETE FROM produit WHERE Nom_Produit = @Nom_Produit ";
 
-                insertCommand.Parameters.AddWithValue("@Nom_Produit", nom);
-                insertCommand.ExecuteReader();
+                    insertCommand.Parameters.AddWithValue("@Nom_Produit", nom);
+                    insertCommand.ExecuteReader();
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
         }
         #endregion
 
@@ -703,80 +895,98 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         public static void ModifyOneProduct(string nom, Produit p)
         {
-            using (MySqlConnection db =
-            new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
+                using (MySqlConnection db =
+                new MySqlConnection(CHEMINBDD))
+                {
+                    db.Open();
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
 
-                insertCommand.CommandText = "UPDATE produit SET Nom_Produit = @Nom_Produit , TVA = @TVA, Prix_Produit = @Prix_Produit,  Description_Produit = @Description_Produit, ValNutrition_Produit = @ValNutrition_Produit, FK_Id_Categorie = @FK_Id_Categorie, FK_Id_Origine = @FK_Id_Origine, FK_Id_Unite = @FK_Id_Unite, Remise_Produit = @Remise_Produit WHERE Nom_Produit = @nom ";
+                    insertCommand.CommandText = "UPDATE produit SET Nom_Produit = @Nom_Produit , TVA = @TVA, Prix_Produit = @Prix_Produit,  Description_Produit = @Description_Produit, ValNutrition_Produit = @ValNutrition_Produit, FK_Id_Categorie = @FK_Id_Categorie, FK_Id_Origine = @FK_Id_Origine, FK_Id_Unite = @FK_Id_Unite, Remise_Produit = @Remise_Produit WHERE Nom_Produit = @nom ";
 
-                insertCommand.Parameters.AddWithValue("@Nom_Produit", p.Nom_Produit);
-                insertCommand.Parameters.AddWithValue("@TVA", p.TVA);
-                insertCommand.Parameters.AddWithValue("@Prix_Produit", p.Prix_Produit);
-                insertCommand.Parameters.AddWithValue("@Remise_Produit", p.Remise_Produit);
-                insertCommand.Parameters.AddWithValue("@Description_Produit", p.Description_Produit);
-                insertCommand.Parameters.AddWithValue("@ValNutrition_Produit", p.Val_Nutrition_Produit);
-                insertCommand.Parameters.AddWithValue("@FK_Id_Categorie", p.FK_Id_Categorie);
-                insertCommand.Parameters.AddWithValue("@FK_Id_Origine", p.FK_Id_Origine);
-                insertCommand.Parameters.AddWithValue("@FK_Id_Unite", p.FK_Id_Unite);
-                insertCommand.Parameters.AddWithValue("@nom", nom);
-                insertCommand.ExecuteReader();
+                    insertCommand.Parameters.AddWithValue("@Nom_Produit", p.Nom_Produit);
+                    insertCommand.Parameters.AddWithValue("@TVA", p.TVA);
+                    insertCommand.Parameters.AddWithValue("@Prix_Produit", p.Prix_Produit);
+                    insertCommand.Parameters.AddWithValue("@Remise_Produit", p.Remise_Produit);
+                    insertCommand.Parameters.AddWithValue("@Description_Produit", p.Description_Produit);
+                    insertCommand.Parameters.AddWithValue("@ValNutrition_Produit", p.Val_Nutrition_Produit);
+                    insertCommand.Parameters.AddWithValue("@FK_Id_Categorie", p.FK_Id_Categorie);
+                    insertCommand.Parameters.AddWithValue("@FK_Id_Origine", p.FK_Id_Origine);
+                    insertCommand.Parameters.AddWithValue("@FK_Id_Unite", p.FK_Id_Unite);
+                    insertCommand.Parameters.AddWithValue("@nom", nom);
+                    insertCommand.ExecuteReader();
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
         }
         #endregion
 
         #region [BDD] Afficher un produit par son nom
         /// <summary>
-        /// Affiche un produit par son nom, @nom correspond au nom du produit à afficher.
+        /// Affiche un produit en fonction de son nom.
+        /// Retourne un Produit p si le produit a été trouver sinon retourne un Nom.produit = "Rien"
         /// </summary>
         public static Produit GetOneProduct(string Nom)
         {
             Produit p = new Produit();
-            using (MySqlConnection db =
-            new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
-                insertCommand.CommandText = "SELECT * FROM produit WHERE Nom_Produit = @nom";
-                insertCommand.Parameters.AddWithValue("@nom", Nom);
-                MySqlDataReader query = insertCommand.ExecuteReader();
+                using (MySqlConnection db =
+                new MySqlConnection(DataAccess.CHEMINBDD))
+                {
+                    db.Open();
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
+                    insertCommand.CommandText = "SELECT * FROM produit WHERE Nom_Produit = @nom";
+                    insertCommand.Parameters.AddWithValue("@nom", Nom);
+                    MySqlDataReader query = insertCommand.ExecuteReader();
 
-                if (query.Read())
-                {
-                    p.Id_Produit = query.GetInt32(0);
-                    p.Nom_Produit = query.GetString(1);
-                    p.TVA = query.GetDecimal(2);
-                    p.Prix_Produit = query.GetDecimal(3);
-                    if (!DBNull.Value.Equals(query.GetValue(4)))
+                    if (query.Read())
                     {
-                        p.Remise_Produit = query.GetUInt32(4);
+                        p.Id_Produit = query.GetInt32(0);
+                        p.Nom_Produit = query.GetString(1);
+                        p.TVA = query.GetDecimal(2);
+                        p.Prix_Produit = query.GetDecimal(3);
+                        if (!DBNull.Value.Equals(query.GetValue(4)))
+                        {
+                            p.Remise_Produit = query.GetUInt32(4);
+                        }
+                        else
+                        {
+                            p.Remise_Produit = 0;
+                        }
+                        if (!DBNull.Value.Equals(query.GetValue(5)))
+                        {
+                            p.Description_Produit = query.GetString(5);
+                        }
+                        else
+                        {
+                            p.Description_Produit = "";
+                        }
+                        p.Val_Nutrition_Produit = query.GetInt32(6);
+                        p.FK_Id_Categorie = query.GetInt32(7);
+                        p.FK_Id_Origine = query.GetInt32(8);
+                        p.FK_Id_Unite = query.GetInt32(9);
                     }
                     else
                     {
-                        p.Remise_Produit = 0;
+                        p.Nom_origine = "Rien";
                     }
-                    if (!DBNull.Value.Equals(query.GetValue(5)))
-                    {
-                        p.Description_Produit = query.GetString(5);
-                    }
-                    else
-                    {
-                        p.Description_Produit = "";
-                    }
-                    //produit.Description_Produit = query.GetString(5);
-                    p.Val_Nutrition_Produit = query.GetInt32(6);
-                    p.FK_Id_Categorie = query.GetInt32(7);
-                    p.FK_Id_Origine = query.GetInt32(8);
-                    p.FK_Id_Unite = query.GetInt32(9);
-                }
-                else
-                {
-                    p.Nom_origine = "Rien";
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+
             return p;
         }
         #endregion
@@ -787,48 +997,57 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         public static Produit GetOneProductById(int Id)
         {
-            Produit p = new Produit();
-            using (MySqlConnection db =
-            new MySqlConnection(DataAccess.CHEMINBDD))
-            {
-                db.Open();
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
-                insertCommand.CommandText = "SELECT * FROM produit WHERE Id_Produit = @id";
-                insertCommand.Parameters.AddWithValue("@id", Id);
-                MySqlDataReader query = insertCommand.ExecuteReader();
 
-                if (query.Read())
+            Produit p = new Produit();
+            try
+            {
+                using (MySqlConnection db =
+                new MySqlConnection(CHEMINBDD))
                 {
-                    p.Id_Produit = query.GetInt32(0);
-                    p.Nom_Produit = query.GetString(1);
-                    p.TVA = query.GetDecimal(2);
-                    p.Prix_Produit = query.GetDecimal(3);
-                    if (!DBNull.Value.Equals(query.GetValue(4)))
+                    db.Open();
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
+                    insertCommand.CommandText = "SELECT * FROM produit WHERE Id_Produit = @id";
+                    insertCommand.Parameters.AddWithValue("@id", Id);
+                    MySqlDataReader query = insertCommand.ExecuteReader();
+
+                    if (query.Read())
                     {
-                        p.Remise_Produit = query.GetUInt32(4);
+                        p.Id_Produit = query.GetInt32(0);
+                        p.Nom_Produit = query.GetString(1);
+                        p.TVA = query.GetDecimal(2);
+                        p.Prix_Produit = query.GetDecimal(3);
+                        if (!DBNull.Value.Equals(query.GetValue(4)))
+                        {
+                            p.Remise_Produit = query.GetUInt32(4);
+                        }
+                        else
+                        {
+                            p.Remise_Produit = 0;
+                        }
+                        if (!DBNull.Value.Equals(query.GetValue(5)))
+                        {
+                            p.Description_Produit = query.GetString(5);
+                        }
+                        else
+                        {
+                            p.Description_Produit = "";
+                        }
+                        p.Val_Nutrition_Produit = query.GetInt32(6);
+                        p.FK_Id_Categorie = query.GetInt32(7);
+                        p.FK_Id_Origine = query.GetInt32(8);
+                        p.FK_Id_Unite = query.GetInt32(9);
                     }
                     else
                     {
-                        p.Remise_Produit = 0;
+                        p.Nom_Produit = "Rien";
                     }
-                    if (!DBNull.Value.Equals(query.GetValue(5)))
-                    {
-                        p.Description_Produit = query.GetString(5);
-                    }
-                    else
-                    {
-                        p.Description_Produit = "";
-                    }
-                    p.Val_Nutrition_Produit = query.GetInt32(6);
-                    p.FK_Id_Categorie = query.GetInt32(7);
-                    p.FK_Id_Origine = query.GetInt32(8);
-                    p.FK_Id_Unite = query.GetInt32(9);
                 }
-                else
-                {
-                    p.Nom_Produit = "Rien";
-                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
             }
             return p;
         }
@@ -839,54 +1058,55 @@ namespace BoutiqueBDDLibrary
         public static List<Produit> GetAllProductsByName(int start, int limit)
         {
             List<Produit> entries = new List<Produit>();
-
-            using (MySqlConnection db =
-            new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
-                insertCommand.CommandText = "SELECT Id_Produit, Nom_Produit, Nom_Categorie, Nom_Origine, Prix_Produit, Libelle_Unite, Description_Produit, ValNutrition_Produit FROM produit INNER JOIN origine ON origine.Id_Origine = produit.FK_Id_Origine INNER JOIN unite ON unite.Id_Unite = produit.FK_Id_Unite INNER JOIN categorie ON categorie.Id_Categorie = produit.FK_Id_Categorie ORDER BY @order LIMIT @limit OFFSET @start ;";
-
-                insertCommand.Parameters.AddWithValue("@start", start);
-                insertCommand.Parameters.AddWithValue("@limit", limit);
-
-                MySqlDataReader query = insertCommand.ExecuteReader();
-
-                while (query.Read())
+                using (MySqlConnection db =
+                new MySqlConnection(CHEMINBDD))
                 {
-                    Produit produit = new Produit();
-                    produit.Id_Produit = query.GetInt32(0);
-                    produit.Nom_Produit = query.GetString(1);
-                    produit.Nom_categorie = query.GetString(2);
-                    produit.Nom_origine = query.GetString(3);
-                    produit.Prix_Produit = query.GetDecimal(4);
-                    produit.Libelle_unite = query.GetString(5);
-                    if (!DBNull.Value.Equals(query.GetValue(6)))
+                    db.Open();
+
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
+                    insertCommand.CommandText = "SELECT Id_Produit, Nom_Produit, Nom_Categorie, Nom_Origine, Prix_Produit, Libelle_Unite, Description_Produit, ValNutrition_Produit FROM produit INNER JOIN origine ON origine.Id_Origine = produit.FK_Id_Origine INNER JOIN unite ON unite.Id_Unite = produit.FK_Id_Unite INNER JOIN categorie ON categorie.Id_Categorie = produit.FK_Id_Categorie ORDER BY @order LIMIT @limit OFFSET @start ;";
+
+                    insertCommand.Parameters.AddWithValue("@start", start);
+                    insertCommand.Parameters.AddWithValue("@limit", limit);
+
+                    MySqlDataReader query = insertCommand.ExecuteReader();
+
+                    while (query.Read())
                     {
-                        produit.Description_Produit = query.GetString(6);
+                        Produit produit = new Produit();
+                        produit.Id_Produit = query.GetInt32(0);
+                        produit.Nom_Produit = query.GetString(1);
+                        produit.Nom_categorie = query.GetString(2);
+                        produit.Nom_origine = query.GetString(3);
+                        produit.Prix_Produit = query.GetDecimal(4);
+                        produit.Libelle_unite = query.GetString(5);
+                        if (!DBNull.Value.Equals(query.GetValue(6)))
+                        {
+                            produit.Description_Produit = query.GetString(6);
+                        }
+                        else
+                        {
+                            produit.Description_Produit = "";
+                        }
+                        produit.Val_Nutrition_Produit = query.GetInt32(7);
+                        entries.Add(produit);
                     }
-                    else
-                    {
-                        produit.Description_Produit = "";
-                    }
-                    //produit.Description_Produit = query.GetString(5);
-                    produit.Val_Nutrition_Produit = query.GetInt32(7);
-                    entries.Add(produit);
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
             return entries;
         }
 
         #endregion
-
-        #region [BDD] Affiche les produits trier par categorie
-        #endregion
-
-        #region [BDD] Affiche les produits trier par prix
-        #endregion
-
+        
         //Catégorie
         #region [BDD] Ajouter une catégorie
         /// <summary>
@@ -894,19 +1114,28 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         public static void AddCategorie(Categorie categorie)
         {
-            using (MySqlConnection db =
-            new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
+                using (MySqlConnection db =
+            new MySqlConnection(DataAccess.CHEMINBDD))
+                {
+                    db.Open();
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
 
-                // Use parameterized query to prevent SQL injection attacks
-                insertCommand.CommandText = "INSERT INTO categorie (Nom_Categorie) VALUES (@Nom_Categorie)";
+                    // Use parameterized query to prevent SQL injection attacks
+                    insertCommand.CommandText = "INSERT INTO categorie (Nom_Categorie) VALUES (@Nom_Categorie)";
 
-                insertCommand.Parameters.AddWithValue("@Nom_Categorie", categorie.Nom_categorie);
-                insertCommand.ExecuteReader();
+                    insertCommand.Parameters.AddWithValue("@Nom_Categorie", categorie.Nom_categorie);
+                    insertCommand.ExecuteReader();
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
         }
         #endregion
 
@@ -918,27 +1147,37 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         public static FonctionsConsole.IdTrouve VerificationCategorie(string categorie)
         {
-            using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+            FonctionsConsole.IdTrouve resultat = new FonctionsConsole.IdTrouve();
+            try
             {
-                db.Open();
-
-                MySqlCommand selectCommand = new MySqlCommand
-                    ("SELECT Id_Categorie, Nom_Categorie FROM categorie WHERE Nom_Categorie = @categorie", db);
-                selectCommand.Parameters.AddWithValue("@categorie", categorie);
-
-                MySqlDataReader query = selectCommand.ExecuteReader();
-
-                if (query.Read())
+                using (MySqlConnection db =
+                new MySqlConnection(CHEMINBDD))
                 {
-                    int idCategorie = (int)query["Id_Categorie"];
-                    return new FonctionsConsole.IdTrouve(idCategorie);
-                }
-                else
-                {
-                    return new FonctionsConsole.IdTrouve();
+                    db.Open();
+
+                    MySqlCommand selectCommand = new MySqlCommand
+                        ("SELECT Id_Categorie, Nom_Categorie FROM categorie WHERE Nom_Categorie = @categorie", db);
+                    selectCommand.Parameters.AddWithValue("@categorie", categorie);
+
+                    MySqlDataReader query = selectCommand.ExecuteReader();
+
+                    if (query.Read())
+                    {
+                        int idCategorie = (int)query["Id_Categorie"];
+                        resultat = new FonctionsConsole.IdTrouve(idCategorie);
+                    }
+                    else
+                    {
+                        resultat = new FonctionsConsole.IdTrouve();
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            return resultat;
         }
         #endregion
 
@@ -949,20 +1188,29 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         public static void AddCommande(Commande commande)
         {
-            using (MySqlConnection db =
-            new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
+                using (MySqlConnection db =
+                new MySqlConnection(DataAccess.CHEMINBDD))
+                {
+                    db.Open();
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
 
-                insertCommand.CommandText = "INSERT INTO commande (FK_Id_Facture, FK_Id_Produit, Qtite_Produit) VALUES (@FK_Id_Facture, @FK_Id_Produit, @Qtite_Produit)";
+                    insertCommand.CommandText = "INSERT INTO commande (FK_Id_Facture, FK_Id_Produit, Qtite_Produit) VALUES (@FK_Id_Facture, @FK_Id_Produit, @Qtite_Produit)";
 
-                insertCommand.Parameters.AddWithValue("@FK_Id_Facture", commande.FK_Id_Facture);
-                insertCommand.Parameters.AddWithValue("@FK_Id_Produit", commande.FK_Id_Produit);
-                insertCommand.Parameters.AddWithValue("@Qtite_Produit", commande.Qtite_Produit);
-                insertCommand.ExecuteReader();
+                    insertCommand.Parameters.AddWithValue("@FK_Id_Facture", commande.FK_Id_Facture);
+                    insertCommand.Parameters.AddWithValue("@FK_Id_Produit", commande.FK_Id_Produit);
+                    insertCommand.Parameters.AddWithValue("@Qtite_Produit", commande.Qtite_Produit);
+                    insertCommand.ExecuteReader();
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
         }
         #endregion
 
@@ -975,25 +1223,33 @@ namespace BoutiqueBDDLibrary
         public static List<OptionPaiement> GetAllPayement()
         {
             List<OptionPaiement> entries = new List<OptionPaiement>();
-
-            using (MySqlConnection db =
-            new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-
-                MySqlCommand selectCommand = new MySqlCommand
-                    ("SELECT * from opt_paiement", db);
-
-                MySqlDataReader query = selectCommand.ExecuteReader();
-
-                while (query.Read())
+                using (MySqlConnection db =
+                new MySqlConnection(DataAccess.CHEMINBDD))
                 {
-                    OptionPaiement optionPaiement = new OptionPaiement();
-                    optionPaiement.Id_Paiement = query.GetInt32(0);
-                    optionPaiement.Libelle_paiement = query.GetString(1);
-                    entries.Add(optionPaiement);
+                    db.Open();
+
+                    MySqlCommand selectCommand = new MySqlCommand
+                        ("SELECT * from opt_paiement", db);
+
+                    MySqlDataReader query = selectCommand.ExecuteReader();
+
+                    while (query.Read())
+                    {
+                        OptionPaiement optionPaiement = new OptionPaiement();
+                        optionPaiement.Id_Paiement = query.GetInt32(0);
+                        optionPaiement.Libelle_paiement = query.GetString(1);
+                        entries.Add(optionPaiement);
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
             return entries;
         }
         #endregion
@@ -1004,20 +1260,29 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         public static void AddIFP(IFP ifp)
         {
-            using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
+                using (MySqlConnection db =
+                new MySqlConnection(DataAccess.CHEMINBDD))
+                {
+                    db.Open();
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
 
-                insertCommand.CommandText = "INSERT INTO inter_facture_paiement (FK_Id_Facture, FK_Id_Paiement, Montant_Paiement) VALUES (@FK_Id_Facture, @FK_Id_Paiement, @Montant_paiement)";
+                    insertCommand.CommandText = "INSERT INTO inter_facture_paiement (FK_Id_Facture, FK_Id_Paiement, Montant_Paiement) VALUES (@FK_Id_Facture, @FK_Id_Paiement, @Montant_paiement)";
 
-                insertCommand.Parameters.AddWithValue("@FK_Id_Facture", ifp.FK_Id_Facture);
-                insertCommand.Parameters.AddWithValue("@FK_Id_Paiement", ifp.FK_Id_Paiement);
-                insertCommand.Parameters.AddWithValue("@Montant_paiement", ifp.Montant_Paiement);
-                insertCommand.ExecuteReader();
+                    insertCommand.Parameters.AddWithValue("@FK_Id_Facture", ifp.FK_Id_Facture);
+                    insertCommand.Parameters.AddWithValue("@FK_Id_Paiement", ifp.FK_Id_Paiement);
+                    insertCommand.Parameters.AddWithValue("@Montant_paiement", ifp.Montant_Paiement);
+                    insertCommand.ExecuteReader();
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
         }
         #endregion
 
@@ -1028,17 +1293,26 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         public static void AddOrigine(Origine origine)
         {
-            using (MySqlConnection db =
-            new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
-                insertCommand.CommandText = "INSERT INTO origine (Nom_Origine) VALUES (@Nom_Origine)";
+                using (MySqlConnection db =
+                new MySqlConnection(DataAccess.CHEMINBDD))
+                {
+                    db.Open();
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
+                    insertCommand.CommandText = "INSERT INTO origine (Nom_Origine) VALUES (@Nom_Origine)";
 
-                insertCommand.Parameters.AddWithValue("@Nom_Origine", origine.Nom_Origine);
-                insertCommand.ExecuteReader();
+                    insertCommand.Parameters.AddWithValue("@Nom_Origine", origine.Nom_Origine);
+                    insertCommand.ExecuteReader();
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
         }
         #endregion
 
@@ -1050,27 +1324,37 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         public static FonctionsConsole.IdTrouve VerificationOrigine(string origine)
         {
-            using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+            FonctionsConsole.IdTrouve resultat = new FonctionsConsole.IdTrouve();
+            try
             {
-                db.Open();
-
-                MySqlCommand selectCommand = new MySqlCommand
-                    ("SELECT Id_Origine, Nom_Origine FROM origine WHERE Nom_Origine = @origine", db);
-
-                selectCommand.Parameters.AddWithValue("@origine", origine);
-                MySqlDataReader query = selectCommand.ExecuteReader();
-
-                if (query.Read())
+                using (MySqlConnection db =
+                new MySqlConnection(DataAccess.CHEMINBDD))
                 {
-                    int idOrigine = (int)query["Id_Origine"];
-                    return new FonctionsConsole.IdTrouve(idOrigine);
-                }
-                else
-                {
-                    return new FonctionsConsole.IdTrouve();
+                    db.Open();
+
+                    MySqlCommand selectCommand = new MySqlCommand
+                        ("SELECT Id_Origine, Nom_Origine FROM origine WHERE Nom_Origine = @origine", db);
+
+                    selectCommand.Parameters.AddWithValue("@origine", origine);
+                    MySqlDataReader query = selectCommand.ExecuteReader();
+
+                    if (query.Read())
+                    {
+                        int idOrigine = (int)query["Id_Origine"];
+                        resultat = new FonctionsConsole.IdTrouve(idOrigine);
+                    }
+                    else
+                    {
+                        resultat = new FonctionsConsole.IdTrouve();
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            return resultat;
         }
         #endregion
 
@@ -1082,20 +1366,29 @@ namespace BoutiqueBDDLibrary
         /// <param name="unite"></param>
         public static void AddUnite(Unite unite)
         {
-            using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
+                using (MySqlConnection db =
+                new MySqlConnection(DataAccess.CHEMINBDD))
+                {
+                    db.Open();
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
 
-                // Use parameterized query to prevent SQL injection attacks
-                insertCommand.CommandText = "INSERT INTO unite (Libelle_Unite) VALUES (@Libelle_Unite)";
+                    // Use parameterized query to prevent SQL injection attacks
+                    insertCommand.CommandText = "INSERT INTO unite (Libelle_Unite) VALUES (@Libelle_Unite)";
 
-                insertCommand.Parameters.AddWithValue("@Libelle_Unite", unite.Libelle_unite);
+                    insertCommand.Parameters.AddWithValue("@Libelle_Unite", unite.Libelle_unite);
 
-                insertCommand.ExecuteReader();
+                    insertCommand.ExecuteReader();
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
 
         }
         #endregion
@@ -1107,27 +1400,37 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         public static FonctionsConsole.IdTrouve VerificationUnite(string unite)
         {
-            using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+            FonctionsConsole.IdTrouve resultat = new FonctionsConsole.IdTrouve();
+            try
             {
-                db.Open();
-
-                MySqlCommand selectCommand = new MySqlCommand
-                    ("SELECT Id_Unite, Libelle_Unite FROM unite WHERE Libelle_Unite = @Libelle_Unite", db);
-                selectCommand.Parameters.AddWithValue("@Libelle_Unite", unite);
-
-                MySqlDataReader query = selectCommand.ExecuteReader();
-
-                if (query.Read())
+                using (MySqlConnection db =
+                new MySqlConnection(DataAccess.CHEMINBDD))
                 {
-                    int idUnite = (int)query["Id_Unite"];
-                    return new FonctionsConsole.IdTrouve(idUnite);
-                }
-                else
-                {
-                    return new FonctionsConsole.IdTrouve();
+                    db.Open();
+
+                    MySqlCommand selectCommand = new MySqlCommand
+                        ("SELECT Id_Unite, Libelle_Unite FROM unite WHERE Libelle_Unite = @Libelle_Unite", db);
+                    selectCommand.Parameters.AddWithValue("@Libelle_Unite", unite);
+
+                    MySqlDataReader query = selectCommand.ExecuteReader();
+
+                    if (query.Read())
+                    {
+                        int idUnite = (int)query["Id_Unite"];
+                        resultat = new FonctionsConsole.IdTrouve(idUnite);
+                    }
+                    else
+                    {
+                        resultat = new FonctionsConsole.IdTrouve();
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            return resultat;
         }
         #endregion
 
@@ -1139,21 +1442,30 @@ namespace BoutiqueBDDLibrary
         /// <param name="facture"></param>
         public static void AddFacture(Facture facture)
         {
-            using (MySqlConnection db =
-            new MySqlConnection(DataAccess.CHEMINBDD))
+            try
             {
-                db.Open();
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
+                using (MySqlConnection db =
+                new MySqlConnection(CHEMINBDD))
+                {
+                    db.Open();
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
 
-                insertCommand.CommandText = "INSERT INTO facture (Num_Facture, Date_Facture, Montant_Total, FK_Id_Client) VALUES (@Num_Facture, @Date_Facture, @Montant_Total, @FK_Id_Client)";
+                    insertCommand.CommandText = "INSERT INTO facture (Num_Facture, Date_Facture, Montant_Total, FK_Id_Client) VALUES (@Num_Facture, @Date_Facture, @Montant_Total, @FK_Id_Client)";
 
-                insertCommand.Parameters.AddWithValue("@Num_Facture", facture.Num_facture);
-                insertCommand.Parameters.AddWithValue("@Date_Facture", facture.Date_facture);
-                insertCommand.Parameters.AddWithValue("@Montant_Total", facture.Montant_total);
-                insertCommand.Parameters.AddWithValue("@FK_Id_Client", facture.Fk_Id_Client);
-                insertCommand.ExecuteReader();
+                    insertCommand.Parameters.AddWithValue("@Num_Facture", facture.Num_facture);
+                    insertCommand.Parameters.AddWithValue("@Date_Facture", facture.Date_facture);
+                    insertCommand.Parameters.AddWithValue("@Montant_Total", facture.Montant_total);
+                    insertCommand.Parameters.AddWithValue("@FK_Id_Client", facture.Fk_Id_Client);
+                    insertCommand.ExecuteReader();
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
         }
         #endregion
 
@@ -1163,30 +1475,37 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         public static int GetLastNumFacture()
         {
-            Facture facture = new Facture();
-            int resultat;
-            using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+            int resultat = 0;
+            try
             {
-                db.Open();
-
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
-                insertCommand.CommandText = "SELECT facture.Num_Facture FROM facture ORDER BY facture.Num_Facture DESC LIMIT 1";
-
-                MySqlDataReader query = insertCommand.ExecuteReader();
-
-                if (query.Read())
+                using (MySqlConnection db =
+                new MySqlConnection(CHEMINBDD))
                 {
+                    db.Open();
 
-                    facture.Num_facture = query.GetInt32(0);
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
+                    insertCommand.CommandText = "SELECT facture.Num_Facture FROM facture ORDER BY facture.Num_Facture DESC LIMIT 1";
+
+                    MySqlDataReader query = insertCommand.ExecuteReader();
+
+                    if (query.Read())
+                    {
+
+                        resultat = query.GetInt32(0);
+                    }
+                    else
+                    {
+                        resultat = 0;
+                    }
                 }
-                else
-                {
-                    facture.Num_facture = 0;
-                }
-                resultat = facture.Num_facture;
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
             return resultat;
         }
         #endregion
@@ -1195,36 +1514,43 @@ namespace BoutiqueBDDLibrary
 
         public static int GetLastIdFacture()
         {
-            //Facture facture = new Facture();
-            int ID;
-            using (MySqlConnection db =
-                new MySqlConnection(CHEMINBDD))
+            int ID = 0;
+            try
             {
-                db.Open();
-
-                MySqlCommand insertCommand = new MySqlCommand();
-                insertCommand.Connection = db;
-                insertCommand.CommandText = "SELECT facture.Id_Facture FROM facture ORDER BY facture.Id_Facture DESC LIMIT 1";
-
-                MySqlDataReader query = insertCommand.ExecuteReader();
-
-                if (query.Read())
+                using (MySqlConnection db =
+                new MySqlConnection(CHEMINBDD))
                 {
+                    db.Open();
 
-                    ID = query.GetInt32(0);
-                }
-                else
-                {
-                    ID = 0;
-                }
+                    MySqlCommand insertCommand = new MySqlCommand();
+                    insertCommand.Connection = db;
+                    insertCommand.CommandText = "SELECT facture.Id_Facture FROM facture ORDER BY facture.Id_Facture DESC LIMIT 1";
 
-                db.Close();
+                    MySqlDataReader query = insertCommand.ExecuteReader();
+
+                    if (query.Read())
+                    {
+
+                        ID = query.GetInt32(0);
+                    }
+                    else
+                    {
+                        ID = 0;
+                    }
+
+                    db.Close();
+                }
             }
-
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+            }
+            
             return ID;
         }
 
         #endregion
-        
+
     }
 }

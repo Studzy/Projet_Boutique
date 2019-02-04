@@ -883,7 +883,6 @@ namespace BoutiqueBDDLibrary
                                     MesTest2 = false;
                                     ifp.FK_Id_Paiement = numeroPaiement;
                                     Console.Write("Il vous reste {0}e a payé, combien souhaitez vous regler ?", PrixPanier);
-                                    //ChoixUser = Console.ReadLine();
                                     decimal Payer = 0;
                                     while (!MesTest2)
                                     {
@@ -1026,7 +1025,8 @@ namespace BoutiqueBDDLibrary
                                 break;
 
                         }
-                        break;
+                        goto case ConsoleKey.Enter;
+                        //break;
                         #endregion
 
                 }
