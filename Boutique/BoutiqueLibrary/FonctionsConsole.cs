@@ -420,6 +420,7 @@ namespace BoutiqueBDDLibrary
                 {
                     Console.Write("Nom du produit : ");
                     p.Nom_Produit = Console.ReadLine();
+                    p.Nom_Produit = premiereLettreMajuscule(p.Nom_Produit);
                     MesTests = true;
                 }
                 catch (MonMessageErreur error)
@@ -531,6 +532,7 @@ namespace BoutiqueBDDLibrary
                     Console.Write("Categorie du produit : ");
                     Categorie categorie = new Categorie();
                     categorie.Nom_categorie = Console.ReadLine();
+                    categorie.Nom_categorie = premiereLettreMajuscule(categorie.Nom_categorie);
                     IdTrouve testCategorie = DataAccess.VerificationCategorie(categorie.Nom_categorie);
                     MesTests = true;
                 }
