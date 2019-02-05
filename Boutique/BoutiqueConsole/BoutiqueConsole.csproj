@@ -67,6 +67,10 @@
       <Project>{c08e16df-2b93-414e-8143-cf5d31ffd92d}</Project>
       <Name>BoutiqueLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UnitTestProject1\UnitTestProject1.csproj">
+      <Project>{c3ab80f7-6d5f-44d9-a45f-cdc8d155e32b}</Project>
+      <Name>UnitTestProject1</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

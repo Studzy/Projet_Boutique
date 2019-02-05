@@ -622,7 +622,6 @@ namespace BoutiqueBDDLibrary
         }
         #endregion
 
-
         #region Acheter un produits
         /// <summary>
         /// Interface du client pour faire ses achats
@@ -1142,62 +1141,6 @@ namespace BoutiqueBDDLibrary
             if (NbInt < 0)
             {
                 throw new FormatException("Cette valeur n'est pas valide");
-            }
-        }
-
-        public static bool verifMotDePasse(string valeur)
-        {
-            while (true)
-            {
-                valeur = FonctionsConsole.MaskPassword();
-
-                bool possedeUneLettre = false;
-                bool possedeUnChiffre = false;
-                bool possedeUneMajuscule = false;
-                if (valeur.Length <= 7)
-                {
-                    return false;
-                }
-                else
-                {
-                    for (int i = 0; i < valeur.Length; i++)
-                    {
-                        bool aUneLettre = char.IsLetter(valeur[i]);
-
-                        if (aUneLettre == true)
-                        {
-                            possedeUneLettre = true;
-                            break;
-                        }
-                    }
-                    for (int i = 0; i < valeur.Length; i++)
-                    {
-                        bool aUnChiffre = char.IsDigit(valeur[i]);
-                        if (aUnChiffre == true)
-                        {
-                            possedeUnChiffre = true;
-                            break;
-                        }
-                    }
-                    for (int i = 0; i < valeur.Length; i++)
-                    {
-                        bool aUneMaj = char.IsUpper(valeur[i]);
-                        if (aUneMaj == true)
-                        {
-                            possedeUneMajuscule = true;
-                            break;
-                        }
-                    }
-                    if (possedeUnChiffre == true && possedeUneLettre == true && possedeUneMajuscule == true)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-
-                }
             }
         }
         public class MonMessageErreur : Exception
