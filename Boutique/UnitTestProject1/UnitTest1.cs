@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using BoutiqueBDDLibrary;
 
 namespace UnitTestProject1
@@ -159,6 +160,149 @@ namespace UnitTestProject1
             var client = new Client();
             var exception = Assert.ThrowsException<FonctionsConsole.MonMessageErreur>(
                 () => client.Mdp_client = " ");
+        }
+        #endregion
+
+        #region [TEST] Nom du produit
+        /// <summary>
+        /// Test si le nom produit est bon
+        /// </summary>
+        [TestMethod]
+
+        public void Le_Nom_Du_Produit_Est_Bon()
+        {
+            var produit = new Produit();
+            produit.Nom_Produit = "Pomme";
+            Assert.AreEqual("Pomme", produit.Nom_Produit);
+        }
+        /// <summary>
+        /// Test si le nom produit est mauvais
+        /// </summary>
+        [TestMethod]
+        public void Le_Nom_Du_Produit_Est_Mauvais()
+        {
+            var produit = new Produit();
+            var exception = Assert.ThrowsException<FonctionsConsole.MonMessageErreur>(() => produit.Nom_Produit = "");
+        }
+        #endregion
+
+        #region [TEST] TVA du produit
+        /// <summary>
+        /// Test si la TVA produit est bon
+        /// </summary>
+        [TestMethod]
+
+        public void La_TVA_Du_Produit_Est_Bon()
+        {
+            var produit = new Produit();
+            produit.TVA = 5.5m;
+            Assert.AreEqual(5.5m, produit.TVA);
+        }
+        /// <summary>
+        /// Test si la TVA produit est mauvaise
+        /// </summary>
+        [TestMethod]
+        public void La_TVA_Du_Produit_Est_Mauvaise()
+        {
+            var produit = new Produit();
+            var exception = Assert.ThrowsException<FonctionsConsole.MonMessageErreur>(() => produit.TVA = 120);
+        }
+        #endregion
+
+        #region [TEST] Prix du produit
+        /// <summary>
+        /// Test si le prix produit est bon
+        /// </summary>
+        [TestMethod]
+
+        public void Le_Prix_Du_Produit_Est_Bon()
+        {
+            var produit = new Produit();
+            produit.Prix_Produit = 10;
+            Assert.AreEqual(10, produit.Prix_Produit);
+        }
+        /// <summary>
+        /// Test si le prix produit est mauvais
+        /// </summary>
+        [TestMethod]
+        public void Le_Prix_Du_Produit_Est_Mauvais()
+        {
+            var produit = new Produit();
+            var exception = Assert.ThrowsException<FormatException>(() => produit.Prix_Produit = -1);
+        }
+        #endregion
+
+        #region [TEST] Remise du produit
+        /// <summary>
+        /// Test si la remise produit est bon
+        /// </summary>
+        [TestMethod]
+
+        public void La_Remise_Du_Produit_Est_Bon()
+        {
+            var produit = new Produit();
+            produit.Remise_Produit = 25m;
+            Assert.AreEqual(25m, produit.Remise_Produit);
+        }
+        /// <summary>
+        /// Test si la remise produit est mauvaise
+        /// </summary>
+        [TestMethod]
+        public void La_Remise_Du_Produit_Est_Mauvaise()
+        {
+            var produit = new Produit();
+            var exception = Assert.ThrowsException<FonctionsConsole.MonMessageErreur>(() => produit.Remise_Produit = 150m);
+        }
+        #endregion
+
+        #region [TEST] Description du produit
+        /// <summary>
+        /// Test si la description produit est bon
+        /// </summary>
+        [TestMethod]
+
+        public void La_Description_Du_Produit_Est_Bon()
+        {
+            var produit = new Produit();
+            produit.Description_Produit = "Ceci est une description";
+            Assert.AreEqual("Ceci est une description", produit.Description_Produit);
+        }
+        /// <summary>
+        /// Test si la description produit est mauvaise
+        /// </summary>
+        [TestMethod]
+        public void La_Description_Du_Produit_Est_Mauvaise()
+        {
+            var produit = new Produit();
+            string message = "";
+            for (int i = 0; i < 65536; i++)
+            {
+                message = message + "a";
+            }
+            var exception = Assert.ThrowsException<FonctionsConsole.MonMessageErreur>(() => produit.Description_Produit = message);
+        }
+        #endregion
+
+        #region [TEST] Valeur nutritionnelle du produit
+        /// <summary>
+        /// Test si la valeur nutritionnelle produit est bon
+        /// </summary>
+        [TestMethod]
+
+        public void La_Valeur_Nutritionnelle_Du_Produit_Est_Bon()
+        {
+            var produit = new Produit();
+            produit.Val_Nutrition_Produit = 400;
+            Assert.AreEqual(400, produit.Val_Nutrition_Produit);
+        }
+        /// <summary>
+        /// Test si la valeur nutritionnelle produit est mauvaise
+        /// </summary>
+        [TestMethod]
+        public void La_Valeur_Nutritionnelle_Du_Produit_Est_Mauvaise()
+        {
+            var produit = new Produit();
+            var exception = Assert.ThrowsException<FonctionsConsole.MonMessageErreur>(() => produit.Val_Nutrition_Produit = -1);
         }
         #endregion
     }
