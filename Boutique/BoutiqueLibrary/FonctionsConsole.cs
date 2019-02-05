@@ -411,6 +411,7 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         public static void PaternProduit(Produit p)
         {
+            
             string x = "";
             decimal NbTest;
             bool MesTests = false;
@@ -534,6 +535,15 @@ namespace BoutiqueBDDLibrary
                     categorie.Nom_categorie = Console.ReadLine();
                     categorie.Nom_categorie = premiereLettreMajuscule(categorie.Nom_categorie);
                     IdTrouve testCategorie = DataAccess.VerificationCategorie(categorie.Nom_categorie);
+                    if (!testCategorie.Trouve)
+                    {
+                        DataAccess.AddCategorie(categorie);
+                        p.FK_Id_Categorie = DataAccess.VerificationCategorie(categorie.Nom_categorie).Id;
+                    }
+                    else
+                    {
+                        p.FK_Id_Categorie = testCategorie.Id;
+                    }
                     MesTests = true;
                 }
                 catch (MonMessageErreur e)
@@ -550,8 +560,18 @@ namespace BoutiqueBDDLibrary
                 {
                     Console.Write("Origine du produit : ");
                     Origine origine = new Origine();
+                    origine = new Origine();
                     origine.Nom_Origine = Console.ReadLine();
                     IdTrouve testOrigine = DataAccess.VerificationOrigine(origine.Nom_Origine);
+                    if (!testOrigine.Trouve)
+                    {
+                        DataAccess.AddOrigine(origine);
+                        p.FK_Id_Origine = DataAccess.VerificationOrigine(origine.Nom_Origine).Id;
+                    }
+                    else
+                    {
+                        p.FK_Id_Origine = testOrigine.Id;
+                    }
                     MesTests = true;
                 }
                 catch (MonMessageErreur e)
@@ -568,6 +588,15 @@ namespace BoutiqueBDDLibrary
                     Unite unite = new Unite();
                     unite.Libelle_unite = Console.ReadLine();
                     IdTrouve testUnite = DataAccess.VerificationUnite(unite.Libelle_unite);
+                    if (!testUnite.Trouve)
+                    {
+                        DataAccess.AddUnite(unite);
+                        p.FK_Id_Unite = DataAccess.VerificationUnite(unite.Libelle_unite).Id;
+                    }
+                    else
+                    {
+                        p.FK_Id_Unite = testUnite.Id;
+                    }
                     MesTests = true;
                 }
                 catch (MonMessageErreur e)
@@ -607,7 +636,6 @@ namespace BoutiqueBDDLibrary
             decimal PrixPanier = 0;
             bool MesTest = false;
             bool MesTest2 = false;
-            bool MesTest3 = false;
             string message;
             int IDClientActuel = Fonctions.UtilisateurActuelID; // <------------
             int start = 0;
@@ -631,36 +659,20 @@ namespace BoutiqueBDDLibrary
                 switch (Console.ReadKey(true).Key)
                 {
                     #region Fonctionnalité : Trier les produits
-                    case ConsoleKey.T: //<-------------
+                    case ConsoleKey.T: 
                         Console.Write("Trier par [1] Prix(Croissant), [2] Nom(Ordre Alphabetique) ou [3] Categorie(Ordre Alphabetique) : ");
-                        
-                        while (!MesTest)
+                        switch (Console.ReadKey(true).Key)
                         {
-                            String tri = Console.ReadLine();
-                            if (tri == "1")
-                            {
+                            case ConsoleKey.NumPad1:
                                 TrierPar = "Prix_Produit";
-                                MesTest = false;
-                                goto case ConsoleKey.Enter;
-                            }
-                            else if (tri == "2")
-                            {
+                                break;
+                            case ConsoleKey.NumPad2:
                                 TrierPar = "Nom_Produit";
-                                MesTest = false;
-                                goto case ConsoleKey.Enter;
-                            }
-                            else if (tri == "3")
-                            {
+                                break;
+                            case ConsoleKey.NumPad3:
                                 TrierPar = "Nom_Categorie";
-                                MesTest = false;
-                                goto case ConsoleKey.Enter;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Choisir un nombre valable");
-                            }
+                                break;
                         }
-                        MesTest = false;
                         break;
                     #endregion
 
@@ -694,7 +706,8 @@ namespace BoutiqueBDDLibrary
 
                     #region Fonctionnalité : Quittez le programme
                     case ConsoleKey.Q:
-                        return;
+                        Fonctions.InterfaceClient();
+                        break;
                     #endregion
 
                     #region Fonctionnalité : Reafficher les produits
@@ -1023,12 +1036,12 @@ namespace BoutiqueBDDLibrary
 
                                 break;
                             case ConsoleKey.N:
-                                Console.WriteLine("Appuyez sur entrée pour continuer");
+                                display = true; 
                                 break;
 
                         }
-                        goto case ConsoleKey.Enter;
-                        //break;
+                        AcheterProduit();
+                        break;
                         #endregion
 
                 }

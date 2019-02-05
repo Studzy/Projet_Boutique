@@ -918,6 +918,7 @@ namespace BoutiqueBDDLibrary
         public static Produit GetOneProduct(string Nom)
         {
             Produit p = new Produit();
+            p.Nom_origine = "Rien";
             try
             {
                 using (MySqlConnection db =
@@ -957,19 +958,18 @@ namespace BoutiqueBDDLibrary
                         p.FK_Id_Origine = query.GetInt32(8);
                         p.FK_Id_Unite = query.GetInt32(9);
                     }
-                    else
-                    {
-                        p.Nom_origine = "Rien";
-                    }
                 }
+                
             }
+            
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-
             return p;
+
+
         }
         #endregion
 
@@ -1278,7 +1278,7 @@ namespace BoutiqueBDDLibrary
             try
             {
                 using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+                new MySqlConnection(CHEMINBDD))
                 {
                     db.Open();
                     MySqlCommand insertCommand = new MySqlCommand();

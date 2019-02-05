@@ -888,7 +888,10 @@ namespace BoutiqueBDDLibrary
         #endregion
 
         #region [Interface] Affiche le panier
-
+        /// <summary>
+        /// Affiche le panier, cette fonction prend une list en paramètre
+        /// </summary>
+        /// <param name="list"></param>
         public static void AffichePanier(List<Commande> list)
         {
             Console.WriteLine("Voici votre Panier : ");
@@ -902,7 +905,12 @@ namespace BoutiqueBDDLibrary
         #endregion
 
         #region Calcul Le nombre de page total
-
+        /// <summary>
+        /// Calcul le nombre de page maximum qu'on peut afficher
+        /// </summary>
+        /// <param name="taille"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
         public static decimal CalculPageMax(decimal taille, int limit)
         {
             decimal calcul = (taille / limit);
@@ -912,7 +920,11 @@ namespace BoutiqueBDDLibrary
         #endregion
 
         #region Calcul le prix du panier
-
+        /// <summary>
+        /// Calcul le prix du panier en fonction d'une list donnée en paramètre
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
         public static decimal CalculPanier(List<Commande> list)
         {
             decimal resultat = 0;
