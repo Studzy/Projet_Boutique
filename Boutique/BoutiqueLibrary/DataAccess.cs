@@ -100,11 +100,11 @@ namespace BoutiqueBDDLibrary
         #endregion
 
         // 5 requêtes pour supprimer un client de la base de données.
-        #region [BDD] 1- Récupère les ID facture et commande d'un client
+        #region [BDD] 1- Récupère les ID facture d'un client
         /// <summary>
-        /// Recupère l'ID_Facture et l'ID_Commande, si il trouve l'ID stock les ID sinon renvoi juste 0.
+        /// Recupère l'ID_Facture, si il trouve l'ID stock les ID sinon renvoi juste 0.
         /// </summary>
-        public static List<int> recupeIdFactureEtIdCommande(string email)
+        public static List<int> recupeIdFacture(string email)
         {
             List<int> IdMultiple = new List<int>();
 
@@ -123,7 +123,6 @@ namespace BoutiqueBDDLibrary
 
                     if (query.Read())
                     {
-                        IdMultiple.Add(query.GetInt32(1));//Commande
                         IdMultiple.Add(query.GetInt32(0));//Facture
                     }
                     else
@@ -144,9 +143,9 @@ namespace BoutiqueBDDLibrary
 
         #region [BDD] 2- Supprime une commande d'un client
         /// <summary>
-        /// Supprime une commande à partir de l'ID d'une commande.
+        /// Supprime une commande à partir de FK_Id_Facture.
         /// </summary>
-        public static void supprimerUneCommande(int Id_Commande)
+        public static void supprimerUneCommande(int FK_Id_Facture)
         {
             try
             {
@@ -156,8 +155,8 @@ namespace BoutiqueBDDLibrary
                     MySqlCommand insertCommand = new MySqlCommand();
                     insertCommand.Connection = db;
 
-                    insertCommand.CommandText = "DELETE FROM commande WHERE commande.Id_Commande = @idcommande";
-                    insertCommand.Parameters.AddWithValue("@idcommande", Id_Commande);
+                    insertCommand.CommandText = "DELETE FROM commande WHERE commande.FK_Id_Facture = @idfacture";
+                    insertCommand.Parameters.AddWithValue("@idfacture", FK_Id_Facture);
                     insertCommand.ExecuteNonQuery();
                 }
             }
@@ -246,13 +245,13 @@ namespace BoutiqueBDDLibrary
                     insertCommand.ExecuteNonQuery();
                 }
                 Console.WriteLine("\nNous avons supprimer le client ainsi que toutes les données qui lui étaient liés !");
+                Console.ReadKey();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 Console.ReadKey();
             }
-
         }
         #endregion
 

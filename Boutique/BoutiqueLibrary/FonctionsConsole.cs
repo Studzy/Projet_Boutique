@@ -198,17 +198,17 @@ namespace BoutiqueBDDLibrary
         public static void SupprimeClient(string valeur)
         {
             List<int> IDMultiple = new List<int>();
-            IDMultiple = DataAccess.recupeIdFactureEtIdCommande(valeur);
+            IDMultiple = DataAccess.recupeIdFacture(valeur);
             if (IDMultiple[0] == 0)
             {
                 DataAccess.supprimerUnClient(valeur);
             }
             else
             {
-                DataAccess.recupeIdFactureEtIdCommande(valeur);
+                DataAccess.recupeIdFacture(valeur);
                 DataAccess.supprimerUneCommande(IDMultiple[0]);
-                DataAccess.supprimerInterFacturePaiement(IDMultiple[1]);
-                DataAccess.supprimerUneFacture(IDMultiple[1]);
+                DataAccess.supprimerInterFacturePaiement(IDMultiple[0]);
+                DataAccess.supprimerUneFacture(IDMultiple[0]);
                 DataAccess.supprimerUnClient(valeur);
             }
         }
