@@ -17,7 +17,7 @@ namespace BoutiqueConsole
         private const int MINIMIZE = 6;
         private const int RESTORE = 9;
         #endregion
-        //Main
+
         static void Main(string[] args)
         {
             //Assigne la taille à la fenêtre de la console
