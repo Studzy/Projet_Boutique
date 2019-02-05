@@ -587,6 +587,7 @@ namespace BoutiqueBDDLibrary
                     Console.Write("Unite du produit : ");
                     Unite unite = new Unite();
                     unite.Libelle_unite = Console.ReadLine();
+                    unite.Libelle_unite = premiereLettreMajuscule(unite.Libelle_unite);
                     IdTrouve testUnite = DataAccess.VerificationUnite(unite.Libelle_unite);
                     if (!testUnite.Trouve)
                     {

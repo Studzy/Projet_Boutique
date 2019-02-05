@@ -72,7 +72,15 @@
             {
 
                 FonctionsConsole.verifDecimal(value);
-                tva = value;
+                if (value > 100 || value < 0)
+                {
+                    throw new FonctionsConsole.MonMessageErreur("Error: La valeur est incorrect.");
+                }
+                else
+                {
+                    tva = value;
+                }
+                
 
             }
         }
@@ -103,8 +111,17 @@
             get => remise_produit;
             set
             {
+
                 FonctionsConsole.verifDecimal(value);
-                remise_produit = value;
+                if (value > 100 || value < 0)
+                {
+                    throw new FonctionsConsole.MonMessageErreur("Error: La valeur est incorrect.");
+                }
+                else
+                {
+                    remise_produit = value;
+                }
+                
             }
         }
         #endregion
@@ -136,14 +153,13 @@
             get => val_nutrition_produit;
             set
             {
-                try
+                if (value < 0)
+                {
+                    throw new FonctionsConsole.MonMessageErreur("Cette valeur n'est pas valide");
+                }
+                else
                 {
                     val_nutrition_produit = value;
-                }
-                catch (System.FormatException)
-                {
-
-                    throw new FonctionsConsole.MonMessageErreur("Cette valeur n'est pas valide");
                 }
 
             }
