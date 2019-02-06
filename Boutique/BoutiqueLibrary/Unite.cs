@@ -36,6 +36,7 @@ namespace BoutiqueBDDLibrary
                 }
                 else
                 {
+                    FonctionsConsole.premiereLettreMajuscule(value);
                     libelle_unite = value;
                 }
             }

@@ -25,9 +25,6 @@
         //Get;Set; Vérifications
 
         #region Id_Produit
-        /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI
-        /// </summary>
         public int Id_Produit
         {
             get => id_Produit;
@@ -42,7 +39,7 @@
 
         #region Nom_Produit
         /// <summary>
-        /// Vérifie si le nom du produit est un string qui comporte au maximum 50 caractères.
+        /// Vérifie le nom du produit dans le set, si ce n'est pas bon une exeption est afficher
         /// </summary>
         public string Nom_Produit
         {
@@ -55,6 +52,7 @@
                 }
                 else
                 {
+                    FonctionsConsole.premiereLettreMajuscule(value);
                     nom_produit = value;
                 }
             }
@@ -63,7 +61,7 @@
 
         #region TVA
         /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI TVA
+        /// Vérifie la tva dans le set, si ce n'est pas bon une exeption est afficher
         /// </summary>
         public decimal TVA
         {
@@ -88,7 +86,7 @@
 
         #region Prix_Produit
         /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI PRIX_PRODUIT
+        /// Vérifie le pris du produit dans le set, si ce n'est pas bon une exeption est afficher
         /// </summary>
         public decimal Prix_Produit
         {
@@ -104,7 +102,7 @@
 
         #region Remise_Produit
         /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI REMISE_PRODUIT
+        /// Vérifie la remise de produit dans le set, si ce n'est pas bon une exeption est afficher
         /// </summary>
         public decimal Remise_Produit
         {
@@ -127,6 +125,9 @@
         #endregion
 
         #region Description_Produit
+        /// <summary>
+        /// Vérifie la description du produit dans le set, si ce n'est pas bon une exeption est afficher
+        /// </summary>
         public string Description_Produit
         {
             get => description_produit;
@@ -146,7 +147,7 @@
 
         #region Val_Nutrition_Produit
         /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI
+        /// Vérifie la valeur nutritionnelle dans le set, si ce n'est pas bon une exeption est afficher
         /// </summary>
         public int Val_Nutrition_Produit
         {
@@ -167,9 +168,6 @@
         #endregion
 
         #region FK_Id_Categorie
-        /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI
-        /// </summary>
         public int FK_Id_Categorie
         {
             get => fK_Id_Categorie;
@@ -188,9 +186,6 @@
         #endregion
 
         #region FK_Id_Origine
-        /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI
-        /// </summary>
         public int FK_Id_Origine
         {
             get => fK_Id_Origine;
@@ -209,9 +204,6 @@
         #endregion
 
         #region  FK_Id_Unite
-        /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI
-        /// </summary>
         public int FK_Id_Unite
         {
             get => fK_Id_Unite;
@@ -232,23 +224,14 @@
 
 
         #region Nom_Categorie
-        /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI
-        /// </summary>
         public string Nom_categorie { get => nom_categorie; set => nom_categorie = value; }
         #endregion
 
         #region Nom_Origine
-        /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI
-        /// </summary>
         public string Nom_origine { get => nom_origine; set => nom_origine = value; }
         #endregion
 
         #region Libelle_Unite
-        /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI
-        /// </summary>
         public string Libelle_unite { get => libelle_unite; set => libelle_unite = value; }
         #endregion
     }

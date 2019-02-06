@@ -231,7 +231,7 @@ namespace BoutiqueBDDLibrary
                 case ConsoleKey.NumPad4:
                     //AfficherUnProduit();
                     Console.Clear();
-                    Fonctions.AfficherUnProduit();
+                    AfficherUnProduit();
                     Console.WriteLine("APPUYER SUR UNE TOUCHE POUR RETOURNER AU MENU ADMIN");
                     Console.ReadKey();
                     Console.Clear();
@@ -741,7 +741,7 @@ namespace BoutiqueBDDLibrary
             if (produit.Nom_Produit != "Rien")
             {
                 Console.WriteLine("Nous avons trouvé votre produit : ");
-                Console.WriteLine("ID = " + produit.Id_Produit + "; Nom = " + produit.Nom_Produit + "; TVA = " + produit.TVA + "; Prix = " + produit.Prix_Produit + "; Remise = " + produit.Remise_Produit + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit + "; FK_Id_Categorie = " + produit.FK_Id_Categorie + "; FK_Id_Origine = " + produit.FK_Id_Origine + "; FK_Id_Unite = " + produit.FK_Id_Unite + "\n\n");
+                Console.WriteLine("ID = " + produit.Id_Produit + "\nNom = " + produit.Nom_Produit + "\nTVA = " + produit.TVA + "\nPrix = " + produit.Prix_Produit + "\nRemise = " + produit.Remise_Produit + "\nDescription = " + produit.Description_Produit + "\nValeur nutritionnelle = " + produit.Val_Nutrition_Produit + "\nFK_Id_Categorie = " + produit.FK_Id_Categorie + "\nFK_Id_Origine = " + produit.FK_Id_Origine + "\nFK_Id_Unite = " + produit.FK_Id_Unite + "\n\n");
             }
             else
             {
@@ -817,7 +817,8 @@ namespace BoutiqueBDDLibrary
             Console.WriteLine("RECHERCHE D'UN PRODUIT DANS LA BASE DE DONNEES");
             Console.Write("Nom du produit : ");
             p.Nom_Produit = Console.ReadLine();
-            Fonctions.DisplayOneProduct(p.Nom_Produit);
+            //p.Nom_Produit = FonctionsConsole.premiereLettreMajuscule(p.Nom_Produit);
+            DisplayOneProduct(p.Nom_Produit);
         }
         #endregion
 

@@ -15,29 +15,21 @@
 
         //Get;Set; Vérifications
         #region Id_Commande
-        /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI Id_Commande
-        /// </summary>
         public int Id_Commande { get => id_Commande; set => id_Commande = value; }
         #endregion
 
         #region FK_Id_Facture
-        /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI FK_Id_Facture
-        /// </summary>
         public int FK_Id_Facture { get => fK_Id_Facture; set => fK_Id_Facture = value; }
         #endregion
 
-        #region FK_Id_Produit
-        /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI FK_Id_Produit
+        #region FK_Id_ProduitFIER CAR NON FINI FK_Id_Produit
         /// </summary>
         public int FK_Id_Produit { get => fK_Id_Produit; set => fK_Id_Produit = value; }
         #endregion
 
         #region Qtite_Produit
         /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI Qtite_Produit
+        /// Vérifie quantité du produit dans le set, si ce n'est pas bon une exeption est afficher
         /// </summary>
         public int Qtite_Produit
         {

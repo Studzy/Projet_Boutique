@@ -885,11 +885,11 @@ namespace BoutiqueBDDLibrary
         public static Produit GetOneProduct(string Nom)
         {
             Produit p = new Produit();
-            p.Nom_origine = "Rien";
+            p.Nom_Produit = "Rien";
             try
             {
                 using (MySqlConnection db =
-                new MySqlConnection(DataAccess.CHEMINBDD))
+                new MySqlConnection(CHEMINBDD))
                 {
                     db.Open();
                     MySqlCommand insertCommand = new MySqlCommand();
@@ -927,7 +927,8 @@ namespace BoutiqueBDDLibrary
                     }
                     else
                     {
-                        p.Nom_origine = "Rien";
+                        p.Nom_Produit = "Rien";
+                        return p;
                     }
                 }
                 
@@ -1007,7 +1008,12 @@ namespace BoutiqueBDDLibrary
         #endregion
 
         #region [BDD] Affiche les produits trier par nom
-
+        /// <summary>
+        /// Retourne une liste de produit en fonction du nom
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
         public static List<Produit> GetAllProductsByName(int start, int limit)
         {
             List<Produit> entries = new List<Produit>();
@@ -1464,7 +1470,10 @@ namespace BoutiqueBDDLibrary
         #endregion
 
         #region [BDD] Trouver le dernier ID de Facture
-
+        /// <summary>
+        /// Retourne le dernier id facture
+        /// </summary>
+        /// <returns></returns>
         public static int GetLastIdFacture()
         {
             int ID = 0;

@@ -13,15 +13,12 @@
 
         //Get;Set; Vérifications
         #region Id_Categorie
-        /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI Id_Categorie
-        /// </summary>
         public int Id_Categorie { get => id_Categorie; set => id_Categorie = value; }
         #endregion
 
         #region Nom_Categorie
         /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI Nom_Categorie
+        /// Vérifie le nom de la categorie dans le set, si ce n'est pas bon une exeption est afficher
         /// </summary>
         public string Nom_categorie
         {

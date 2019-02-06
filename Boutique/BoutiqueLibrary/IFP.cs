@@ -15,29 +15,20 @@
 
         //Get;Set; Vérifications
         #region Id_FP
-        /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI Id_FP
-        /// </summary>
         public int Id_IFP { get => id_IFP; set => id_IFP = value; }
         #endregion
 
         #region FK_Id_Facture
-        /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI FK_Id_Facture
-        /// </summary>
         public int FK_Id_Facture { get => fK_Id_Facture; set => fK_Id_Facture = value; }
         #endregion
 
         #region FK_Id_Paiement
-        /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI FK_Id_Paiement
-        /// </summary>
         public int FK_Id_Paiement { get => fK_Id_Paiement; set => fK_Id_Paiement = value; }
         #endregion
 
         #region Montant_paiement
         /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI Montant_Paiement
+        /// Vérifie le montant du paiement dans le set, si ce n'est pas bon une exeption est afficher
         /// </summary>
         public decimal Montant_Paiement
         {

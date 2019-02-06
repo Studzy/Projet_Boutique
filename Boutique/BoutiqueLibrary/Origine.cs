@@ -15,9 +15,6 @@ namespace BoutiqueBDDLibrary
 
         //Get;Set; Vérifications
         #region Origine
-        /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI REMISE_PRODUIT
-        /// </summary>
         public Origine(int id_Origine, string nom_Origine)
         {
             Id_Origine = id_Origine;
@@ -26,9 +23,6 @@ namespace BoutiqueBDDLibrary
         #endregion
 
         #region Id_Origine
-        /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI REMISE_PRODUIT
-        /// </summary>
         public int Id_Origine
         {
             get => id_Origine;
@@ -38,7 +32,7 @@ namespace BoutiqueBDDLibrary
 
         #region Nom_Origine
         /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI REMISE_PRODUIT
+        /// Vérifie le nom origine dans le set, si ce n'est pas bon une exeption est afficher
         /// </summary>
         public string Nom_Origine
         {
