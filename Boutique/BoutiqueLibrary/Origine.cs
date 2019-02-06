@@ -1,5 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-
+﻿
 namespace BoutiqueBDDLibrary
 {
     public class Origine
@@ -13,15 +12,13 @@ namespace BoutiqueBDDLibrary
         {
         }
 
-        //Get;Set; Vérifications
-        #region Origine
         public Origine(int id_Origine, string nom_Origine)
         {
             Id_Origine = id_Origine;
             Nom_Origine = nom_Origine;
         }
-        #endregion
 
+        //Get;Set; Vérifications
         #region Id_Origine
         public int Id_Origine
         {
@@ -32,7 +29,7 @@ namespace BoutiqueBDDLibrary
 
         #region Nom_Origine
         /// <summary>
-        /// Vérifie le nom origine dans le set, si ce n'est pas bon une exeption est afficher
+        /// Vérifie le nom origine dans le set. Si ce n'est pas bon, une exception est affichée.
         /// </summary>
         public string Nom_Origine
         {

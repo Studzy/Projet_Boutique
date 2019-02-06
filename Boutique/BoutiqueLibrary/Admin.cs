@@ -14,7 +14,7 @@
         //Get;Set; Vérifications
         #region Mail_Admin
         /// <summary>
-        /// Vérifie Mail de l'administrateur dans le set, si ce n'est pas bon une exeption est afficher
+        /// Vérifie Mail de l'administrateur dans le set. Si ce n'est pas bon, une exception est affichée.
         /// </summary>
         public string Mail_Admin
         {
@@ -35,7 +35,7 @@
 
         #region Mot_De_Passe
         /// <summary>
-        /// Vérifie le mot de passe de l'administrateur dans le set, si ce n'est pas bon une exeption est afficher
+        /// Vérifie le mot de passe de l'administrateur dans le set. Si ce n'est pas bon, une exception est affichée.
         /// </summary>
         public string Mot_De_Passe
         {

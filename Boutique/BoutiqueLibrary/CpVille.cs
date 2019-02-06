@@ -14,7 +14,7 @@
         //Get;Set; Vérifications
         #region Code_postal_ville
         /// <summary>
-        /// Vérifie le code postal dans le set, si ce n'est pas bon une exeption est afficher.
+        /// Vérifie le code postal dans le set. Si ce n'est pas bon, une exception est affichée.
         /// </summary>
         public string Code_postal_ville
         {
@@ -35,7 +35,7 @@
 
         #region Nom_ville
         /// <summary>
-        /// Vérifie le nom de la ville dans le set, si ce n'est pas bon une exeption est afficher.
+        /// Vérifie le nom de la ville dans le set. Si ce n'est pas bon, une exception est affichée.
         /// </summary>
         public string Nom_ville
         {

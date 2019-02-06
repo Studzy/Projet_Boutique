@@ -23,7 +23,7 @@ namespace BoutiqueBDDLibrary
 
         #region Date_Facture
         /// <summary>
-        /// Vérifie la date de la facture dans le set, si ce n'est pas bon une exeption est afficher
+        /// Vérifie la date de la facture dans le set. Si ce n'est pas bon, une exception est affichée.
         /// </summary>
         public DateTime Date_facture
         {

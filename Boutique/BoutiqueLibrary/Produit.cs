@@ -39,7 +39,7 @@
 
         #region Nom_Produit
         /// <summary>
-        /// Vérifie le nom du produit dans le set, si ce n'est pas bon une exeption est afficher
+        /// Vérifie le nom du produit dans le set. Si ce n'est pas bon, une exception est affichée.
         /// </summary>
         public string Nom_Produit
         {
@@ -61,7 +61,7 @@
 
         #region TVA
         /// <summary>
-        /// Vérifie la tva dans le set, si ce n'est pas bon une exeption est afficher
+        /// Vérifie la tva dans le set. Si ce n'est pas bon, une exception est affichée.
         /// </summary>
         public decimal TVA
         {
@@ -86,7 +86,7 @@
 
         #region Prix_Produit
         /// <summary>
-        /// Vérifie le pris du produit dans le set, si ce n'est pas bon une exeption est afficher
+        /// Vérifie le pris du produit dans le set. Si ce n'est pas bon, une exception est affichée.
         /// </summary>
         public decimal Prix_Produit
         {
@@ -102,7 +102,7 @@
 
         #region Remise_Produit
         /// <summary>
-        /// Vérifie la remise de produit dans le set, si ce n'est pas bon une exeption est afficher
+        /// Vérifie la remise de produit dans le set. Si ce n'est pas bon, une exception est affichée.
         /// </summary>
         public decimal Remise_Produit
         {
@@ -126,7 +126,7 @@
 
         #region Description_Produit
         /// <summary>
-        /// Vérifie la description du produit dans le set, si ce n'est pas bon une exeption est afficher
+        /// Vérifie la description du produit dans le set. Si ce n'est pas bon, une exception est affichée.
         /// </summary>
         public string Description_Produit
         {
@@ -147,7 +147,7 @@
 
         #region Val_Nutrition_Produit
         /// <summary>
-        /// Vérifie la valeur nutritionnelle dans le set, si ce n'est pas bon une exeption est afficher
+        /// Vérifie la valeur nutritionnelle dans le set. Si ce n'est pas bon, une exception est affichée.
         /// </summary>
         public int Val_Nutrition_Produit
         {

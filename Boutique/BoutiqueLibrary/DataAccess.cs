@@ -7,10 +7,10 @@ namespace BoutiqueBDDLibrary
 {
     public class DataAccess
     {
-        //Chemin  à la base de données
+        //Chemin vers la base de données
         #region [BDD] Chemin vers Base de données
         /// <summary>
-        /// Chemin d'accès à la base de données ici sur MySql PhpmyAdmin.
+        /// Chemin d'accès à la base de données (MySql PhpmyAdmin).
         /// </summary>
         public const string CHEMINBDD = "SERVER=127.0.0.1; DATABASE=bdd_boutique; UID=root; PASSWORD=;";
         #endregion
@@ -19,7 +19,7 @@ namespace BoutiqueBDDLibrary
         //Clients
         #region [BDD] Ajouter un Client
         /// <summary>
-        /// Insère un client dans la base de donnée, dans la table "Client" à l'aide de l'objet Client.
+        /// Insère un client dans la base de données, dans la table "Client" à l'aide de l'objet Client.
         /// </summary>
         /// <param name="x"></param>
         public static void InsererClientEnBDD(Client x)
@@ -62,7 +62,7 @@ namespace BoutiqueBDDLibrary
 
         #region [BDD] Modifier un client
         /// <summary>
-        /// Modifie le client dans la base de données.
+        /// Modifie un client dans la base de données.
         /// </summary>
         /// <param name="email"></param>
         /// <param name="x"></param>
@@ -100,9 +100,10 @@ namespace BoutiqueBDDLibrary
         #endregion
 
         // 5 requêtes pour supprimer un client de la base de données.
-        #region [BDD] 1- Récupère les ID facture d'un client
+        #region [BDD] 1- Récupère l'ID facture d'un client
         /// <summary>
-        /// Recupère l'ID_Facture, si il trouve l'ID stock les ID sinon renvoi juste 0.
+        /// Recupère l'ID_Facture
+        /// S'il trouve l'ID stocke les ID sinon renvoie juste 0.
         /// </summary>
         public static List<int> recupeIdFacture(string email)
         {
@@ -171,7 +172,7 @@ namespace BoutiqueBDDLibrary
 
         #region [BDD] 3- Supprime Le lien Inter_Facture_Paiement
         /// <summary>
-        /// Supprime la ligne qui est dans la table Inter_Facture_Paiement qui choisi le moyen de paiement.
+        /// Supprime la ligne qui est dans la table Inter_Facture_Paiement qui selectionne le moyen de paiement.
         /// </summary>
         public static void supprimerInterFacturePaiement(int Id_Facture)
         {
@@ -257,7 +258,7 @@ namespace BoutiqueBDDLibrary
         #region [BDD] Affiche un client
         /// <summary>
         /// Vérifie si l'email existe dans la base de données,
-        /// Si il existe renvoie l'objet client sinon, change l'objet client.Mail_Client à "Rien".
+        /// S'il existe renvoie l'objet client, sinon change l'objet client.Mail_Client à "Rien".
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
@@ -308,7 +309,7 @@ namespace BoutiqueBDDLibrary
         #region [BDD] Affiche ID et Email Client
         /// <summary>
         /// Vérifie si l'email existe dans la base de données,
-        /// Si il existe renvoie l'objet client sinon, change l'objet client.Mail_Client à "Rien".
+        /// S'il existe renvoie l'objet client, sinon change l'objet client.Mail_Client à "Rien".
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
@@ -349,9 +350,9 @@ namespace BoutiqueBDDLibrary
         }
         #endregion
 
-        #region [BDD] Afficher tout les clients
+        #region [BDD] Afficher tous les clients
         /// <summary>
-        /// Affiche tout les clients trouvé dans la base de données, retourne sous forme de liste.
+        /// Affiche tous les clients trouvés dans la base de données, retourne sous forme de liste.
         /// </summary>
         /// <returns></returns>
         public static List<Client> GetAllClients()
@@ -436,7 +437,8 @@ namespace BoutiqueBDDLibrary
 
         #region [BDD] Vérifier MDP = Email pour  Client
         /// <summary>
-        /// Vérifie que l'émail client est compatible avec le mot de passe si compatible retourne "true" sinon "false".
+        /// Vérifie que l'émail client est compatible avec le mot de passe.
+        /// Si compatible retourne "true" sinon "false".
         /// </summary>
         /// <param name="email"></param>
         /// <param name="motdepasse"></param>
@@ -513,7 +515,8 @@ namespace BoutiqueBDDLibrary
 
         #region [BDD] Vérifie Si l'Email Admin existe
         /// <summary>
-        /// Vérifie si l'émail administrateur est présent dans la base de données, si présent retourne "true" sinon "false".
+        /// Vérifie si l'émail administrateur est présent dans la base de données.
+        /// Si présent retourne "true" sinon "false".
         /// </summary>
         /// <param name="mail"></param>
         /// <returns></returns>
@@ -555,7 +558,8 @@ namespace BoutiqueBDDLibrary
 
         #region [BDD] Vérifier MDP = Email pour  Admin
         /// <summary>
-        /// Vérifie que l'émail admin est compatible avec le mot de passe si compatible retourne "true" sinon "false".
+        /// Vérifie que l'émail admin est compatible avec le mot de passe.
+        /// Si compatible retourne "true" sinon "false".
         /// </summary>
         /// <param name="email"></param>
         /// <param name="motdepasse"></param>
@@ -711,9 +715,9 @@ namespace BoutiqueBDDLibrary
         }
         #endregion
 
-        #region [BDD] Affiche tout les produits
+        #region [BDD] Affiche tous les produits
         /// <summary>
-        /// Affiche tout les produits présent dans la base de données
+        /// Affiche tous les produits présents dans la base de données
         /// </summary>
         /// <returns></returns>
         public static List<Produit> GetAllProducts()
@@ -770,9 +774,9 @@ namespace BoutiqueBDDLibrary
         }
         #endregion
 
-        #region [BDD] Affiche un nombre limité de produits et trier
+        #region [BDD] Affiche un nombre limité de produits et trie
         /// <summary>
-        /// Affiche un nombre de produits limité par la valeur 'limit' à partir du 'start' et trier par 'group'.
+        /// Affiche un nombre de produits limité par la valeur 'limit' à partir du 'start' et trie par 'group'.
         /// </summary
         public static List<Produit> GetLimitProducts(int start, string group, int limit)
         {
@@ -837,10 +841,10 @@ namespace BoutiqueBDDLibrary
             return entries;
         }
         #endregion
-        
+
         #region [BDD] Modifie un produit
         /// <summary>
-        /// Modifie un produit dans la base de données @nom est le nom du produit à modifié et "Produit p" est l'objet produit avec toute ses informations. 
+        /// Modifie un produit dans la base de données à l'aide du nom du produit (@nom) à modifier et "Produit p" est l'objet produit avec toutes ses informations. 
         /// </summary>
         public static void ModifyOneProduct(string nom, Produit p)
         {
@@ -880,7 +884,7 @@ namespace BoutiqueBDDLibrary
         #region [BDD] Afficher un produit par son nom
         /// <summary>
         /// Affiche un produit en fonction de son nom.
-        /// Retourne un Produit p si le produit a été trouver sinon retourne un Nom.produit = "Rien"
+        /// Retourne un Produit p si le produit a été trouvé sinon retourne un Nom.produit = "Rien"
         /// </summary>
         public static Produit GetOneProduct(string Nom)
         {
@@ -1007,9 +1011,9 @@ namespace BoutiqueBDDLibrary
         }
         #endregion
 
-        #region [BDD] Affiche les produits trier par nom
+        #region [BDD] Affiche les produits triés par nom
         /// <summary>
-        /// Retourne une liste de produit en fonction du nom
+        /// Renvoie une liste de produits en fonction du nom
         /// </summary>
         /// <param name="start"></param>
         /// <param name="limit"></param>
@@ -1100,8 +1104,8 @@ namespace BoutiqueBDDLibrary
 
         #region [BDD] Vérifie sur la catégorie existe
         /// <summary>
-        /// Requête SQL qui vérifie si la catégorie existe si la catégorie existe.
-        /// Si elle existe, stock l'Id dans une variable et le retourne.
+        /// Requête SQL qui vérifie si la catégorie existe.
+        /// Si elle existe, stocke l'Id dans une variable et la retourne.
         /// Sinon, retourne juste IdTrouve.
         /// </summary>
         public static FonctionsConsole.IdTrouve VerificationCategorie(string categorie)
@@ -1176,8 +1180,8 @@ namespace BoutiqueBDDLibrary
         //Options Paiement & Moyen de paiement
         #region [BDD] Afficher toute les options de paiement
         /// <summary>
-        /// Affiche toutes les options de paiement situé dans la table opt_paiement.
-        /// Stock les options de paiement dans une liste.
+        /// Affiche toutes les options de paiement situées dans la table opt_paiement.
+        /// Stocke les options de paiement dans une liste.
         /// </summary>
         public static List<OptionPaiement> GetAllPayement()
         {
@@ -1278,8 +1282,8 @@ namespace BoutiqueBDDLibrary
         #region [BDD] Vérifie si l'origine existe
         /// <summary>
         /// Vérifie si l'origine existe dans la base de données.
-        /// Si il existe stock prend l'id et la stock dans une variable.
-        /// Si il existe pas renvoi juste IdTrouve.
+        /// Si elle existe stock prend l'id et la stocke dans une variable.
+        /// Si elle n'existe pas renvoie juste IdTrouve.
         /// </summary>
         public static FonctionsConsole.IdTrouve VerificationOrigine(string origine)
         {
@@ -1320,7 +1324,7 @@ namespace BoutiqueBDDLibrary
         //Unité
         #region [BDD] Ajoute une nouvelle unité 
         /// <summary>
-        /// Ajoute une unité à la base table "Unité".
+        /// Ajoute une unité à la base table "Unite".
         /// </summary>
         /// <param name="unite"></param>
         public static void AddUnite(Unite unite)
@@ -1352,10 +1356,11 @@ namespace BoutiqueBDDLibrary
         }
         #endregion
 
-        #region [BDD] Verifie si l'unité existe déjà
+        #region [BDD] Vérifie si l'unité existe déjà
         /// <summary>
-        /// Vérifie si l'unité existe alors on l'a stock et on retourne l'ID.
-        /// Si existe déjà alors retourne juste IDTrouve.
+        /// Vérifie si l'unité existe.
+        /// Si elle existe on retourne l'ID.
+        /// Si elle n'existe pas alors on retourne juste IDTrouve.
         /// </summary>
         public static FonctionsConsole.IdTrouve VerificationUnite(string unite)
         {
@@ -1430,7 +1435,8 @@ namespace BoutiqueBDDLibrary
 
         #region [BDD] Trouver le dernier numéro de facture
         /// <summary>
-        /// Requête qui trouve le dernier numéro de facture et le stock si aucun numéro de facture trouver alors numéro de facture égal 0.
+        /// Requête qui trouve le dernier numéro de facture et le stocke.
+        /// Si aucun numéro de facture trouvé alors numéro de facture égal 0.
         /// </summary>
         public static int GetLastNumFacture()
         {
@@ -1513,6 +1519,5 @@ namespace BoutiqueBDDLibrary
         }
 
         #endregion
-
     }
 }

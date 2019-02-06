@@ -18,7 +18,7 @@
 
         #region Nom_Categorie
         /// <summary>
-        /// Vérifie le nom de la categorie dans le set, si ce n'est pas bon une exeption est afficher
+        /// Vérifie le nom de la categorie dans le set. Si ce n'est pas bon, une exception est affichée.
         /// </summary>
         public string Nom_categorie
         {

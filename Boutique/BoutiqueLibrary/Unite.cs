@@ -23,7 +23,7 @@ namespace BoutiqueBDDLibrary
 
         #region Libelle_Unite
         /// <summary>
-        /// Vérifie le libelle de l'unité dans le set, si ce n'est pas bon une exeption est afficher
+        /// Vérifie le libelle de l'unité dans le set. Si ce n'est pas bon, une exception est affichée.
         /// </summary>
         public string Libelle_unite
         {

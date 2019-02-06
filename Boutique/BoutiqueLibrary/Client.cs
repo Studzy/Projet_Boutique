@@ -24,7 +24,7 @@ namespace BoutiqueBDDLibrary
         //Get;Set; Vérifications
         #region Nom_Client
         /// <summary>
-        /// Vérifie le nom du client dans le set, si ce n'est pas bon une exeption est afficher
+        /// Vérifie le nom du client dans le set. Si ce n'est pas bon, une exception est affichée
         /// </summary>
         public string Nom_Client
         {
@@ -45,7 +45,7 @@ namespace BoutiqueBDDLibrary
 
         #region Prenom_client
         /// <summary>
-        /// Vérifie le prénom du client dans le set, si ce n'est pas bon une exeption est afficher
+        /// Vérifie le prénom du client dans le set. Si ce n'est pas bon, une exception est affichée
         /// </summary>
         public string Prenom_client
         {
@@ -66,7 +66,7 @@ namespace BoutiqueBDDLibrary
 
         #region Adresse_client
         /// <summary>
-        /// Vérifie l'adresse du client dans le set, si ce n'est pas bon une exeption est afficher
+        /// Vérifie l'adresse du client dans le set. Si ce n'est pas bon, une exception est affichée
         /// </summary>
         public string Adresse_client
         {
@@ -87,7 +87,7 @@ namespace BoutiqueBDDLibrary
 
         #region Mail_client
         /// <summary>
-        /// Vérifie l'émail du client dans le set, si ce n'est pas bon une exeption est afficher
+        /// Vérifie l'émail du client dans le set. Si ce n'est pas bon, une exception est affichée
         /// </summary>
         public string Mail_client
         {
@@ -98,7 +98,7 @@ namespace BoutiqueBDDLibrary
 
         #region Numtel_Client
         /// <summary>
-        /// Vérifie le numéro de téléphone du client dans le set, si ce n'est pas bon une exeption est afficher
+        /// Vérifie le numéro de téléphone du client dans le set. Si ce n'est pas bon, une exception est affichée
         /// </summary>
         public string Numtel_Client
         {
@@ -121,7 +121,7 @@ namespace BoutiqueBDDLibrary
 
         #region Date_naissance_client
         /// <summary>
-        /// Stock les données de la date de naissance dans le set et vérifie dans une autre fonction.
+        /// Stockr les données de la date de naissance dans le set et la vérifie dans une autre fonction.
         /// </summary>
         public DateTime Date_naissance_client
         {
@@ -136,7 +136,7 @@ namespace BoutiqueBDDLibrary
 
         #region Mdp_Client
         /// <summary>
-        /// Vérifie le mot de passe dans le set, si ce n'est pas bon une exeption est afficher
+        /// Vérifie le mot de passe dans le set. Si ce n'est pas bon, une exception est affichée
         /// </summary>
         public string Mdp_client
         {

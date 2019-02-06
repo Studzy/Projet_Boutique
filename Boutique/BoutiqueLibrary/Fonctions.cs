@@ -23,7 +23,7 @@ namespace BoutiqueBDDLibrary
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("Bonjour, veuillez vous identifiez ou vous inscrire:" +
+                Console.WriteLine("Bonjour, veuillez vous identifier ou vous inscrire:" +
                     "\n\t [1] - SE CONNECTER" +
                     "\n\t [2] - S'INSCRIRE" +
                     "\n\t [x] - QUITTER LE PROGRAMME");
@@ -44,7 +44,7 @@ namespace BoutiqueBDDLibrary
                         break;
                     case ConsoleKey.X:
                         Console.Clear();
-                        string a  ="Merci, et à bientôt !\n\n";
+                        string a  ="Merci et à bientôt !\n\n";
                         string b ="                         ¶¶¶¶¶¶¶¶¶¶¶¶ ";
                         string c ="                         ¶¶            ¶¶ ";
                         string d ="           ¶¶¶¶¶        ¶¶                ¶¶ ";
@@ -112,18 +112,18 @@ namespace BoutiqueBDDLibrary
 
         #region [Interface] Menu Client
         /// <summary>
-        /// Affiche le menu Client -> Acheter un produit | Afficher les produits| Modifier les infos de son compte | Retour au menu principal
+        /// Affiche le menu Client -> Acheter un produit | Afficher les produits| Modifier les infos de son compte | Déconnexion
         /// </summary>
         public static void InterfaceClient()
         {
             Console.Clear();
-            Console.Write("Vous êtes connecter avec l'email " + UtilisateurActuelEmail + "\n\n");
+            Console.Write("Vous êtes connecté avec l'email " + UtilisateurActuelEmail + "\n\n");
             Console.Write("[MODE CLIENT] Menu principal: \n" +
                      "\n\t - [1] ACHETER UN PRODUIT" +
                      "\n\t - [2] AFFICHER LES PRODUITS" +
-                     "\n\t - [3] MODIFIER INFOS PERSONNELLE" +
+                     "\n\t - [3] MODIFIER INFOS PERSONNELLES" +
                      "\n\t - [4] SUPPRIMER SON COMPTE" +
-                     "\n\t - [x] RETOUR AU MENU PRINCIPAL\n");
+                     "\n\t - [x] DECONNEXION\n");
 
             switch (Console.ReadKey(true).Key)
             {
@@ -149,7 +149,7 @@ namespace BoutiqueBDDLibrary
                     Console.Clear();
 
                     FonctionsConsole.SupprimeClient(UtilisateurActuelEmail);
-                    Console.WriteLine("Etes-vous sur de supprimer votre compte client ? (O/N)\n");
+                    Console.WriteLine("Etes-vous sur de vouloir supprimer votre compte client ? (O/N)\n");
                     switch (Console.ReadKey(true).Key)
                     {
                         case ConsoleKey.N:
@@ -158,7 +158,7 @@ namespace BoutiqueBDDLibrary
                             break;
                         case ConsoleKey.O:
                             Console.Clear();
-                            Console.Write("Votre compte à été supprimer avec succès.");
+                            Console.Write("Votre compte a été supprimé avec succès.");
                             Console.ReadKey();
                             MenuPrincipal();
                             break;
@@ -166,7 +166,7 @@ namespace BoutiqueBDDLibrary
                     break;
                 case ConsoleKey.X:
                     Console.Clear();
-                    Console.WriteLine("vous allez être déconnecter de votre compte client, voulez-vous continuez ? (O/N)\n");
+                    Console.WriteLine("vous allez être déconnecté de votre compte client, voulez-vous continuer ? (O/N)\n");
                     switch (Console.ReadKey(true).Key)
                     {
                         case ConsoleKey.N:
@@ -185,9 +185,9 @@ namespace BoutiqueBDDLibrary
 
         #region [Interface] Menu Administrateur
         /// <summary>
-        /// Affiche le menu Administrateur -> 
-        /// Crée un produit| Modifier un produit| Supprimer un produit | Afficher les produits | Afficher un produit |
-        /// Afficher les clients | Afficher un client | Modifier un client | Supprimer un client | Déconnecxion
+        /// Afficher le menu Administrateur -> 
+        /// Créer un produit| Modifier un produit| Supprimer un produit | Afficher les produits | Afficher un produit |
+        /// Afficher les clients | Afficher un client | Modifier un client | Supprimer un client | Déconnexion
         /// </summary>
         public static void InterfaceAdmin()
         {
@@ -198,7 +198,7 @@ namespace BoutiqueBDDLibrary
                      "\n\t - [2] MODIFIER UN PRODUIT\t\t - [6] AFFICHER UN CLIENT " +
                      "\n\t - [3] AFFICHER LES PRODUITS\t\t - [7] MODIFIER UN CLIENT " +
                      "\n\t - [4] AFFICHER UN PRODUIT\t\t - [8] SUPPRIMER UN CLIENT" +
-                     "\n\t - [x] RETOUR\n ");
+                     "\n\t - [x] DECONNEXION\n ");
 
             switch (Console.ReadKey(true).Key)
             {
@@ -269,7 +269,7 @@ namespace BoutiqueBDDLibrary
                 case ConsoleKey.NumPad8:
                     //Supprime un Client
                     Console.Clear();
-                    Console.WriteLine("Renseigner l'email du client à supprimer (ATTENTION Factures et Commandes supprimer avec) : ");
+                    Console.WriteLine("Renseigner l'email du client à supprimer (ATTENTION y compris Factures et Commandes): ");
                     string emailsuppr = Console.ReadLine();
                     FonctionsConsole.SupprimeClient(emailsuppr);
                     Console.Clear();
@@ -278,7 +278,7 @@ namespace BoutiqueBDDLibrary
 
                 case ConsoleKey.X:
                     Console.Clear();
-                    Console.WriteLine("vous allez être déconnecter de votre compte client, voulez-vous continuez ? (O/N)\n");
+                    Console.WriteLine("Vous allez être déconnecté de votre compte client, voulez-vous continuer ? (O/N)\n");
                     switch (Console.ReadKey(true).Key)
                     {
                         case ConsoleKey.N:
@@ -303,7 +303,7 @@ namespace BoutiqueBDDLibrary
             bool veriftest = false;
             Client x = new Client();
             CpVille y = new CpVille();
-            Console.WriteLine("[INSCRIPTION CLIENT] Renseigner les champs suivant:");
+            Console.WriteLine("[INSCRIPTION CLIENT] Renseigner les champs suivants:");
 
             #region Chant Nom
             while (veriftest == false)
@@ -483,7 +483,7 @@ namespace BoutiqueBDDLibrary
         /// </summary>
         public static void InscriptionAdministrateur()
         {
-            Console.WriteLine("[INSCRIPTION ADMIN] Renseigner les champs suivant :");
+            Console.WriteLine("[INSCRIPTION ADMIN] Renseigner les champs suivants:");
             bool veriftest = false;
             Admin x = new Admin();
 
@@ -532,12 +532,12 @@ namespace BoutiqueBDDLibrary
         //Connexions
         #region [Interface] Menu Des Connexions
         /// <summary>
-        /// Affiche le menu de connexions -> Compte client | Compte admin| Retour menu principal
+        /// Affiche le menu de connexions -> Compte client | Compte admin | Retour menu principal
         /// </summary>
         public static void SeConnecter()
         {
             Console.Clear();
-            Console.WriteLine("[SE CONNECTER] Choisir l'option voulu" +
+            Console.WriteLine("[SE CONNECTER] Choisir l'option voulue : " +
                 "\n\t [1] - COMPTE CLIENT " +
                 "\n\t [2] - COMPTE ADMINISTRATEUR " +
                 "\n\t [x] - RETOUR MENU PRINCIPAL");
@@ -566,7 +566,7 @@ namespace BoutiqueBDDLibrary
             Console.Clear();
             string Mail = "";
             string MotDePasse = "";
-            Console.WriteLine("[CONNEXION CLIENT] Renseigner les champs suivant :");
+            Console.WriteLine("[CONNEXION CLIENT] Renseigner les champs suivants :");
             Console.Write("Email: ");
             Mail = Console.ReadLine();
             Console.Write("Mot de passe:");
@@ -600,7 +600,7 @@ namespace BoutiqueBDDLibrary
             Console.Clear();
             string Mail = "";
             string MotDePasse = "";
-            Console.WriteLine("[CONNEXION ADMINISTRATEUR] Renseigner les champs suivant :");
+            Console.WriteLine("[CONNEXION ADMINISTRATEUR] Renseigner les champs suivants :");
             Console.Write("Email: ");
             Mail = Console.ReadLine();
             Console.Write("Mot de passe:");
@@ -624,7 +624,8 @@ namespace BoutiqueBDDLibrary
         //Actions du menu Administrateur
         #region [Interface] Supprimer un client
         /// <summary>
-        /// Menu de suppression d'un client -> Vérifie si l'email existe, si il existe supprime le client sinon renvoie un message d'erreur.
+        /// Menu de suppression d'un client -> Vérifie si l'email existe
+        /// S'il existe supprime le client sinon renvoie un message d'erreur.
         /// </summary>
         public static void supprimeClientEnBDD(string email)
         {
@@ -642,7 +643,8 @@ namespace BoutiqueBDDLibrary
 
         #region [Interface] Afficher un client
         /// <summary>
-        /// Menu afficher un client -> Vérifie si l'email existe, si il existe affiche le client sinon renvoie un message d'erreur.
+        /// Menu afficher un client -> Vérifie si l'email existe
+        /// S'il existe affiche le client sinon renvoie un message d'erreur.
         /// </summary>
         public static void afficheUnClient(string email)
 
@@ -656,14 +658,14 @@ namespace BoutiqueBDDLibrary
             }
             else
             {
-                Console.WriteLine("ERREUR: Cet email appartient à aucun client.\n");
+                Console.WriteLine("ERREUR: Cet email n'appartient à aucun client.\n");
             }
         }
         #endregion
 
-        #region [Interface] Affiche tout les clients
+        #region [Interface] Affiche tous les clients
         /// <summary>
-        /// Affiche tout les clients à l'écran et renvoi le nombre de client(s) trouvé.
+        /// Affiche tous les clients à l'écran et renvoie le nombre de client(s) trouvés.
         /// </summary>
         public static void afficheToutLesClients()
         {
@@ -672,7 +674,7 @@ namespace BoutiqueBDDLibrary
             Console.WriteLine("Nous avons trouvé {0} client(s) :\n", toutclients.Count);
             foreach (var toutclient in toutclients)
             {
-                Console.WriteLine("| Nom: " + toutclient.Nom_Client + " | Prenom: " + toutclient.Prenom_client + " | Email: " + toutclient.Mail_client + " | Téléphone: " + toutclient.Numtel_Client + " | Date de naissance: " + toutclient.Date_naissance_client.ToString("d/M/yyyy") + " | Adresse: " + toutclient.Adresse_client + " | Code postal: " + toutclient.codePostal_Ville + " | Ville: " + toutclient.nom_Ville);
+                Console.WriteLine("| Nom: " + toutclient.Nom_Client + " | Prénom: " + toutclient.Prenom_client + " | Email: " + toutclient.Mail_client + " | Téléphone: " + toutclient.Numtel_Client + " | Date de naissance: " + toutclient.Date_naissance_client.ToString("d/M/yyyy") + " | Adresse: " + toutclient.Adresse_client + " | Code postal: " + toutclient.codePostal_Ville + " | Ville: " + toutclient.nom_Ville);
             }
             Console.WriteLine();
         }
@@ -680,7 +682,8 @@ namespace BoutiqueBDDLibrary
 
         #region [Interface] Modifier un client
         /// <summary>
-        /// Modifie un client -> Vérifie l'émail du client, si il valide continu et sinon renvoi un message d'erreur.
+        /// Modifie un client -> Vérifie l'émail du client
+        /// S'il est valide continu et sinon renvoie un message d'erreur.
         /// </summary>
         public static void ModifierUnClient()
         {
@@ -697,7 +700,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine();
                 FonctionsConsole.PaternClient(x, p, v);
                 DataAccess.modifieUnClientenBDD(client.Mail_client, p);
-                Console.WriteLine("\nLe profil client viens d'être mis à jours.");
+                Console.WriteLine("\nLe profil client vient d'être mis à jour.");
                 Console.ReadKey();
             }
             else
@@ -750,9 +753,9 @@ namespace BoutiqueBDDLibrary
         }
         #endregion
 
-        #region [Interface] Afficher tout les produits
+        #region [Interface] Afficher tous les produits
         /// <summary>
-        /// Affiche tout les produits. Affiche le nombre de produits trouver ainsi que tout les détails lié à chaque produit.
+        /// Affiche tous les produits. Affiche le nombre de produits trouvés ainsi que tous les détails liés à chaque produit.
         /// </summary>
         public static void DisplayProduct()
         {
@@ -760,7 +763,7 @@ namespace BoutiqueBDDLibrary
             Console.WriteLine("Nous avons {0} produit(s) :", produits.Count);
             foreach (var produit in produits)
             {
-                Console.WriteLine("ID = " + produit.Id_Produit + "; Nom = " + produit.Nom_Produit + "; TVA = " + produit.TVA + "; Prix = " + produit.Prix_Produit + "; Remise = " + produit.Remise_Produit + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit + "; Categorie = " + produit.Nom_categorie + "; Origine = " + produit.Nom_origine + "; Unite = " + produit.Libelle_unite + "\n\n");
+                Console.WriteLine("ID = " + produit.Id_Produit + "; Nom = " + produit.Nom_Produit + "; TVA = " + produit.TVA + "; Prix = " + produit.Prix_Produit + "; Remise = " + produit.Remise_Produit + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit + "; Catégorie = " + produit.Nom_categorie + "; Origine = " + produit.Nom_origine + "; Unité = " + produit.Libelle_unite + "\n\n");
             }
         }
         #endregion
@@ -774,7 +777,7 @@ namespace BoutiqueBDDLibrary
             List<Produit> produits = DataAccess.GetLimitProducts(start, group, limit);
             foreach (var produit in produits)
             {
-                Console.WriteLine(produit.Id_Produit + ".  Nom = " + produit.Nom_Produit + "; Categorie = " + produit.Nom_categorie + "; Origine = " + produit.Nom_origine + "; Prix = " + produit.Prix_Produit + "; Unite = " + produit.Libelle_unite + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit +"\n\n");
+                Console.WriteLine(produit.Id_Produit + ".  Nom = " + produit.Nom_Produit + "; Catégorie = " + produit.Nom_categorie + "; Origine = " + produit.Nom_origine + "; Prix = " + produit.Prix_Produit + "; Unité = " + produit.Libelle_unite + "; Description = " + produit.Description_Produit + "; Valeur nutritionnelle = " + produit.Val_Nutrition_Produit +"\n\n");
             }
         }
         #endregion
@@ -797,7 +800,7 @@ namespace BoutiqueBDDLibrary
                 Console.WriteLine();
                 FonctionsConsole.PaternProduit(p);
                 DataAccess.ModifyOneProduct(Nom, p);
-                Console.WriteLine("Votre produit a été modifier avec succès.");
+                Console.WriteLine("Votre produit a été modifié avec succès.");
             }
             else
             {
@@ -817,7 +820,6 @@ namespace BoutiqueBDDLibrary
             Console.WriteLine("RECHERCHE D'UN PRODUIT DANS LA BASE DE DONNEES");
             Console.Write("Nom du produit : ");
             p.Nom_Produit = Console.ReadLine();
-            //p.Nom_Produit = FonctionsConsole.premiereLettreMajuscule(p.Nom_Produit);
             DisplayOneProduct(p.Nom_Produit);
         }
         #endregion
@@ -832,16 +834,16 @@ namespace BoutiqueBDDLibrary
             Console.Clear();
             Console.WriteLine("UTILISER LES FLECHES DE DROITE ET DE GAUCHE POUR AFFICHER LES PRODUITS");
             Console.WriteLine("APPUYER SUR P POUR FAIRE VOTRE PANIER");
-            Console.WriteLine("APPUYER SUR A POUR DEFINIR LE NOMBRE DE PRODUIT AFFICHER EN UNE PAGE");
+            Console.WriteLine("APPUYER SUR A POUR DEFINIR LE NOMBRE DE PRODUITS AFFICHEES SUR UNE PAGE");
             Console.WriteLine("APPUYER SUR T POUR TRIER LES PRODUITS");
-            Console.WriteLine("APPUYER SUR Q POUR QUITTEZ\n");
-            Console.WriteLine("Voici nos produit(s) : \n");
+            Console.WriteLine("APPUYER SUR Q POUR QUITTER\n");
+            Console.WriteLine("Voici le(s) produit(s) : \n");
         }
         #endregion
 
         #region [Interface] Affiche le panier
         /// <summary>
-        /// Affiche le panier, cette fonction prend une list en paramètre
+        /// Affiche le panier, cette fonction prend une liste en paramètres
         /// </summary>
         /// <param name="list"></param>
         public static void AffichePanier(List<Commande> list)
@@ -856,9 +858,9 @@ namespace BoutiqueBDDLibrary
         }
         #endregion
 
-        #region Calcul Le nombre de page total
+        #region Calcule Le nombre total de pages
         /// <summary>
-        /// Calcul le nombre de page maximum qu'on peut afficher
+        /// Calcule le nombre maximum de page maximum qu'on peut afficher
         /// </summary>
         /// <param name="taille"></param>
         /// <param name="limit"></param>
@@ -871,9 +873,9 @@ namespace BoutiqueBDDLibrary
 
         #endregion
 
-        #region Calcul le prix du panier
+        #region Calcule le prix du panier
         /// <summary>
-        /// Calcul le prix du panier en fonction d'une list donnée en paramètre
+        /// Calcule le prix du panier en fonction d'une liste donnée en paramètres
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>

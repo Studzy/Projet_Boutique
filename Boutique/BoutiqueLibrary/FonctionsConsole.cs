@@ -46,7 +46,7 @@ namespace BoutiqueBDDLibrary
             int err = WIN32.GetConsoleMode(_consoleHandle.Value, out this._oldMode);
             if (err == 0)
                 new Win32Exception();
-            //Applique les options en mettant "montre l'entrée untilisateur" à false.
+            //Applique les options en mettant "montre l'entrée utilisateur" à false.
             err = WIN32.SetConsoleMode(_consoleHandle.Value, this._oldMode & (~WIN32.ENABLE_ECHO_INPUT));
             if (err == 0)
                 new Win32Exception();
@@ -58,7 +58,7 @@ namespace BoutiqueBDDLibrary
                 return;
             this._disposed = true;
 
-            //Restaure les options console.
+            //Restaure les options consoles.
             int err = WIN32.SetConsoleMode(_consoleHandle.Value, this._oldMode);
             if (err == 0)
                 new Win32Exception();
@@ -74,7 +74,7 @@ namespace BoutiqueBDDLibrary
         //Autres
         #region Masque le mot de passe
         /// <summary>
-        /// Efface l'entrée saisi pour masquer un mot de passe
+        /// Efface l'entrée saisie pour masquer un mot de passe
         /// </summary>
         /// <returns></returns>
         public static string MaskPassword()
@@ -88,7 +88,7 @@ namespace BoutiqueBDDLibrary
 
         #region Change la première lettre en Majuscule
         /// <summary>
-        /// Change la première lettre du string en Majuscule 
+        /// Change la première lettre du string en majuscule.
         /// </summary>
         /// <param name="caractere"></param>
         /// <returns></returns>
@@ -100,11 +100,11 @@ namespace BoutiqueBDDLibrary
         }
         #endregion
 
-        #region Recherche un ID true or false si trouver 
+        #region Recherche une ID true or false si trouvé
         /// <summary>
-        /// Le resultat d'une recherche d'id.
-        /// <see cref="Trouve"/> est true si un id a été trouvé.
-        /// L'id est alors stocké dans <see cref="Id"/>.
+        /// Le résultat d'une recherche d'id.
+        /// <see cref="Trouve"/> est true si une id a été trouvée.
+        /// L'id est alors stockée dans <see cref="Id"/>.
         /// </summary>
         /// 
         public class IdTrouve
@@ -121,14 +121,14 @@ namespace BoutiqueBDDLibrary
                 }
             }
             /// <summary>
-            /// L'id n'a pas été trouvé.
+            /// L'id n'a pas été trouvée.
             /// </summary>
             public IdTrouve()
             {
                 this.Trouve = false;
             }
             /// <summary>
-            /// id est l'id qui a été trouvé.
+            /// id est l'id qui a été trouvée.
             /// </summary>
             public IdTrouve(int id)
             {
@@ -141,8 +141,8 @@ namespace BoutiqueBDDLibrary
         //Admin et Client
         #region Vérifie le mot de passe ADMIN  ou CLIENT
         /// <summary>
-        /// Vérifie si le mot de passe à au moins 1 chiffre 1 majuscule et 7 caractères minimum
-        /// Si le mot de passe n'est pas bon il y a une exeption sinon il n'y en a pas 
+        /// Vérifie si le mot de passe à au moins 1 chiffre, 1 majuscule et 7 caractères minimum.
+        /// Si le mot de passe n'est pas bon renvoie une exception.
         /// </summary>
         /// <param name="value"></param>
         public static void VerifMdp(string value)
@@ -217,22 +217,22 @@ namespace BoutiqueBDDLibrary
         //Client
         #region Valide le mail lors de la modification d'un client
         /// <summary>
-        /// Vérifie que le nouvel Email n'existe pas dans la base de donnée.
-        /// Si non présent dans la BDD ou autres renvoi une exeption.
+        /// Vérifie que le nouvel Email n'existe pas dans la base de données.
+        /// Si non présent dans la BDD ou autre renvoie une exception.
         /// </summary>
         /// <param name="value"></param>
         public static void ValiderNouvelEmail(string value)
         {
             if (value.Length < 1 || value.Length > 80 || !FonctionsConsole.VerifEmail(value) || DataAccess.VerifierExistanceMailClient(value))
             {
-                throw new FonctionsConsole.MonMessageErreur("ERREUR: L'émail existe déjà | L'émail est trop long | Le format n'est pas bon.");
+                throw new FonctionsConsole.MonMessageErreur("ERREUR: L'email existe déjà | L'email est trop long | Le format n'est pas bon.");
             }
         }
         #endregion
 
         #region Patern client pour la modification d'un client
         /// <summary>
-        /// Modèle utiliser pour modifier un client
+        /// Modèle utilisé pour modifier un client
         /// </summary>
         /// <param name="x"></param>
         /// <param name="p"></param>
@@ -441,7 +441,7 @@ namespace BoutiqueBDDLibrary
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("ERREUR: Cette valeur n'est pas decimal");
+                    Console.WriteLine("ERREUR: Cette valeur n'est pas decimale.");
                 }
             }
             MesTests = false;
@@ -461,7 +461,7 @@ namespace BoutiqueBDDLibrary
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("ERREUR: Cette valeur n'est pas decimal");
+                    Console.WriteLine("ERREUR: Cette valeur n'est pas decimale.");
                 }
             }
             MesTests = false;
@@ -484,7 +484,7 @@ namespace BoutiqueBDDLibrary
                 catch (FormatException)
                 {
 
-                    Console.WriteLine("ERREUR: Cette valeur n'est pas valide");
+                    Console.WriteLine("ERREUR: Cette valeur n'est pas valide.");
                 }
             }
 
@@ -516,7 +516,7 @@ namespace BoutiqueBDDLibrary
                 catch (FormatException)
                 {
 
-                    Console.WriteLine("Cette valeur n'est pas une valeur entière");
+                    Console.WriteLine("Cette valeur n'est pas une valeur entière.");
                 }
             }
             MesTests = false;
@@ -525,7 +525,7 @@ namespace BoutiqueBDDLibrary
             {
                 try
                 {
-                    Console.Write("Categorie du produit : ");
+                    Console.Write("Catégorie du produit : ");
                     Categorie categorie = new Categorie();
                     categorie.Nom_categorie = Console.ReadLine();
                     categorie.Nom_categorie = premiereLettreMajuscule(categorie.Nom_categorie);
@@ -579,7 +579,7 @@ namespace BoutiqueBDDLibrary
             {
                 try
                 {
-                    Console.Write("Unite du produit : ");
+                    Console.Write("Unité du produit : ");
                     Unite unite = new Unite();
                     unite.Libelle_unite = Console.ReadLine();
                     unite.Libelle_unite = premiereLettreMajuscule(unite.Libelle_unite);
@@ -632,11 +632,11 @@ namespace BoutiqueBDDLibrary
             bool MesTest = false;
             bool MesTest2 = false;
             string message;
-            int IDClientActuel = Fonctions.UtilisateurActuelID; // <------------
+            int IDClientActuel = Fonctions.UtilisateurActuelID;
             int start = 0;
-            int limit = 10; // <---------------
+            int limit = 10;
             string TrierPar = "Nom_Produit";
-            Fonctions.DisplayLimitProduct(start, TrierPar, limit); //<-------------
+            Fonctions.DisplayLimitProduct(start, TrierPar, limit);
             List<Produit> AllProduits = new List<Produit>();
             AllProduits = DataAccess.GetAllProducts();
             decimal taille = AllProduits.Count;
@@ -655,7 +655,7 @@ namespace BoutiqueBDDLibrary
                 {
                     #region Fonctionnalité : Trier les produits
                     case ConsoleKey.T: 
-                        Console.Write("Trier par [1] Prix(Croissant), [2] Nom(Ordre Alphabetique) ou [3] Categorie(Ordre Alphabetique) : ");
+                        Console.Write("Trier par [1] Prix(Croissant), [2] Nom(Ordre Alphabétique) ou [3] Catégorie(Ordre Alphabétique) : ");
                         switch (Console.ReadKey(true).Key)
                         {
                             case ConsoleKey.NumPad1:
@@ -671,14 +671,14 @@ namespace BoutiqueBDDLibrary
                         break;
                     #endregion
 
-                    #region Fonctionnalité : Nombre de produit a affiché par pages
-                    case ConsoleKey.A: //<-------------
+                    #region Fonctionnalité : Nombre de produits à afficher par pages
+                    case ConsoleKey.A:
 
                         while (!MesTest)
                         {
                             try
                             {
-                                Console.Write("Combien de produit souhaitez vous afficher par pages ? ");//<-------------
+                                Console.Write("Combien de produits souhaitez-vous afficher par page ? ");
                                 limit = Convert.ToInt32(Console.ReadLine());
                                 MesTest = true;
                             }
@@ -699,7 +699,7 @@ namespace BoutiqueBDDLibrary
                         break;
                     #endregion
 
-                    #region Fonctionnalité : Quittez le programme
+                    #region Fonctionnalité : Quitter le programme
                     case ConsoleKey.Q:
                         Console.WriteLine("APPUYER SUR UNE TOUCHE POUR RETOURNER AU MENU CLIENT");
                         display = true;
@@ -709,7 +709,7 @@ namespace BoutiqueBDDLibrary
                         break;
                     #endregion
 
-                    #region Fonctionnalité : Reafficher les produits
+                    #region Fonctionnalité : Réafficher les produits
                     case ConsoleKey.Enter:
                         Fonctions.AfficherMenuAcheter();
                         start = 0;
@@ -722,7 +722,7 @@ namespace BoutiqueBDDLibrary
                         break;
                     #endregion
 
-                    #region Fonctionnalité : Parcourir les differentes pages avec la fleche de droite
+                    #region Fonctionnalité : Parcourir les differentes pages avec la flèche de droite
                     case ConsoleKey.RightArrow:
                         Fonctions.AfficherMenuAcheter();
                         if (start < taille - limit)
@@ -744,7 +744,7 @@ namespace BoutiqueBDDLibrary
                         Fonctions.DisplayLimitProduct(start, TrierPar, limit);
                         Console.WriteLine("\n Page {0} sur {1} \n\n", pageActuel, pagesTotal);
 
-                        Console.WriteLine("Selectionnez vos produits en choississant leur numero");
+                        Console.WriteLine("Sélectionnez vos produits en choisissant leur numéro");
                         Console.WriteLine("Validez en appuyant sur V");
                         Console.WriteLine("Quittez en appuyant sur Q");
                         while (!MesTest)
@@ -755,7 +755,7 @@ namespace BoutiqueBDDLibrary
                             message = Console.ReadLine();
                             if (string.IsNullOrWhiteSpace(message))
                             {
-                                Console.WriteLine("Veuillez renseigner un champs");
+                                Console.WriteLine("Veuillez renseigner un champs.");
                             }
                             else if (message == "Q" || message == "q")
                             {
@@ -779,7 +779,7 @@ namespace BoutiqueBDDLibrary
                                     }
                                     catch (FormatException)
                                     {
-                                        Console.WriteLine("La valeur n'est pas une valeur entiere");
+                                        Console.WriteLine("La valeur n'est pas une valeur entière");
                                     }
                                 }
                                 MesTest2 = false;
@@ -788,7 +788,7 @@ namespace BoutiqueBDDLibrary
                                 produit = DataAccess.GetOneProductById(numero);
                                 if (produit.Nom_Produit == "Rien")
                                 {
-                                    Console.WriteLine("Votre choix ne fait pas parti de nos produits");
+                                    Console.WriteLine("Votre choix ne fait pas partie de nos produits");
                                 }
                                 else
                                 {
@@ -804,7 +804,7 @@ namespace BoutiqueBDDLibrary
                                         }
                                         catch (FormatException)
                                         {
-                                            Console.WriteLine("La valeur n'est pas une valeur entiere");
+                                            Console.WriteLine("La valeur n'est pas une valeur entière");
                                         }
                                     }
                                     MesTest2 = false;
@@ -817,7 +817,7 @@ namespace BoutiqueBDDLibrary
                                         Panier.Add(produit);
                                     }
 
-                                    Console.WriteLine("Votre produit a été ajouter au panier !\n");
+                                    Console.WriteLine("Votre produit a été ajouté au panier !\n");
                                 }
 
                             }
@@ -835,7 +835,7 @@ namespace BoutiqueBDDLibrary
                         Fonctions.AffichePanier(ListeCommande);
                         Console.WriteLine("Le prix de votre panier est de : " + PrixPanier + "e \n");
                         Console.WriteLine("Supprimer des éléments du panier [S]");
-                        Console.WriteLine("Confirmez vos achats [O/N]");
+                        Console.WriteLine("Confirmer vos achats [O/N]");
 
                         
                         switch (Console.ReadKey(true).Key)
@@ -848,12 +848,11 @@ namespace BoutiqueBDDLibrary
                                 List<OptionPaiement> optionPaiements = new List<OptionPaiement>();
                                 int numfacture = DataAccess.GetLastNumFacture();
                                 numfacture = numfacture + 1;
-                                //int IdClient = 3;
                                 DateTime DateDuJour = DateTime.Today;
                                 facture.Num_facture = numfacture;
                                 facture.Date_facture = DateDuJour;
                                 facture.Montant_total = PrixPanier;
-                                facture.Fk_Id_Client = IDClientActuel; // <------------
+                                facture.Fk_Id_Client = IDClientActuel;
                                 DataAccess.AddFacture(facture);
                                 int DernierIDFacture = DataAccess.GetLastIdFacture();
                                 for (int i = 0; i < ListeCommande.Count; i++)
@@ -865,13 +864,13 @@ namespace BoutiqueBDDLibrary
                                 while (PrixPanier != 0)
                                 {
                                     optionPaiements = DataAccess.GetAllPayement();
-                                    Console.WriteLine("Voici nos differents moyens de paiements : ");
+                                    Console.WriteLine("Voici nos différents moyens de paiement : ");
 
                                     for (int i = 0; i < optionPaiements.Count; i++)
                                     {
                                         Console.WriteLine("\n\t - {0} {1} \n", optionPaiements[i].Id_Paiement, optionPaiements[i].Libelle_paiement);
                                     }
-                                    Console.Write("Choisissez votre moyens de paiements en indiquant le numero correspondants : ");
+                                    Console.Write("Choisissez votre moyen de paiement en indiquant le numéro correspondant : ");
                                     //string ChoixUser = Console.ReadLine();
                                     int numeroPaiement = 0;
                                     while (!MesTest2)
@@ -881,7 +880,7 @@ namespace BoutiqueBDDLibrary
                                             numeroPaiement = Convert.ToInt32(Console.ReadLine());
                                             if (numeroPaiement <= 0 || numeroPaiement > 3)
                                             {
-                                                Console.WriteLine("Veuillez choisir un moyen de paiement valide");
+                                                Console.WriteLine("Veuillez choisir un moyen de paiement valide.");
                                             }
                                             else
                                             {
@@ -891,12 +890,12 @@ namespace BoutiqueBDDLibrary
                                         }
                                         catch (FormatException)
                                         {
-                                            Console.WriteLine("La valeur n'est pas une valeur entiere");
+                                            Console.WriteLine("La valeur n'est pas une valeur entière");
                                         }
                                     }
                                     MesTest2 = false;
                                     ifp.FK_Id_Paiement = numeroPaiement;
-                                    Console.Write("Il vous reste {0}e a payé, combien souhaitez vous regler ?", PrixPanier);
+                                    Console.Write("Il vous reste {0}e à payer, combien souhaitez-vous régler ?", PrixPanier);
                                     decimal Payer = 0;
                                     while (!MesTest2)
                                     {
@@ -909,7 +908,7 @@ namespace BoutiqueBDDLibrary
                                         }
                                         catch (FormatException)
                                         {
-                                            Console.WriteLine("Cette valeur n'est pas decimal");
+                                            Console.WriteLine("Cette valeur n'est pas décimale.");
                                         }
                                     }
                                     MesTest2 = false;
@@ -920,7 +919,6 @@ namespace BoutiqueBDDLibrary
 
                                     DataAccess.AddIFP(ifp);
                                     AfficherLesProduits();
-
                                 }
 
                                 break;
@@ -930,15 +928,15 @@ namespace BoutiqueBDDLibrary
                                 break;
                             case ConsoleKey.S:
 
-                                Console.WriteLine("Tappez le numero correspondant au produit dans votre panier pour le supprimer");
-                                Console.WriteLine("Confirmez vos suppression [V]\n");
+                                Console.WriteLine("Tapez le numéro correspondant au produit dans votre panier pour le supprimer.");
+                                Console.WriteLine("Confirmez vos suppressions [V]\n");
                                 while (!MesTest)
                                 {
                                     int ProduitASuppr = 0;
                                     message = Console.ReadLine();
                                     if (string.IsNullOrWhiteSpace(message))
                                     {
-                                        Console.WriteLine("Veuillez renseigner un champs");
+                                        Console.WriteLine("Veuillez renseigner un champs.");
                                     }
                                     else if (message == "V" || message == "v")
                                     {
@@ -950,7 +948,7 @@ namespace BoutiqueBDDLibrary
                                         ProduitASuppr = Convert.ToInt32(message);
                                         if (ProduitASuppr <= 0 || ProduitASuppr > ListeCommande.Count)
                                         {
-                                            Console.WriteLine("Veuillez renseigner un nombre valide");
+                                            Console.WriteLine("Veuillez renseigner un nombre valide.");
                                         }
                                         else
                                         {
@@ -961,7 +959,7 @@ namespace BoutiqueBDDLibrary
                                     }
                                     else
                                     {
-                                        Console.WriteLine("Veuillez renseigner un champs valide");
+                                        Console.WriteLine("Veuillez renseigner un champs valide.");
                                     }
 
                                 }
@@ -986,7 +984,7 @@ namespace BoutiqueBDDLibrary
                                     else
                                     {
                                         MesTest = false;
-                                        Console.WriteLine("Veuillez renseigner un champs valide");
+                                        Console.WriteLine("Veuillez renseigner un champs valide.");
                                     }
                                 }
                                 MesTest = false;
@@ -998,7 +996,7 @@ namespace BoutiqueBDDLibrary
 
                     #endregion
 
-                    #region Fonctionnalité : Parcourir les differentes pages avec la fleche de gauche
+                    #region Fonctionnalité : Parcourir les differentes pages avec la flèche de gauche
                     case ConsoleKey.LeftArrow:
                         Fonctions.AfficherMenuAcheter();
 
@@ -1022,8 +1020,8 @@ namespace BoutiqueBDDLibrary
         //              [PARTIE COMMUNE]                   //
         //-------------------------------------------------//
 
-        #region Fonctions de vérifications
-        //Vérifications de chants
+        #region Fonctions de vérification
+        //Vérifications de champs
         public static bool VerifieSiQueDesLettres(string mot)
         {
             bool leMotNaQueDesLettres = true;
@@ -1103,14 +1101,14 @@ namespace BoutiqueBDDLibrary
         {
             if (NbDecimal < 0)
             {
-                throw new FormatException("Cette valeur n'est pas valide");
+                throw new FormatException("Cette valeur n'est pas valide.");
             }
         }
         public static void verifInt(int NbInt)
         {
             if (NbInt < 0)
             {
-                throw new FormatException("Cette valeur n'est pas valide");
+                throw new FormatException("Cette valeur n'est pas valide.");
             }
         }
         public class MonMessageErreur : Exception

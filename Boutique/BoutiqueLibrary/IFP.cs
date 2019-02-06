@@ -28,7 +28,7 @@
 
         #region Montant_paiement
         /// <summary>
-        /// Vérifie le montant du paiement dans le set, si ce n'est pas bon une exeption est afficher
+        /// Vérifie le montant du paiement dans le set. Si ce n'est pas bon, une exception est affichée.
         /// </summary>
         public decimal Montant_Paiement
         {

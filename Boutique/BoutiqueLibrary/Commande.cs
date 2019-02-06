@@ -23,7 +23,6 @@
         #endregion
 
         #region FK_Id_ProduitFIER CAR NON FINI FK_Id_Produit
-        /// </summary>
         public int FK_Id_Produit { get => fK_Id_Produit; set => fK_Id_Produit = value; }
         #endregion
 
