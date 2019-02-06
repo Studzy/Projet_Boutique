@@ -12,6 +12,7 @@ namespace BoutiqueBDDLibrary
         //Sauvegarde l'ID et l'Email du client connecter
         public static int UtilisateurActuelID;
         public static string UtilisateurActuelEmail = "";
+        public static bool Run = true;
 
         //Menus
         #region [Interface] Menu Principal
@@ -43,67 +44,7 @@ namespace BoutiqueBDDLibrary
                         Fonctions.InscriptionAdministrateur();
                         break;
                     case ConsoleKey.X:
-                        Console.Clear();
-                        string a  ="Merci et à bientôt !\n\n";
-                        string b ="                         ¶¶¶¶¶¶¶¶¶¶¶¶ ";
-                        string c ="                         ¶¶            ¶¶ ";
-                        string d ="           ¶¶¶¶¶        ¶¶                ¶¶ ";
-                        string e ="           ¶     ¶     ¶¶      ¶¶    ¶¶     ¶¶ ";
-                        string f ="            ¶     ¶    ¶¶       ¶¶    ¶¶      ¶¶ ";
-                        string g ="             ¶    ¶   ¶¶        ¶¶    ¶¶      ¶¶ ";
-                        string h ="              ¶   ¶   ¶                         ¶¶ ";
-                        string i ="            ¶¶¶¶¶¶¶¶¶¶¶¶                         ¶¶ ";
-                        string j ="           ¶            ¶    ¶¶            ¶¶    ¶¶ ";
-                        string k ="          ¶¶            ¶    ¶¶            ¶¶    ¶¶ ";
-                        string l ="         ¶¶   ¶¶¶¶¶¶¶¶¶¶¶      ¶¶        ¶¶     ¶¶ ";
-                        string m ="          ¶               ¶       ¶¶¶¶¶¶¶       ¶¶ ";
-                        string n ="         ¶¶              ¶                    ¶¶ ";
-                        string o ="          ¶   ¶¶¶¶¶¶¶¶¶¶¶¶                   ¶¶ ";
-                        string p ="          ¶¶           ¶  ¶¶                ¶¶ ";
-                        string q ="          ¶¶¶¶¶¶¶¶¶¶¶¶    ¶¶            ¶¶";
-                        string r = "                          ¶¶¶¶¶¶¶¶¶¶¶";
-
-                        #region Affiche toutes les variables
-                        Console.WriteLine("\n\n\n\n\n\n\n\n\n");
-                        Console.SetCursorPosition((Console.WindowWidth - a.Length) / 2, Console.CursorTop);
-                        Console.WriteLine(a);
-                        Console.SetCursorPosition((Console.WindowWidth - b.Length) / 2, Console.CursorTop);
-                        Console.WriteLine(b);
-                        Console.SetCursorPosition((Console.WindowWidth - c.Length) / 2, Console.CursorTop);
-                        Console.WriteLine(c);
-                        Console.SetCursorPosition((Console.WindowWidth - d.Length) / 2, Console.CursorTop);
-                        Console.WriteLine(d);
-                        Console.SetCursorPosition((Console.WindowWidth - e.Length) / 2, Console.CursorTop);
-                        Console.WriteLine(e);
-                        Console.SetCursorPosition((Console.WindowWidth - f.Length) / 2, Console.CursorTop);
-                        Console.WriteLine(f);
-                        Console.SetCursorPosition((Console.WindowWidth - g.Length) / 2, Console.CursorTop);
-                        Console.WriteLine(g);
-                        Console.SetCursorPosition((Console.WindowWidth - h.Length) / 2, Console.CursorTop);
-                        Console.WriteLine(h);
-                        Console.SetCursorPosition((Console.WindowWidth - i.Length) / 2, Console.CursorTop);
-                        Console.WriteLine(i);
-                        Console.SetCursorPosition((Console.WindowWidth - j.Length) / 2, Console.CursorTop);
-                        Console.WriteLine(j);
-                        Console.SetCursorPosition((Console.WindowWidth - k.Length) / 2, Console.CursorTop);
-                        Console.WriteLine(k);
-                        Console.SetCursorPosition((Console.WindowWidth - l.Length) / 2, Console.CursorTop);
-                        Console.WriteLine(l);
-                        Console.SetCursorPosition((Console.WindowWidth - m.Length) / 2, Console.CursorTop);
-                        Console.WriteLine(m);
-                        Console.SetCursorPosition((Console.WindowWidth - n.Length) / 2, Console.CursorTop);
-                        Console.WriteLine(n);
-                        Console.SetCursorPosition((Console.WindowWidth - o.Length) / 2, Console.CursorTop);
-                        Console.WriteLine(o);
-                        Console.SetCursorPosition((Console.WindowWidth - p.Length) / 2, Console.CursorTop);
-                        Console.WriteLine(p);
-                        Console.SetCursorPosition((Console.WindowWidth - q.Length) / 2, Console.CursorTop);
-                        Console.WriteLine(q);
-                        Console.SetCursorPosition((Console.WindowWidth - r.Length) / 2, Console.CursorTop);
-                        Console.WriteLine(r);
-                        #endregion
-
-                        Console.ReadKey();
+                        Run = false;
                         return;
                 }
             }
@@ -175,7 +116,6 @@ namespace BoutiqueBDDLibrary
                             break;
                         case ConsoleKey.O:
                             Console.Clear();
-                            MenuPrincipal();
                             return;
                     }
                     return;

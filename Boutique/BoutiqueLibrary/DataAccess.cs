@@ -739,7 +739,7 @@ namespace BoutiqueBDDLibrary
                         Produit produit = new Produit();
                         produit.Id_Produit = query.GetInt32(0);
                         produit.Nom_Produit = query.GetString(1);
-                        produit.TVA = query.GetInt32(2);
+                        produit.TVA = query.GetDecimal(2);
                         produit.Nom_categorie = query.GetString(3);
                         produit.Nom_origine = query.GetString(4);
                         produit.Prix_Produit = query.GetDecimal(5);

@@ -83,7 +83,74 @@ namespace BoutiqueConsole
             {
             }
             Console.Clear();
-            Fonctions.MenuPrincipal();
+            //while (Fonctions.Run)
+            {
+                Fonctions.MenuPrincipal();
+            }
+
+            Console.Clear();
+            #region stock dans les variables 
+            string a2 = "Merci, et à bientôt !\n\n";
+            string b2 = "                         ¶¶¶¶¶¶¶¶¶¶¶¶ ";
+            string c2 = "                         ¶¶            ¶¶ ";
+            string d2 = "           ¶¶¶¶¶        ¶¶                ¶¶ ";
+            string e2 = "           ¶     ¶     ¶¶      ¶¶    ¶¶     ¶¶ ";
+            string f2 = "            ¶     ¶    ¶¶       ¶¶    ¶¶      ¶¶ ";
+            string g2 = "             ¶    ¶   ¶¶        ¶¶    ¶¶      ¶¶ ";
+            string h2 = "              ¶   ¶   ¶                         ¶¶ ";
+            string i2 = "            ¶¶¶¶¶¶¶¶¶¶¶¶                         ¶¶ ";
+            string j2 = "           ¶            ¶    ¶¶            ¶¶    ¶¶ ";
+            string k2 = "          ¶¶            ¶    ¶¶            ¶¶    ¶¶ ";
+            string l2 = "         ¶¶   ¶¶¶¶¶¶¶¶¶¶¶      ¶¶        ¶¶     ¶¶ ";
+            string m2 = "          ¶               ¶       ¶¶¶¶¶¶¶       ¶¶ ";
+            string n2 = "         ¶¶              ¶                    ¶¶ ";
+            string o2 = "          ¶   ¶¶¶¶¶¶¶¶¶¶¶¶                   ¶¶ ";
+            string p2 = "          ¶¶           ¶  ¶¶                ¶¶ ";
+            string q2 = "          ¶¶¶¶¶¶¶¶¶¶¶¶    ¶¶            ¶¶";
+            string r2 = "                          ¶¶¶¶¶¶¶¶¶¶¶";
+            #endregion
+
+            #region Affiche toutes les variables
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n");
+            Console.SetCursorPosition((Console.WindowWidth - a2.Length) / 2, Console.CursorTop);
+            Console.WriteLine(a2);
+            Console.SetCursorPosition((Console.WindowWidth - b2.Length) / 2, Console.CursorTop);
+            Console.WriteLine(b2);
+            Console.SetCursorPosition((Console.WindowWidth - c2.Length) / 2, Console.CursorTop);
+            Console.WriteLine(c2);
+            Console.SetCursorPosition((Console.WindowWidth - d2.Length) / 2, Console.CursorTop);
+            Console.WriteLine(d2);
+            Console.SetCursorPosition((Console.WindowWidth - e2.Length) / 2, Console.CursorTop);
+            Console.WriteLine(e2);
+            Console.SetCursorPosition((Console.WindowWidth - f2.Length) / 2, Console.CursorTop);
+            Console.WriteLine(f2);
+            Console.SetCursorPosition((Console.WindowWidth - g2.Length) / 2, Console.CursorTop);
+            Console.WriteLine(g2);
+            Console.SetCursorPosition((Console.WindowWidth - h2.Length) / 2, Console.CursorTop);
+            Console.WriteLine(h2);
+            Console.SetCursorPosition((Console.WindowWidth - i2.Length) / 2, Console.CursorTop);
+            Console.WriteLine(i2);
+            Console.SetCursorPosition((Console.WindowWidth - j2.Length) / 2, Console.CursorTop);
+            Console.WriteLine(j2);
+            Console.SetCursorPosition((Console.WindowWidth - k2.Length) / 2, Console.CursorTop);
+            Console.WriteLine(k2);
+            Console.SetCursorPosition((Console.WindowWidth - l2.Length) / 2, Console.CursorTop);
+            Console.WriteLine(l2);
+            Console.SetCursorPosition((Console.WindowWidth - m2.Length) / 2, Console.CursorTop);
+            Console.WriteLine(m2);
+            Console.SetCursorPosition((Console.WindowWidth - n2.Length) / 2, Console.CursorTop);
+            Console.WriteLine(n2);
+            Console.SetCursorPosition((Console.WindowWidth - o2.Length) / 2, Console.CursorTop);
+            Console.WriteLine(o2);
+            Console.SetCursorPosition((Console.WindowWidth - p2.Length) / 2, Console.CursorTop);
+            Console.WriteLine(p2);
+            Console.SetCursorPosition((Console.WindowWidth - q2.Length) / 2, Console.CursorTop);
+            Console.WriteLine(q2);
+            Console.SetCursorPosition((Console.WindowWidth - r2.Length) / 2, Console.CursorTop);
+            Console.WriteLine(r2);
+            #endregion
+
+            Console.ReadKey();
         }
     }
 }
