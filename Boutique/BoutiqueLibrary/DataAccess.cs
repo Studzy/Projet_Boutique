@@ -244,8 +244,6 @@ namespace BoutiqueBDDLibrary
                     insertCommand.Parameters.AddWithValue("@email", email);
                     insertCommand.ExecuteNonQuery();
                 }
-                Console.WriteLine("\nNous avons supprimer le client ainsi que toutes les données qui lui étaient liés !");
-                Console.ReadKey();
             }
             catch (Exception e)
             {

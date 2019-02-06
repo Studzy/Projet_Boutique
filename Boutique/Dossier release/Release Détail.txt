@@ -141,6 +141,7 @@ Release_V29:
 	- Suppresion des clients pour le client même si le client à des factures et commandes (SUPPRIME TOUT)
 	- Inscription Admin est accessible avec la touche diviser du pavé numérique
 
-
+Release_V31:
+	- Projet release pour test oral
 
 
