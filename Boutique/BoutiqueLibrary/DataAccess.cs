@@ -837,38 +837,7 @@ namespace BoutiqueBDDLibrary
             return entries;
         }
         #endregion
-
-        #region [BDD] Supprimer un produit
-        /// <summary>
-        /// Supprime un produit de la base de données en fonction du nom
-        /// </summary>
-        public static void DeleteOneProduct(string nom)
-        {
-            try
-            {
-                using (MySqlConnection db =
-                new MySqlConnection(CHEMINBDD))
-                {
-                    db.Open();
-                    MySqlCommand insertCommand = new MySqlCommand();
-                    insertCommand.Connection = db;
-
-                    //Requête qui protège des attaques SQL
-                    insertCommand.CommandText = "DELETE FROM produit WHERE Nom_Produit = @Nom_Produit ";
-
-                    insertCommand.Parameters.AddWithValue("@Nom_Produit", nom);
-                    insertCommand.ExecuteReader();
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                Console.ReadKey();
-            }
-
-        }
-        #endregion
-
+        
         #region [BDD] Modifie un produit
         /// <summary>
         /// Modifie un produit dans la base de données @nom est le nom du produit à modifié et "Produit p" est l'objet produit avec toute ses informations. 
@@ -955,6 +924,10 @@ namespace BoutiqueBDDLibrary
                         p.FK_Id_Categorie = query.GetInt32(7);
                         p.FK_Id_Origine = query.GetInt32(8);
                         p.FK_Id_Unite = query.GetInt32(9);
+                    }
+                    else
+                    {
+                        p.Nom_origine = "Rien";
                     }
                 }
                 

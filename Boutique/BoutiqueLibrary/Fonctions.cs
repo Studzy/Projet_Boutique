@@ -175,6 +175,7 @@ namespace BoutiqueBDDLibrary
                             break;
                         case ConsoleKey.O:
                             Console.Clear();
+                            MenuPrincipal();
                             return;
                     }
                     return;
@@ -193,11 +194,10 @@ namespace BoutiqueBDDLibrary
             Console.Clear();
             Console.Write("\t\t\t\t    [MENU ADMIN]\n" +
                      "\n\t           PRODUITS:\t\t\t            CLIENTS:\n" +
-                     "\n\t - [1] CREER UN PRODUIT\t\t\t - [6] AFFICHER LES CLIENTS " +
-                     "\n\t - [2] MODIFIER UN PRODUIT\t\t - [7] AFFICHER UN CLIENT " +
-                     "\n\t - [3] SUPPRIMER UN PRODUIT\t\t - [8] MODIFIER UN CLIENT " +
-                     "\n\t - [4] AFFICHER LES PRODUITS\t\t - [9] SUPPRIMER UN CLIENT" +
-                     "\n\t - [5] AFFICHER UN PRODUIT\t\t " +
+                     "\n\t - [1] CREER UN PRODUIT\t\t\t - [5] AFFICHER LES CLIENTS " +
+                     "\n\t - [2] MODIFIER UN PRODUIT\t\t - [6] AFFICHER UN CLIENT " +
+                     "\n\t - [3] AFFICHER LES PRODUITS\t\t - [7] MODIFIER UN CLIENT " +
+                     "\n\t - [4] AFFICHER UN PRODUIT\t\t - [8] SUPPRIMER UN CLIENT" +
                      "\n\t - [x] RETOUR\n ");
 
             switch (Console.ReadKey(true).Key)
@@ -220,15 +220,6 @@ namespace BoutiqueBDDLibrary
                     InterfaceAdmin();
                     break;
                 case ConsoleKey.NumPad3:
-                    //SupprimerUnProduit();
-                    Console.Clear();
-                    Fonctions.SupprimerProduit();
-                    Console.WriteLine("APPUYER SUR UNE TOUCHE POUR RETOURNER AU MENU ADMIN");
-                    Console.ReadKey();
-                    Console.Clear();
-                    InterfaceAdmin();
-                    break;
-                case ConsoleKey.NumPad4:
                     //AfficherLesProduits();
                     Console.Clear();
                     FonctionsConsole.AfficherLesProduits();
@@ -237,7 +228,7 @@ namespace BoutiqueBDDLibrary
                     Console.Clear();
                     InterfaceAdmin();
                     break;
-                case ConsoleKey.NumPad5:
+                case ConsoleKey.NumPad4:
                     //AfficherUnProduit();
                     Console.Clear();
                     Fonctions.AfficherUnProduit();
@@ -246,7 +237,7 @@ namespace BoutiqueBDDLibrary
                     Console.Clear();
                     InterfaceAdmin();
                     break;
-                case ConsoleKey.NumPad6:
+                case ConsoleKey.NumPad5:
                     //Affiche tout les clients
                     Console.Clear();
                     afficheToutLesClients();
@@ -255,7 +246,7 @@ namespace BoutiqueBDDLibrary
                     Console.Clear();
                     InterfaceAdmin();
                     break;
-                case ConsoleKey.NumPad7:
+                case ConsoleKey.NumPad6:
                     //Affiche un Client
                     Console.Clear();
                     Console.WriteLine("Renseigner l'email du client à afficher: ");
@@ -266,7 +257,7 @@ namespace BoutiqueBDDLibrary
                     Console.Clear();
                     InterfaceAdmin();
                     break;
-                case ConsoleKey.NumPad8:
+                case ConsoleKey.NumPad7:
                     //Modifie un client
                     Console.Clear();
                     ModifierUnClient();
@@ -275,7 +266,7 @@ namespace BoutiqueBDDLibrary
                     Console.Clear();
                     InterfaceAdmin();
                     break;
-                case ConsoleKey.NumPad9:
+                case ConsoleKey.NumPad8:
                     //Supprime un Client
                     Console.Clear();
                     Console.WriteLine("Renseigner l'email du client à supprimer (ATTENTION Factures et Commandes supprimer avec) : ");
@@ -788,45 +779,6 @@ namespace BoutiqueBDDLibrary
         }
         #endregion
 
-        #region [Interface] Supprimer un produit
-        /// <summary>
-        /// Menu de suppression d'un produit.
-        /// </summary>
-        public static void SupprimerProduit()
-        {
-            bool MesTest = false;
-            Produit p = new Produit();
-            Console.WriteLine("MODE ADMIN");
-            Console.WriteLine("SUPPRIMER UN PRODUIT DANS LA BASE DE DONNEES");
-            while (!MesTest)
-            {
-                try
-                {
-                    Console.Write("Nom du produit à supprimer : ");
-                    p.Nom_Produit = Console.ReadLine();
-                    Console.WriteLine();
-                    MesTest = true;
-                }
-                catch (FonctionsConsole.MonMessageErreur error)
-                {
-                    Console.WriteLine(error.errorMessage);
-                }
-            }
-            MesTest = false;
-            
-
-            Produit produit = DataAccess.GetOneProduct(p.Nom_Produit);
-            if (produit.Nom_Produit != "Rien")
-            {
-                DataAccess.DeleteOneProduct(p.Nom_Produit);
-            }
-            else
-            {
-                Console.WriteLine("Votre produit n'existe pas dans la base de données.");
-            }
-        }
-        #endregion
-
         #region [Interface] Modifier un produit
         /// <summary>
         /// Menu de modification d'un produit.
@@ -881,7 +833,6 @@ namespace BoutiqueBDDLibrary
             Console.WriteLine("APPUYER SUR P POUR FAIRE VOTRE PANIER");
             Console.WriteLine("APPUYER SUR A POUR DEFINIR LE NOMBRE DE PRODUIT AFFICHER EN UNE PAGE");
             Console.WriteLine("APPUYER SUR T POUR TRIER LES PRODUITS");
-            Console.WriteLine("APPUYER SUR V POUR VALIDEZ VOS ACHATS");
             Console.WriteLine("APPUYER SUR Q POUR QUITTEZ\n");
             Console.WriteLine("Voici nos produit(s) : \n");
         }

@@ -13,9 +13,6 @@
 
         //Get;Set; Vérifications
         #region Id_Paiement
-        /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI REMISE_PRODUIT
-        /// </summary>
         public int Id_Paiement { get => id_Paiement; set => id_Paiement = value; }
         #endregion
 

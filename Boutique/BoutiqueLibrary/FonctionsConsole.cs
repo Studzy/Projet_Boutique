@@ -702,6 +702,7 @@ namespace BoutiqueBDDLibrary
                     #region Fonctionnalité : Quittez le programme
                     case ConsoleKey.Q:
                         Console.WriteLine("APPUYER SUR UNE TOUCHE POUR RETOURNER AU MENU CLIENT");
+                        display = true;
                         Console.ReadKey();
                         Console.Clear();
                         Fonctions.InterfaceClient();
@@ -901,7 +902,9 @@ namespace BoutiqueBDDLibrary
                                     {
                                         try
                                         {
-                                            Payer = Convert.ToDecimal(Console.ReadLine());
+                                            string message2 = Console.ReadLine();
+                                            message2 = message2.Replace('.', ',');
+                                            Payer = Convert.ToDecimal(message2);
                                             MesTest2 = true;
                                         }
                                         catch (FormatException)
@@ -916,13 +919,14 @@ namespace BoutiqueBDDLibrary
                                     ifp.FK_Id_Facture = DernierIDFacture;
 
                                     DataAccess.AddIFP(ifp);
-
+                                    AfficherLesProduits();
 
                                 }
-                                display = true;
 
                                 break;
                             case ConsoleKey.N:
+                                ListeCommande.Clear();
+                                PrixPanier = 0;
                                 break;
                             case ConsoleKey.S:
 
@@ -1008,40 +1012,6 @@ namespace BoutiqueBDDLibrary
 
                         break;
                     #endregion
-
-                    #region Fonctionnalité : Validation achats
-                    case ConsoleKey.V:
-                        switch (Console.ReadKey(true).Key)
-                        {
-                            case ConsoleKey.O:
-                                Facture facture = new Facture();
-                                //Commande commande = new Commande();
-                                for (int i = 0; i < ListeCommande.Count; i++)
-                                {
-                                    DataAccess.AddCommande(ListeCommande[i]);
-                                }
-                                int numfacture = DataAccess.GetLastNumFacture();
-                                numfacture = numfacture + 1;
-                                int IdClient = 3;
-                                DateTime DateDuJour = DateTime.Today;
-                                facture.Num_facture = numfacture;
-                                facture.Date_facture = DateDuJour;
-                                facture.Montant_total = PrixPanier;
-                                facture.Fk_Id_Client = IdClient;
-                                DataAccess.AddFacture(facture);
-
-                                display = true;
-
-                                break;
-                            case ConsoleKey.N:
-                                display = true; 
-                                break;
-
-                        }
-                        AcheterProduit();
-                        break;
-                        #endregion
-
                 }
 
             }
@@ -1052,6 +1022,7 @@ namespace BoutiqueBDDLibrary
         //              [PARTIE COMMUNE]                   //
         //-------------------------------------------------//
 
+        #region Fonctions de vérifications
         //Vérifications de chants
         public static bool VerifieSiQueDesLettres(string mot)
         {
@@ -1151,5 +1122,6 @@ namespace BoutiqueBDDLibrary
                 errorMessage = message;
             }
         }
+        #endregion
     }
 }
