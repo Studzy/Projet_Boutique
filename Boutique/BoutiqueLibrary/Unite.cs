@@ -16,14 +16,14 @@ namespace BoutiqueBDDLibrary
         //Get;Set; Vérifications
         #region Id_Libelle
         /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI Id_LIBELLE
+        /// Id_Libelle est en lecture seule
         /// </summary>
-        public int Id_Libelle { get => id_Libelle; set => id_Libelle = value; }
+        public int Id_Libelle { get => id_Libelle;}
         #endregion
 
         #region Libelle_Unite
         /// <summary>
-        /// COMMENTAIRE A MODIFIER CAR NON FINI lIBELLE8uNITE
+        /// Vérifie le libelle de l'unité dans le set, si ce n'est pas bon une exeption est afficher
         /// </summary>
         public string Libelle_unite
         {

@@ -134,6 +134,8 @@ namespace BoutiqueBDDLibrary
                 case ConsoleKey.NumPad2:
                     Console.Clear();
                     FonctionsConsole.AfficherLesProduits();
+                    Console.WriteLine("APPUYER SUR UNE TOUCHE POUR RETOURNER AU MENU CLIENT");
+                    Console.ReadKey();
                     Console.Clear();
                     InterfaceClient();
                     break;
@@ -880,10 +882,8 @@ namespace BoutiqueBDDLibrary
             Console.WriteLine("APPUYER SUR A POUR DEFINIR LE NOMBRE DE PRODUIT AFFICHER EN UNE PAGE");
             Console.WriteLine("APPUYER SUR T POUR TRIER LES PRODUITS");
             Console.WriteLine("APPUYER SUR V POUR VALIDEZ VOS ACHATS");
-            Console.WriteLine("APPUYER SUR Q POUR QUITTEZ");
-            Console.WriteLine();
-            Console.WriteLine("Voici nos produit(s) : ");
-            Console.WriteLine();
+            Console.WriteLine("APPUYER SUR Q POUR QUITTEZ\n");
+            Console.WriteLine("Voici nos produit(s) : \n");
         }
         #endregion
 

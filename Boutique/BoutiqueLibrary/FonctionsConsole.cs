@@ -397,11 +397,6 @@ namespace BoutiqueBDDLibrary
         {
             Console.Clear();
             Fonctions.DisplayProduct();
-            Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
-            while (Console.ReadKey(true).Key != ConsoleKey.Enter)
-            {
-                Console.WriteLine("APPUYER SUR ENTRER POUR RETOURNER AU MENU PRINCIPAL");
-            }
         }
         #endregion
 
@@ -706,6 +701,9 @@ namespace BoutiqueBDDLibrary
 
                     #region Fonctionnalité : Quittez le programme
                     case ConsoleKey.Q:
+                        Console.WriteLine("APPUYER SUR UNE TOUCHE POUR RETOURNER AU MENU CLIENT");
+                        Console.ReadKey();
+                        Console.Clear();
                         Fonctions.InterfaceClient();
                         break;
                     #endregion
